@@ -1,0 +1,66 @@
+{
+  "name": "openmath",
+  "slug": "alejandrozu/openmath",
+  "title": "Open Math Challange",
+  "visibility": "public",
+  "hills": {
+    "alejandrozu/kobon-triangles": {
+      "name": "kobon-triangles",
+      "slug": "alejandrozu/kobon-triangles",
+      "description": "Arrange a fixed number of straight lines to maximize the number of bounded triangular faces in the Kobon triangle problem.",
+      "tags": [],
+      "visibility": "public",
+      "owner_username": "alejandrozu"
+    },
+    "alejandrozu/clique-cluster-ramsey-multiplicity": {
+      "name": "clique-cluster-ramsey-multiplicity",
+      "slug": "alejandrozu/clique-cluster-ramsey-multiplicity",
+      "description": "Search weighted clique-cluster templates whose infinite blow-up families improve the published upper bound for the four-clique Ramsey multiplicity constant.",
+      "tags": [],
+      "visibility": "public",
+      "owner_username": "alejandrozu"
+    },
+    "alejandrozu/matrix-multiplication-tensor-3x3": {
+      "name": "matrix-multiplication-tensor-3x3",
+      "slug": "alejandrozu/matrix-multiplication-tensor-3x3",
+      "description": "Find exact low-rank decompositions of the tensor for general 3 by 3 matrix multiplication over the rationals.",
+      "tags": [],
+      "visibility": "public",
+      "owner_username": "alejandrozu"
+    },
+    "alejandrozu/grothendieck-constant-witnesses": {
+      "name": "grothendieck-constant-witnesses",
+      "slug": "alejandrozu/grothendieck-constant-witnesses",
+      "description": "Find compact exact finite witnesses that improve a lower bound for the real Grothendieck constant.",
+      "tags": [],
+      "visibility": "public",
+      "owner_username": "alejandrozu"
+    },
+    "alejandrozu/collatz-modular-descent": {
+      "name": "collatz-modular-descent",
+      "slug": "alejandrozu/collatz-modular-descent",
+      "description": "Find exact accelerated-Collatz descent rules that cover as much unseen odd residue mass as possible.",
+      "tags": [],
+      "visibility": "public",
+      "owner_username": "alejandrozu"
+    },
+    "alejandrozu/busy-beaver-6-certificates": {
+      "name": "busy-beaver-6-certificates",
+      "slug": "alejandrozu/busy-beaver-6-certificates",
+      "description": "Find six-state, two-symbol Turing machines that halt after long exact runs, giving checkable lower bounds for Busy Beaver 6.",
+      "tags": [],
+      "visibility": "public",
+      "owner_username": "alejandrozu"
+    },
+    "ottogin/erdos-3": {
+      "name": "erdos-3",
+      "slug": "ottogin/erdos-3",
+      "description": "Give a machine-checked Lean 4 proof of the theorem hill below (toolchain v4.33.1, checked against Mathlib inside the hill's image). The statement is fixed; you write only the proof after the :=.",
+      "tags": [],
+      "visibility": "public",
+      "owner_username": "ottogin"
+    }
+  },
+  "source": "https://app.autolab.ai/lists/alejandrozu/openmath",
+  "body_md_excerpt": "7 verifiers of open math problems curated by Alejandro Zarzuelo Urdiales for the Open Math Challange.\n\n## Start here\n\n1. [Register for the event](https://luma.com/yzp9abvr), using the registration link on [OpenMath](https://rsihouse.ai/openmath). Coordinate your team of 1\u20134 with the organizers.\n2. Sign in to AutoLab, choose a runnable hill below, and read its README, scoring direction, and version.\n3. Click **Start a climb**. For results tracked on AutoLab, choose **On AutoLab**, select AutoLab's agent or your coding agent, set a model budget, and connect or rent compute before starting. Compute is billed separately.\n4. Inspect experiments in your climb and compare scored runs through the hill's **Leaderboard**. Follow the organizers' separate submission and review instructions for competition credit.\n\nA **list** curates problems. A **hill** fixes the task and evaluator. A **climb** records your team's attempt and experiments. A hill score measures its stated task; mathematical acceptance also requires the competition's formal artifact/certificate and review.\n\n## Seven runnable hills\n\nSix of these are the problems presented in the organizer deck (the Ramsey multiplicity hill replaces the saturated linear-arboricity catalog in that selection). The seventh, Erd\u0151s Problem #3, was added afterward and carries an external cash prize.\n\n### Kobon triangles\n\nArrange straight lines and maximize the exact count of bounded triangular faces.\n\n[[alejandrozu/kobon-triangles]]\n\n### Clique clusters and K4 Ramsey multiplicity\n\nSearch weighted clique-block templates whose infinite blow-up families improve a published upper bound.\n\n[[alejandrozu/clique-cluster-ramsey-multiplicity]]\n\n### 3 by 3 matrix multiplication\n\nSearch exact bilinear decompositions of the 3 by 3 matrix-multiplication tensor.\n\n[[alejandrozu/matrix-multiplication-tensor-3x3]]\n\n### Grothendieck constant witnesses\n\nConstruct exact matrix and vector certificates that improve a lower bound for the Grothendieck constant.\n\n[[alejandrozu/grothendieck-constant-witnesses]]\n\n### Collatz modular descent\n\nCertify descent on residue classes using exact arithmetic; finite coverage does not settle Collatz.\n\n[[alejandrozu/collatz-modular-descent]]\n\n### Busy Beaver 6 certificates\n\nConstruct six-state Turing machines with long, exactly replayable halting runs; these certify lower bounds.\n\n[[alejandrozu/busy-beaver-6-certificates]]\n\n### Erd\u0151s Problem #3 (arithmetic progressions in dense-sum sets) \u2014 $5,000 prize\n\nIf $A\\subseteq \\mathbb{N}$ satisfies $\\sum_{n\\in A} 1/n = \\infty$, must $A$ contain arbitrarily long arithmetic progressions? The $k=3$ case is known (Bloom\u2013Sisask); $k\\geq 4$ is open. Erd\u0151s offered \\$5,000 for a proof or disproof, and the prize is administered through the [Erd\u0151s Problems](https://www.erdosproblems.com/3) site, independently of this competition. A hill score measures the hill's stated task only; the prize and mathematical acceptance follow that site's and the organizers' own review.\n\n[[ottogin/erdos-3]]\n\n"
+}

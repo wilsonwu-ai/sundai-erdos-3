@@ -1,0 +1,6 @@
+.autolab/
+*-page.html
+*-root.html
+hill-slash.html
+openapi.json
+install.sh

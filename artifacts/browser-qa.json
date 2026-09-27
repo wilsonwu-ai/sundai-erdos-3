@@ -1,0 +1,102 @@
+{
+  "url": "http://127.0.0.1:8763",
+  "checked_at": "2026-09-27T17:05:46.051Z",
+  "checks": [
+    {
+      "name": "initial prime progression",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "four verified local scopes",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "original remains open",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "verification evidence linked",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "desktop fits",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "next pattern changes",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "powers2 has no three-term pattern",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "powers2 has two-term pattern",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "custom progression",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "invalid inputs visible",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "custom deduplicated",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "maximum300",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "eight terms",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "construction16",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "mobile390 fits",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "mobile320 fits",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "disclosure opens",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "keyboard activates next pattern",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "no page errors or failed requests",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,16 @@
+.DS_Store
+.autolab/
+.vc/
+.lake/
+.tools/
+node_modules/
+__pycache__/
+*.olean
+*.ilean
+*.trace
+research/autolab/*.html
+research/autolab/openapi.json
+research/autolab/install.sh
+site/IMPLEMENTATION.md
+artifacts/browser/
+

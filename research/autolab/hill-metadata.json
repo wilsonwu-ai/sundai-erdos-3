@@ -1,0 +1,17 @@
+{
+  "name": "erdos-3",
+  "slug": "ottogin/erdos-3",
+  "description": "Give a machine-checked Lean 4 proof of the theorem hill below (toolchain v4.33.1, checked against Mathlib inside the hill's image). The statement is fixed; you write only the proof after the :=.",
+  "visibility": "public",
+  "current_tree_hash": "0149383772ad4a7c7cc45a434de11be51678a524",
+  "versions": [
+    {
+      "tree_hash": "0149383772ad4a7c7cc45a434de11be51678a524",
+      "commit": "eadb2b1ce37869284d2d0d0343161b94fc96a9e2",
+      "version": "0.1.0",
+      "message": "import from formal-conjectures (Erd\u0151s problem)",
+      "committed_at": "2026-09-10T09:41:27.858158+00:00",
+      "bundle_size": 10240
+    }
+  ]
+}

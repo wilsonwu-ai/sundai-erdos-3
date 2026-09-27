@@ -1,0 +1,4 @@
+theorem proposition_placeholder : True ↔ True :=
+Iff.rfl
+'proposition_placeholder' does not depend on any axioms
+'proposition_placeholder_is_true' does not depend on any axioms

@@ -1,0 +1,7 @@
+flowchart TB
+    Claim[Choose a precise claim] --> Candidate[Write a Lean proof]
+    Candidate --> Compile{Lean accepts?}
+    Compile -->|No: use the error| Candidate
+    Compile -->|Yes| Axioms[Audit every theorem's axioms]
+    Axioms --> Scope[Review the actual scope]
+    Scope --> Evidence[Publish source and evidence]

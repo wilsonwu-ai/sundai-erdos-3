@@ -1,0 +1,68 @@
+{
+  "source": "https://app.autolab.ai/hills/ottogin/erdos-3",
+  "retrieved": "2026-09-27",
+  "tree_hash": "0149383772ad4a7c7cc45a434de11be51678a524",
+  "commit": "eadb2b1ce37869284d2d0d0343161b94fc96a9e2",
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "0df64dd2b35089d662d8e467e33f81b1d50a2849ca412d58c658367920da5881",
+      "bytes": 25
+    },
+    {
+      "path": "README.md",
+      "sha256": "01340450159675d867105c9790f0e870a183d2cb43403b0c5a88d17711e5907b",
+      "bytes": 1410
+    },
+    {
+      "path": "blobs.lock",
+      "sha256": "6d6f25aa036e49add8c6e961af787a3149777a7fbd60398e76c219c5a1ea8093",
+      "bytes": 60
+    },
+    {
+      "path": "eval.py",
+      "sha256": "8a0ac14c62863b6d738b91d311e63f5caa0be608849b761ee238711d9dcdc215",
+      "bytes": 4935
+    },
+    {
+      "path": "examples/baseline/solution.json",
+      "sha256": "f4744aa09a6caaea1b4ce33443fce5929f9525c9ded9fd1dfb2196e321e85a63",
+      "bytes": 15
+    },
+    {
+      "path": "examples/baseline/solution.lean",
+      "sha256": "24100c17c94419ea5188b4e9c63400051db8ab4f4d73817ff9e36bcbf6c0fc39",
+      "bytes": 9
+    },
+    {
+      "path": "hill.yaml",
+      "sha256": "9dcdeea5ead3c24e1a4097da20e391266a50022df5aa87bc2cc299a75ea07672",
+      "bytes": 249
+    },
+    {
+      "path": "private.lock",
+      "sha256": "8a77f3a5c07c0d653c46514a4e1d488d56e7cb16f69cfe987519c76376875c72",
+      "bytes": 62
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "2246c9397061d80982071414f7dab676ec7666139e055f697ee63e221a9139e7",
+      "bytes": 184
+    },
+    {
+      "path": "statement.lean",
+      "sha256": "39b2cac164711f18b5cf898d70fdc7f81619ddf05a37f5c4d3782818a663aab0",
+      "bytes": 452
+    },
+    {
+      "path": "tests/test_hill.py",
+      "sha256": "10b330a26a3a154f3f13a31e917fefd278eaa98bdac8113af84e6556fe2d6eb2",
+      "bytes": 222
+    }
+  ],
+  "notes": [
+    "Public files obtained with the installed AutoLab CLI; private/ data was not downloaded.",
+    "This is a plain provenance copy, not an official frozen hill bundle.",
+    "The CLI local commit failed because no container runtime is installed."
+  ]
+}

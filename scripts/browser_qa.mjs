@@ -1,0 +1,71 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const {default: puppeteer} = await import(process.env.PUPPETEER_MODULE || 'puppeteer');
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const url = process.env.SITE_URL || 'http://127.0.0.1:8763';
+const folder = path.join(root, 'artifacts/browser');
+fs.mkdirSync(folder, {recursive:true});
+const browser = await puppeteer.launch({headless:true, ...(process.env.CHROME ? {executablePath:process.env.CHROME} : {})});
+const checks = [], errors = [];
+const check = (name, ok, detail = null) => { checks.push({name,ok,detail}); if (!ok) throw new Error(name + ': ' + JSON.stringify(detail)); };
+try {
+  const page = await browser.newPage();
+  page.on('pageerror', e => errors.push(e.message));
+  page.on('response', r => {if(r.status() >= 400) errors.push(`${r.status()} ${r.url()}`);});
+  await page.setViewport({width:1440,height:1000,deviceScaleFactor:1});
+  await page.goto(url, {waitUntil:'networkidle0'});
+  check('initial prime progression', await page.$eval('#pattern-equation',e=>e.textContent)==='3→5→7');
+  check('four verified local scopes', await page.$$eval('.claim-verified',e=>e.length)===4);
+  check('original remains open', await page.$eval('.claim-open',e=>e.textContent).then(s=>s.includes('NOT SOLVED')));
+  check('verification evidence linked', await page.$$eval('a',els=>els.some(e=>e.href.endsWith('/artifacts/lean-verification.json'))));
+  await page.screenshot({path:path.join(folder,'desktop.png')});
+  await page.screenshot({path:path.join(folder,'desktop-full.png'),fullPage:true});
+  check('desktop fits', await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  await page.click('#next-pattern');
+  check('next pattern changes', await page.$eval('#pattern-equation',e=>e.textContent)!=='3→5→7');
+  await page.select('#set-kind','powers');
+  check('powers2 has no three-term pattern', await page.$eval('#pattern-count',e=>e.textContent)==='0 PATTERNS');
+  await page.select('#length','2');
+  check('powers2 has two-term pattern', await page.$eval('#pattern-equation',e=>e.textContent)==='1→2');
+  await page.select('#set-kind','custom');
+  await page.select('#length','4');
+  check('custom progression', await page.$eval('#pattern-equation',e=>e.textContent)==='1→4→7→10');
+  await page.$eval('#custom-numbers',e=>{e.value='0, -1, 2.5';e.dispatchEvent(new Event('input',{bubbles:true}));});
+  check('invalid inputs visible', await page.$eval('#custom-numbers',e=>e.getAttribute('aria-invalid'))==='true');
+  await page.$eval('#custom-numbers',e=>{e.value='1 1 4 7 10';e.dispatchEvent(new Event('input',{bubbles:true}));});
+  check('custom deduplicated', await page.$eval('#set-count',e=>e.textContent)==='4 MEMBERS');
+  await page.select('#set-kind','all');
+  await page.select('#length','8');
+  await page.$eval('#limit',e=>{e.value='300';e.dispatchEvent(new Event('input',{bubbles:true}));});
+  check('maximum300', await page.$$eval('.number-cell',e=>e.length)===300);
+  check('eight terms', await page.$eval('#pattern-equation',e=>e.textContent)==='1→2→3→4→5→6→7→8');
+  await page.$eval('#construction-length',e=>{e.value='16';e.dispatchEvent(new Event('input',{bubbles:true}));});
+  check('construction16', await page.$eval('#construction-sequence',e=>e.textContent).then(s=>s.endsWith('48')));
+  await page.select('#set-kind','primes'); await page.select('#length','3');
+  await page.$eval('#limit',e=>{e.value='72';e.dispatchEvent(new Event('input',{bubbles:true}));});
+  for (const width of [390,320]) {
+    await page.setViewport({width,height:844,deviceScaleFactor:1});
+    check(`mobile${width} fits`, await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  }
+  await page.setViewport({width:390,height:844,deviceScaleFactor:1});
+  await page.evaluate(()=>window.scrollTo(0,0));
+  await page.screenshot({path:path.join(folder,'mobile.png')});
+  await page.screenshot({path:path.join(folder,'mobile-full.png'),fullPage:true});
+  await page.click('.lean-explainer summary');
+  check('disclosure opens', await page.$eval('.lean-explainer',e=>e.open));
+  const beforeKeyboard = await page.$eval('#pattern-equation',e=>e.textContent);
+  await page.focus('#next-pattern');
+  await page.keyboard.press('Enter');
+  check('keyboard activates next pattern',await page.$eval('#pattern-equation',e=>e.textContent)!==beforeKeyboard);
+  check('no page errors or failed requests',errors.length===0,errors);
+  const filename = url.startsWith('https:') ? 'production-browser-qa.json' : 'browser-qa.json';
+  fs.writeFileSync(path.join(root,'artifacts',filename),JSON.stringify({url,checked_at:new Date().toISOString(),checks,errors},null,2)+'\n');
+  console.log(JSON.stringify({url,passed:checks.length,errors},null,2));
+} finally {
+  await Promise.race([browser.close(),new Promise(resolve=>setTimeout(resolve,3000))]);
+  browser.disconnect();
+  if(browser.process()?.exitCode===null) browser.process().kill('SIGKILL');
+}
+// Some macOS Chrome versions keep a launch transport handle open after shutdown.
+process.exit(0);

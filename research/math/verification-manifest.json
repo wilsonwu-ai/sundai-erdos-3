@@ -1,0 +1,17 @@
+{
+  "toolchain": "Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+  "checks": [
+    {
+      "source": "lean/Erdos3SpecialCases.lean",
+      "sha256": "83f4ca47095bda82b1ddb1020d569607a925d45945522f03b84f8972f7248383",
+      "returncode": 0,
+      "output": "research/math/lean-4.33.1-output.txt"
+    },
+    {
+      "source": "research/math/AnswerDefaultRepro.lean",
+      "sha256": "820a8a3972e08f6cc6450c52ac7a6cfe3d84415b0d02f91a49c9b082d642fa2d",
+      "returncode": 0,
+      "output": "research/math/answer-default-output.txt"
+    }
+  ]
+}

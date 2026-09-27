@@ -1,0 +1,60 @@
+name: Verify and publish
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download the pinned Lean compiler
+        run: |
+          curl --fail --location --retry 3 https://github.com/leanprover/lean4/releases/download/v4.33.1/lean-4.33.1-linux.tar.zst --output /tmp/lean.tar.zst
+          echo '890afd185370f85666025b883914ab4f4b339136f8c96167b69cfb62aecaf235  /tmp/lean.tar.zst' | sha256sum --check
+          mkdir -p /tmp/erdos-lean
+          tar --zstd -xf /tmp/lean.tar.zst -C /tmp/erdos-lean
+          echo 'LEAN=/tmp/erdos-lean/lean-4.33.1-linux/bin/lean' >> "$GITHUB_ENV"
+      - name: Check all local theorems and their axioms
+        run: python3 scripts/verify_lean.py --output artifacts/ci-lean-verification.json
+      - name: Reject invalid proof controls
+        run: python3 scripts/test_verifier.py
+      - name: Check the finite explorer against exhaustive enumeration
+        run: node --test tests/explorer.test.mjs
+      - name: Audit the answer-marker example
+        run: "$LEAN research/math/AnswerDefaultRepro.lean"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lean-verification
+          path: artifacts/ci-lean-verification.json
+      - name: Configure Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v5
+      - name: Upload the static site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
