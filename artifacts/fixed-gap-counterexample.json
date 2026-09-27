@@ -1,0 +1,195 @@
+{
+  "scope": "finite exact sanity checks; infinite argument is in research/full-proof-graph/review.md",
+  "candidate_lemma": "Divergent reciprocal mass implies a fixed positive difference with infinitely many pairs",
+  "candidate_status_by_written_argument": "REFUTED",
+  "construction": "a_n = n * (1 + floor(log_2(n))), n >= 1",
+  "method": "integer bit lengths and exact rational block-sum comparisons",
+  "largest_index_checked": 2047,
+  "blocks": [
+    {
+      "j": 0,
+      "first_index": 1,
+      "last_index": 1,
+      "members": 1,
+      "step": 1,
+      "first_value": 1,
+      "last_value": 1,
+      "reciprocal_mass_lower_bound": "1/2",
+      "exact_rational_comparison_passed": true
+    },
+    {
+      "j": 1,
+      "first_index": 2,
+      "last_index": 3,
+      "members": 2,
+      "step": 2,
+      "first_value": 4,
+      "last_value": 6,
+      "reciprocal_mass_lower_bound": "1/4",
+      "exact_rational_comparison_passed": true
+    },
+    {
+      "j": 2,
+      "first_index": 4,
+      "last_index": 7,
+      "members": 4,
+      "step": 3,
+      "first_value": 12,
+      "last_value": 21,
+      "reciprocal_mass_lower_bound": "1/6",
+      "exact_rational_comparison_passed": true
+    },
+    {
+      "j": 3,
+      "first_index": 8,
+      "last_index": 15,
+      "members": 8,
+      "step": 4,
+      "first_value": 32,
+      "last_value": 60,
+      "reciprocal_mass_lower_bound": "1/8",
+      "exact_rational_comparison_passed": true
+    },
+    {
+      "j": 4,
+      "first_index": 16,
+      "last_index": 31,
+      "members": 16,
+      "step": 5,
+      "first_value": 80,
+      "last_value": 155,
+      "reciprocal_mass_lower_bound": "1/10",
+      "exact_rational_comparison_passed": true
+    },
+    {
+      "j": 5,
+      "first_index": 32,
+      "last_index": 63,
+      "members": 32,
+      "step": 6,
+      "first_value": 192,
+      "last_value": 378,
+      "reciprocal_mass_lower_bound": "1/12",
+      "exact_rational_comparison_passed": true
+    },
+    {
+      "j": 6,
+      "first_index": 64,
+      "last_index": 127,
+      "members": 64,
+      "step": 7,
+      "first_value": 448,
+      "last_value": 889,
+      "reciprocal_mass_lower_bound": "1/14",
+      "exact_rational_comparison_passed": true
+    },
+    {
+      "j": 7,
+      "first_index": 128,
+      "last_index": 255,
+      "members": 128,
+      "step": 8,
+      "first_value": 1024,
+      "last_value": 2040,
+      "reciprocal_mass_lower_bound": "1/16",
+      "exact_rational_comparison_passed": true
+    },
+    {
+      "j": 8,
+      "first_index": 256,
+      "last_index": 511,
+      "members": 256,
+      "step": 9,
+      "first_value": 2304,
+      "last_value": 4599,
+      "reciprocal_mass_lower_bound": "1/18",
+      "exact_rational_comparison_passed": true
+    },
+    {
+      "j": 9,
+      "first_index": 512,
+      "last_index": 1023,
+      "members": 512,
+      "step": 10,
+      "first_value": 5120,
+      "last_value": 10230,
+      "reciprocal_mass_lower_bound": "1/20",
+      "exact_rational_comparison_passed": true
+    },
+    {
+      "j": 10,
+      "first_index": 1024,
+      "last_index": 2047,
+      "members": 1024,
+      "step": 11,
+      "first_value": 11264,
+      "last_value": 22517,
+      "reciprocal_mass_lower_bound": "1/22",
+      "exact_rational_comparison_passed": true
+    }
+  ],
+  "differences": [
+    {
+      "d": 1,
+      "observed_start_count": 0,
+      "largest_observed_start_index": null,
+      "proved_cutoff_in_written_argument": 2
+    },
+    {
+      "d": 2,
+      "observed_start_count": 1,
+      "largest_observed_start_index": 2,
+      "proved_cutoff_in_written_argument": 4
+    },
+    {
+      "d": 3,
+      "observed_start_count": 4,
+      "largest_observed_start_index": 6,
+      "proved_cutoff_in_written_argument": 8
+    },
+    {
+      "d": 4,
+      "observed_start_count": 7,
+      "largest_observed_start_index": 14,
+      "proved_cutoff_in_written_argument": 16
+    },
+    {
+      "d": 5,
+      "observed_start_count": 16,
+      "largest_observed_start_index": 30,
+      "proved_cutoff_in_written_argument": 32
+    },
+    {
+      "d": 6,
+      "observed_start_count": 34,
+      "largest_observed_start_index": 62,
+      "proved_cutoff_in_written_argument": 64
+    },
+    {
+      "d": 7,
+      "observed_start_count": 63,
+      "largest_observed_start_index": 126,
+      "proved_cutoff_in_written_argument": 128
+    },
+    {
+      "d": 8,
+      "observed_start_count": 134,
+      "largest_observed_start_index": 254,
+      "proved_cutoff_in_written_argument": 256
+    },
+    {
+      "d": 9,
+      "observed_start_count": 257,
+      "largest_observed_start_index": 510,
+      "proved_cutoff_in_written_argument": 512
+    },
+    {
+      "d": 10,
+      "observed_start_count": 525,
+      "largest_observed_start_index": 1022,
+      "proved_cutoff_in_written_argument": 1024
+    }
+  ],
+  "infinite_claim_lean_checked": false,
+  "original_conjecture_proved": false
+}

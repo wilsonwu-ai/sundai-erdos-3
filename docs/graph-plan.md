@@ -88,3 +88,7 @@ COST                 inherited soft planning allowance → actual delegated toke
 ```
 
 Recommendation: narrow future work to a concrete new progression-free estimate. Further repackaging of the conditional reduction does not prove the conjecture.
+
+## Continuation: direct attacks on the missing estimate
+
+The next executed round used two independent mathematical attacks and one adversarial reviewer. It tested cross-scale constraints and induction on progression length, rather than adding further conditional Lean wrappers. The [full graph, ownership, caps, verified obstructions, and retrospective](../research/full-proof-graph/README.md) record the result. No full proof emerged. The original 30 checked declarations and the unsuccessful hill submission remain unchanged.

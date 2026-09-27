@@ -1,0 +1,18 @@
+flowchart TB
+    Anchor["Exact statement +<br/>existing checked implications"]
+    Scale["Worker: cross-scale<br/>candidate estimates"]
+    Length["Worker: induction on<br/>progression length"]
+    Finite["Coordinator: exact<br/>finite falsification checks"]
+    Review["Independent review:<br/>quantifiers and counterexamples"]
+    Join["Join: retain valid arguments;<br/>label every unresolved premise"]
+    Publish["Publish evidence and status;<br/>full proof only after hill passes"]
+    Anchor --> Scale
+    Anchor --> Length
+    Anchor --> Review
+    Scale --> Finite
+    Length --> Finite
+    Scale --> Review
+    Length --> Review
+    Finite --> Join
+    Review --> Join
+    Join --> Publish

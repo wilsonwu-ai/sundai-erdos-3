@@ -1,0 +1,136 @@
+{
+  "scope": "finite exact checks, not a full proof or counterexample to Erd\u0151s 3",
+  "method": "exhaustive positive-step AP enumeration for each specified finite set",
+  "three_term_starts_do_not_force_four_terms": {
+    "set": [
+      1,
+      2,
+      3,
+      6,
+      9,
+      10,
+      15
+    ],
+    "three_term_progressions": [
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        2,
+        6,
+        10
+      ],
+      [
+        3,
+        6,
+        9
+      ],
+      [
+        3,
+        9,
+        15
+      ]
+    ],
+    "start_set": [
+      1,
+      2,
+      3
+    ],
+    "four_term_progressions": []
+  },
+  "finite_depth_start_iteration": [
+    {
+      "dimension": 1,
+      "max_value": 3,
+      "iterated_start_set_sizes": [
+        3,
+        1
+      ],
+      "four_term_progressions": 0
+    },
+    {
+      "dimension": 2,
+      "max_value": 13,
+      "iterated_start_set_sizes": [
+        9,
+        5,
+        1
+      ],
+      "four_term_progressions": 0
+    },
+    {
+      "dimension": 3,
+      "max_value": 63,
+      "iterated_start_set_sizes": [
+        27,
+        19,
+        7,
+        1
+      ],
+      "four_term_progressions": 0
+    },
+    {
+      "dimension": 4,
+      "max_value": 313,
+      "iterated_start_set_sizes": [
+        81,
+        65,
+        33,
+        9,
+        1
+      ],
+      "four_term_progressions": 0
+    }
+  ],
+  "separated_blocks": {
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "total_members": 341,
+    "checks": [
+      {
+        "length": 4,
+        "progressions_checked": 11482,
+        "crossing_progressions": 0
+      },
+      {
+        "length": 5,
+        "progressions_checked": 8568,
+        "crossing_progressions": 0
+      },
+      {
+        "length": 6,
+        "progressions_checked": 6822,
+        "crossing_progressions": 0
+      },
+      {
+        "length": 7,
+        "progressions_checked": 5658,
+        "crossing_progressions": 0
+      },
+      {
+        "length": 8,
+        "progressions_checked": 4826,
+        "crossing_progressions": 0
+      }
+    ],
+    "three_term_crossing": [
+      1,
+      4,
+      7
+    ]
+  },
+  "written_arguments": [
+    "research/full-proof-graph/length-induction.md",
+    "research/full-proof-graph/cross-scale.md",
+    "research/full-proof-graph/review.md"
+  ],
+  "new_infinite_arguments_lean_checked": false,
+  "original_conjecture_proved": false
+}

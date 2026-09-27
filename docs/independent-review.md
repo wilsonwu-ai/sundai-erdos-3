@@ -1,6 +1,8 @@
 # Independent proof and scope review
 
-## Latest review: dyadic analytic transfer
+The latest [full-proof graph review](../research/full-proof-graph/review.md) audits the remaining mathematical obligation and independently checks the new counterexamples and separated-block construction. These are written mathematical arguments, not additional Lean certificates. The full hill remains unproved.
+
+## Latest Lean review: dyadic analytic transfer
 
 An independent reader reviewed `Erdos3Blocks.lean` and `Erdos3Dyadic.lean`: finite fibers, the explicit zero case, positive dyadic denominators, exact finite cardinality, unique partition, nonnegative comparison, and the shifted p-series with p>1. No logical defect was found. The coordinator corrected one elaboration failure involving function composition, then all 30 supporting declarations passed the pinned-image compiler and axiom audit.
 

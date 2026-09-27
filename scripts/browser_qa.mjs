@@ -21,6 +21,7 @@ try {
   check('verification evidence linked', await page.$$eval('a',els=>els.some(e=>e.href.endsWith('/artifacts/mathlib-verification.json'))));
   await page.screenshot({path:path.join(folder,'desktop.png')});
   await page.screenshot({path:path.join(folder,'desktop-full.png'),fullPage:true});
+  await (await page.$('#proof-graph')).screenshot({path:path.join(folder,'proof-graph-desktop.png')});
   check('desktop fits', await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await page.click('#next-pattern');
   check('next pattern changes', await page.$eval('#pattern-equation',e=>e.textContent)!=='3→5→7');
@@ -52,6 +53,7 @@ try {
   await page.evaluate(()=>window.scrollTo(0,0));
   await page.screenshot({path:path.join(folder,'mobile.png')});
   await page.screenshot({path:path.join(folder,'mobile-full.png'),fullPage:true});
+  await (await page.$('#proof-graph')).screenshot({path:path.join(folder,'proof-graph-mobile.png')});
   await page.click('.lean-explainer summary');
   check('disclosure opens', await page.$eval('.lean-explainer',e=>e.open));
   const beforeKeyboard = await page.$eval('#pattern-equation',e=>e.textContent);

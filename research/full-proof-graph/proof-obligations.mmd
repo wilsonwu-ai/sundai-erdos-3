@@ -1,0 +1,16 @@
+flowchart TB
+    Counts["OPEN: summable block counts<br/>for every fixed k and every k-free A"]
+    Transfer["LEAN CHECKED implication:<br/>block counts → reciprocal sum"]
+    Missing["OPEN: every k-free A<br/>has a summable reciprocal series"]
+    Reduction["LEAN CHECKED implication:<br/>AP-free summability → hill"]
+    Hill["NOT PROVED:<br/>original Erdős 3 hill"]
+    Gate["NOT PASSED:<br/>full statement + axiom audit"]
+    Counts --> Missing
+    Transfer --> Missing
+    Missing --> Hill
+    Reduction --> Hill
+    Hill --> Gate
+    classDef checked fill:#e9f4ed,stroke:#287149,color:#133e28
+    classDef unresolved fill:#fff1dc,stroke:#a36415,color:#51310b
+    class Transfer,Reduction checked
+    class Counts,Missing,Hill,Gate unresolved
