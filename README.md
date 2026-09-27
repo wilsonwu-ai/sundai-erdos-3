@@ -54,7 +54,16 @@ python3 -m http.server 8000 --directory site
 
 Open `http://localhost:8000`. Set `LEAN=/absolute/path/to/lean` if using a standalone compiler. This local proof artifact imports only `Std`; no Mathlib download is needed. CI independently downloads Lean 4.33.1, verifies the release checksum, reruns the proofs and negative controls, tests the finite explorer, then publishes Pages only after checks pass.
 
-AutoLab's full hill requires its own exact image and dependencies. The local `autolab hills pull` recovered the source, but evaluation could not start because no supported container runtime was installed. No hosted climb, paid model request, official submission, or official score was produced. [Reproduction instructions and limits](research/autolab.md).
+AutoLab's full hill now runs locally in its exact pinned image using a dedicated Colima/Docker VM with Rosetta for AMD64. The unchanged hill's local tree hash matches the published origin. A small imported-library proof compiled, the original `sorry` baseline was correctly rejected, and its local report signature verified. [Environment setup, daily commands, and limits](docs/local-evaluator.md).
+
+To begin work on the actual hill, edit `submissions/current/solution.lean` and run:
+
+```sh
+python3 scripts/local_evaluator.py start
+python3 scripts/local_evaluator.py eval submissions/current
+```
+
+The starter intentionally fails at the unproved implication. Each attempt is checked against the fixed original statement; reports are saved under `.local-evaluator/reports/`. No hosted climb, paid model request, official submission, or official leaderboard score was produced.
 
 ## Result — what actually passed
 
@@ -68,6 +77,7 @@ AutoLab's full hill requires its own exact image and dependencies. The local `au
 | Powers of two are unbounded but contain no nonconstant three-term progression | Lean checked |
 | Positive-step terms are distinct; progressions pass to supersets and shorter lengths | Lean checked |
 | Official AutoLab hill acceptance | Not run; no score |
+| Local original-hill evaluator | Ready; pinned image, matching tree, baseline rejection verified |
 
 All 14 local declarations compile on **Lean 4.33.1**, with axiom sets contained in `{propext, Classical.choice, Quot.sound}`. There are no admitted proofs, custom axioms, or `native_decide` in the checked artifact. Negative controls reject an admitted proof, an invented axiom, an invalid proof, and a missing axiom report.
 

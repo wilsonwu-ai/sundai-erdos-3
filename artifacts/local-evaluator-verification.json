@@ -1,0 +1,67 @@
+{
+  "checked_at_utc": "2026-09-27T17:24:08.595803+00:00",
+  "status": "ready",
+  "scope": "local pinned-image environment verification; not a solved conjecture",
+  "runtime": {
+    "colima": "0.10.3",
+    "lima": "2.2.0",
+    "docker_cli": "29.8.1",
+    "docker_server": "29.5.2",
+    "docker_buildx": "0.37.1",
+    "profile": "erdos3",
+    "docker_context": "colima-erdos3",
+    "host_arch": "arm64",
+    "vm_type": "vz",
+    "rosetta": true,
+    "container_platform": "linux/amd64",
+    "cpus": 8,
+    "memory_gib": 16,
+    "data_disk_gib": 60,
+    "host_shares": [
+      "repository only"
+    ],
+    "default_docker_context_changed": false
+  },
+  "image": "ghcr.io/ottogin/lean-mathlib@sha256:964547ad81e109c78545512867bae70b710c55d833078674878faad7de0ebb85",
+  "hill": {
+    "origin_tree": "0149383772ad4a7c7cc45a434de11be51678a524",
+    "local_tree": "0149383772ad4a7c7cc45a434de11be51678a524",
+    "local_commit": "b5b9326b6d40f958c044743a2389333c7442cefd",
+    "host_hills_version": "0.11.0",
+    "fixed_file_hashes_match": true,
+    "contract_check": "passed"
+  },
+  "positive_import_smoke": {
+    "status": "passed",
+    "scope": "positive import smoke test, not full hill proof",
+    "compiler": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "answer_source_sha256": "c8b3b31e9bb25c511e577b1812159a210e9346720f19ec6c6b30905a0802db7a",
+    "toolchain": "leanprover/lean4:v4.33.1"
+  },
+  "original_baseline": {
+    "passed": false,
+    "metrics": [],
+    "error": "the proof uses sorry",
+    "lean_output": "<repo>/.local-evaluator/hills-home/runs/erdos-3/20260927T172213Z-638cfa8d/lean-_0h4l10j/Check.lean:15:8: warning: declaration uses `sorry`\n'Erdos3.hill' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]",
+    "timestamp": "2026-09-27T17:22:22Z",
+    "local_signature_verified": true
+  },
+  "starter": {
+    "passed": false,
+    "metrics": [],
+    "error": "the proof uses sorry",
+    "lean_output": "<repo>/.local-evaluator/hills-home/runs/erdos-3/20260927T172311Z-3a6f12ca/lean-h9n4mcua/Check.lean:23:4: error: Unproved: derive arbitrarily long arithmetic progressions from reciprocal divergence.\ncase mp\na✝ : True\nA : Set ℕ\nhdiv : ¬Summable fun a => 1 / ↑↑a\n⊢ ∃ᶠ (k : ℕ) in Filter.atTop, ∃ S ⊆ A, S.IsAPOfLength ↑k\n'Erdos3.hill' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]",
+    "timestamp": "2026-09-27T17:23:21Z",
+    "local_signature_verified": true,
+    "wrapper_exit_code": 2,
+    "reached_intended_research_goal": true
+  },
+  "remote_submission": false,
+  "official_autolab_leaderboard_score": null,
+  "raw_reports": ".local-evaluator/reports/ (local, Git-ignored)",
+  "notes": [
+    "The raw hills official flag concerns its locally frozen tree; it is not a remote AutoLab acceptance.",
+    "The positive smoke theorem is separate from the immutable hill statement.",
+    "Local signing keys are not included in this record."
+  ]
+}

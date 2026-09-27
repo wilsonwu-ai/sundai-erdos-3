@@ -8,7 +8,7 @@ The coordinator executed `python3 scripts/verify_lean.py` on the actual proof fi
 
 An independent worker reran the compiler and reviewed statements, positivity of the common difference, distinctness, quantifiers, the powers-of-two argument, and the missing connections to the exact hill. [Independent review](independent-review.md).
 
-The upstream answer-marker behavior was reproduced in core Lean. Historical upstream source supports the default `True` behavior, but the exact container was not executed. Its bundled source version is inferred from image construction history and upstream timestamps, not established by a byte-for-byte extraction.
+In the initial pass, the answer-marker behavior was reproduced in core Lean and supported by historical source, without executing the exact image. The subsequent [local-container setup](local-evaluator.md) pulled that image and measured its actual `Answer.lean`: its hash matches the historical source. The local setup guide records the follow-up environment checks separately from the original 14-theorem artifact.
 
 ## Deployment and interface
 
@@ -22,6 +22,16 @@ The GitHub Actions workflow requires compiler and finite-explorer checks before 
 Browser reproduction uses `scripts/browser_qa.mjs`, with optional `SITE_URL`, `PUPPETEER_MODULE`, and `CHROME` environment variables. Screenshots are local QA artifacts ignored by Git. The site itself has no runtime dependencies or external assets.
 
 The [first hosted verification and deployment run](https://github.com/wilsonwu-ai/sundai-erdos-3/actions/runs/36335702610) passed on Ubuntu. This independently reran the 14 local proofs with the pinned Linux compiler, negative controls, finite-explorer tests, and answer-marker reproduction before deploying Pages. The [live site](https://wilsonwu-ai.github.io/sundai-erdos-3/) returned HTTP 200. [Production browser QA](../artifacts/production-browser-qa.json) then passed the same 19 interaction, evidence, responsiveness, and error checks on the published URL.
+
+## Local evaluator follow-up
+
+The follow-up installed Colima 0.10.3, Lima 2.2.0, Docker CLI 29.8.1, and Docker Buildx 0.37.1. A dedicated `erdos3` VM uses Apple virtualization and existing Rosetta support, with 8 CPUs, 16 GiB RAM, and a 60 GiB sparse data disk. The Docker server is 29.5.2. Only this project is shared into the VM, and the default Docker context remains unchanged.
+
+The original AMD64 image was pulled by digest. `hills==0.11.0` checked the contract and froze the original public hill; the resulting tree exactly matches `0149383772ad4a7c7cc45a434de11be51678a524`. A separate proof importing the actual image's `FormalConjecturesUtil` compiled on its Lean 4.33.1 binary, printed `True ↔ True`, and required no axioms. The original `by sorry` baseline was rejected by the unchanged evaluator with `passed: false` and `the proof uses sorry`; `hills verify` confirmed its local report signature. This is local environment verification, not a successful proof or a remote score.
+
+The helper in [local-evaluator.md](local-evaluator.md) preserves the fixed target hashes, scopes the runtime environment, stores signing keys and reports in ignored directories, and returns a distinct rejection status for failed proofs. An independent code review found a manifest completeness gap before use; the helper now requires all five frozen file records, rejects duplicates, and checks the exact origin hash before comparing file hashes.
+
+The editable starter also ran through the actual evaluator, reached the intended divergence-to-progressions proof obligation, and returned the expected wrapper exit `2`. Its full local report signature verified. The [sanitized machine-readable record](../artifacts/local-evaluator-verification.json) preserves these results without publishing the signing key or claiming a remote score.
 
 ## Graph retrospective
 

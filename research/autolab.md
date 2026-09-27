@@ -2,6 +2,8 @@
 
 Inspected 2026-09-27. No hosted climb, remote evaluation, score submission, rental, or paid model request was started.
 
+**Local-container follow-up:** the dedicated Colima/Docker environment has now been installed and the pinned image pulled. The recovered hill froze locally with the exact published tree hash. The image's actual `FormalConjecturesUtil/Answer.lean` hashes to `c8b3b31e9bb25c511e577b1812159a210e9346720f19ec6c6b30905a0802db7a`, identical to the historical source below. See [local setup and commands](../docs/local-evaluator.md) for the active environment; the initial investigation and its former runtime blocker are preserved below.
+
 ## The immutable target
 
 - [AutoLab hill](https://app.autolab.ai/hills/ottogin/erdos-3): `ottogin/erdos-3`, version `0.1.0`.
@@ -35,11 +37,11 @@ The hill asks for a directory containing only the proof term or `by` block in `s
 
 The raw `answer(sorry)` is a formal-conjectures answer marker. It is **not sufficient evidence that the task is broken**. The upstream answer elaborator current before the image build defaults this marker to `True` when the expected type is `Prop`. See [Answer-at-image-date.lean](autolab/Answer-at-image-date.lean), especially lines 66–69 and 136–139, from [upstream commit c252a410](https://github.com/google-deepmind/formal-conjectures/blob/c252a41054125b5fd9c8356e2137cd9b55337657/FormalConjecturesUtil/Answer.lean).
 
-That source version was identified using the last commit affecting that file before the image's build time. It is strong provenance evidence, **not a byte-for-byte extraction of the image**. [image-config.json](autolab/image-config.json) shows that the image cloned the default branch without a commit argument and deleted `.git`; [image-manifest.json](autolab/image-manifest.json) preserves its layer digests. Exact reproduction requires the pinned image or an independently matched source/dependency snapshot.
+Initially that source version was identified using the last commit affecting the file before the image's build time. The later local-container setup directly measured the file inside the pinned image and confirmed its byte hash matches. This confirms that file; it does not reconstruct the Git revision of the entire source checkout. [image-config.json](autolab/image-config.json) shows that the image cloned the default branch without a commit argument and deleted `.git`; [image-manifest.json](autolab/image-manifest.json) preserves its layer digests.
 
 Under the default elaborator, this is `True ↔` the full Erdős arithmetic-progression conjecture. A proof of a finite experiment or a special case is useful progress but does not complete this hill.
 
-## Local workflow and the observed blocker
+## Initial local workflow and the former blocker
 
 The installed CLI successfully downloaded the public files with:
 
@@ -48,7 +50,7 @@ cd research/autolab
 autolab hills pull ottogin/erdos-3 --version 0149383772ad4a7c7cc45a434de11be51678a524
 ```
 
-It put them at `.autolab/hills/erdos-3`. The subsequent local commit stopped at the dependency check because Docker, Podman, Apptainer, and Singularity were absent. The files were still downloaded. No proof evaluation ran during that operation.
+It put them at `.autolab/hills/erdos-3` beneath `research/autolab`. That initial local commit stopped at the dependency check because Docker, Podman, Apptainer, and Singularity were absent. The files were still downloaded. No proof evaluation ran during that operation. The follow-up setup installed Colima/Docker, downloaded the active working hill under the repository root's `.autolab/hills/erdos-3`, and successfully froze its unchanged public files.
 
 With the required container runtime and a registered/committed local hill, the official OSS tool's documented evaluation commands are:
 

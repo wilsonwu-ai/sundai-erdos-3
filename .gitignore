@@ -3,6 +3,7 @@
 .vc/
 .lake/
 .tools/
+.local-evaluator/
 node_modules/
 __pycache__/
 *.olean
