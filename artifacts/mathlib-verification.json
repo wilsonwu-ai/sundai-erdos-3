@@ -1,0 +1,140 @@
+{
+  "checked_at_utc": "2026-09-27T21:25:04.008905+00:00",
+  "status": "passed",
+  "scope": "special cases and bridges in the pinned hill libraries",
+  "original_conjecture_proved": false,
+  "official_autolab_score": null,
+  "compiler": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+  "image": "ghcr.io/ottogin/lean-mathlib@sha256:964547ad81e109c78545512867bae70b710c55d833078674878faad7de0ebb85",
+  "answer_source_sha256": "c8b3b31e9bb25c511e577b1812159a210e9346720f19ec6c6b30905a0802db7a",
+  "theorems_checked": 23,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "modules": [
+    {
+      "source": "lean/Erdos3SpecialCases.lean",
+      "scope": "elementary known special cases, using an explicit witness predicate",
+      "source_sha256": "83f4ca47095bda82b1ddb1020d569607a925d45945522f03b84f8972f7248383",
+      "theorems_checked": 14,
+      "axioms": {
+        "Erdos3SpecialCases.ap_terms_strictly_increase": [],
+        "Erdos3SpecialCases.containsAP_mono": [],
+        "Erdos3SpecialCases.containsAP_prefix": [],
+        "Erdos3SpecialCases.unbounded_lengths_iff_all_lengths": [],
+        "Erdos3SpecialCases.cofinite_contains_all_lengths": [
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3SpecialCases.affine_tail_contains_all_lengths": [
+          "propext"
+        ],
+        "Erdos3SpecialCases.multiples_contain_all_lengths": [
+          "propext"
+        ],
+        "Erdos3SpecialCases.unbounded_contains_two": [
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3SpecialCases.arbitrarilyLongAPs_mono": [],
+        "Erdos3SpecialCases.powers_two_no_midpoint": [
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3SpecialCases.powers_two_no_three": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3SpecialCases.nat_lt_two_pow": [
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3SpecialCases.powers_two_unbounded": [
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3SpecialCases.unbounded_does_not_imply_all_lengths": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "stdout": "'Erdos3SpecialCases.ap_terms_strictly_increase' does not depend on any axioms\n'Erdos3SpecialCases.containsAP_mono' does not depend on any axioms\n'Erdos3SpecialCases.containsAP_prefix' does not depend on any axioms\n'Erdos3SpecialCases.unbounded_lengths_iff_all_lengths' does not depend on any axioms\n'Erdos3SpecialCases.cofinite_contains_all_lengths' depends on axioms: [propext, Quot.sound]\n'Erdos3SpecialCases.affine_tail_contains_all_lengths' depends on axioms: [propext]\n'Erdos3SpecialCases.multiples_contain_all_lengths' depends on axioms: [propext]\n'Erdos3SpecialCases.unbounded_contains_two' depends on axioms: [propext, Quot.sound]\n'Erdos3SpecialCases.arbitrarilyLongAPs_mono' does not depend on any axioms\n'Erdos3SpecialCases.powers_two_no_midpoint' depends on axioms: [propext, Quot.sound]\n'Erdos3SpecialCases.powers_two_no_three' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3SpecialCases.nat_lt_two_pow' depends on axioms: [propext, Quot.sound]\n'Erdos3SpecialCases.powers_two_unbounded' depends on axioms: [propext, Quot.sound]\n'Erdos3SpecialCases.unbounded_does_not_imply_all_lengths' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "source": "lean/Erdos3Bridge.lean",
+      "scope": "forward bridges to the hill definitions and special-case conclusions",
+      "source_sha256": "097cdbd4707aaefe69b172187a3fc0b8aba04ba2c9fd726b857e579c16c6a892",
+      "theorems_checked": 5,
+      "axioms": {
+        "Erdos3Bridge.containsAP_to_setAP": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3Bridge.all_lengths_to_frequently": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3Bridge.elementary_all_lengths_to_frequently": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3Bridge.cofinite_hill_conclusion": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3Bridge.affine_tail_hill_conclusion": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "stdout": "'Erdos3Bridge.containsAP_to_setAP' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3Bridge.all_lengths_to_frequently' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3Bridge.elementary_all_lengths_to_frequently' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3Bridge.cofinite_hill_conclusion' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3Bridge.affine_tail_hill_conclusion' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "source": "lean/Erdos3Divergence.lean",
+      "scope": "elementary consequences of reciprocal non-summability",
+      "source_sha256": "98abe215c92890e77425838ffef22bffccb77d604ddba5eb1f2feb37b650ceca",
+      "theorems_checked": 3,
+      "axioms": {
+        "Erdos3Divergence.not_summable_implies_infinite": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3Divergence.not_summable_implies_unbounded": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3Divergence.not_summable_implies_two_term_ap": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "stdout": "'Erdos3Divergence.not_summable_implies_infinite' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3Divergence.not_summable_implies_unbounded' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3Divergence.not_summable_implies_two_term_ap' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "source": "lean/Erdos3Reduction.lean",
+      "scope": "conditional implication; APFreeSummability remains an unproved parameter",
+      "source_sha256": "4054b5824d9182482f1921286f0ae2ba8275ba3fd5d1bab67623122a7db54c78",
+      "theorems_checked": 1,
+      "axioms": {
+        "Erdos3Reduction.hill_of_apFreeSummability": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "stdout": "Erdos3Reduction.hill_of_apFreeSummability (h : APFreeSummability) :\n  True \u2194 \u2200 (A : Set \u2115), (\u00acSummable fun a => 1 / \u2191\u2191a) \u2192 \u2203\u1da0 (k : \u2115) in Filter.atTop, \u2203 S \u2286 A, S.IsAPOfLength \u2191k\n'Erdos3Reduction.hill_of_apFreeSummability' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    }
+  ]
+}

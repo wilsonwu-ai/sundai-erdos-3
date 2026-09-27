@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-09-27T21:18:22Z",
+  "scope": "unfinished exact-hill attempt; expected rejection",
+  "original_conjecture_proved": false,
+  "official_autolab_score": null,
+  "passed": false,
+  "expected_rejection": true,
+  "local_report_signature_verified": true,
+  "origin_tree": "0149383772ad4a7c7cc45a434de11be51678a524",
+  "source": "submissions/current/solution.lean",
+  "source_sha256": "caf436a36a151a40daf0cc5a705204b29c3f8355a04822913c48f4a4c310ff6f",
+  "error": "the proof uses sorry",
+  "remaining_proof_state": "case mp\na✝ : True\nA : Set ℕ\nhdiv : ¬Summable fun a => 1 / ↑↑a\nn : ℕ\nhNo : ¬∃ S ⊆ A, S.IsAPOfLength ↑(max n 3)\nhfree : A.IsAPOfLengthFree (max (↑n) 3)\n⊢ Summable fun a => 1 / ↑↑a\n'Erdos3.hill' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]",
+  "explanation": "Logical reduction reached reciprocal summability under progression-freeness. The final deliberate fail is still unproved. Lean recovery introduces sorryAx, so the original evaluator correctly rejects this attempt."
+}

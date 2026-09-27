@@ -1,5 +1,17 @@
 # Independent proof and scope review
 
+## Continuation review: exact hill bridges
+
+The continuation added `Erdos3Bridge.lean` (five declarations), `Erdos3Divergence.lean` (three), and `Erdos3Reduction.lean` (one). Independent read-only review confirmed the forward bridge uses positive-step injectivity to obtain **exactly** `k` elements, handles `k=0`, and produces the hill's precise filter conclusion for its stated special cases. It does not claim a reverse equivalence.
+
+The divergence module retains the exact non-summability hypothesis and establishes only infinitude, unboundedness, and length two. The conditional reduction retains `APFreeSummability` as an unproved theorem parameter. Its standard axiom list is not evidence that the parameter has been established.
+
+The coordinator ran the final four-module checker inside the pinned image: all 23 declarations compiled and passed their axiom audits. The reviewer also identified a source-hash race in the new checker; it now hashes the immutable bytes actually copied for compilation. The compiler selector was corrected so a mounted Mac executable cannot be selected inside Linux. Positive and negative controls passed using the image compiler. [Executed module record](../artifacts/mathlib-verification.json).
+
+The earlier review below records the initial fourteen-result scope. Its missing bridges are superseded by the continuation above; its warning about the unchanged external evaluator remains relevant.
+
+## Initial checkpoint
+
 Reviewed 2026-09-27 by a separate agent that did not author the proof. **PASS for the 14 stated elementary theorems. The full Erdős 3 hill is not solved by these files.**
 
 ## Reproduction

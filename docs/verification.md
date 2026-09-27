@@ -1,5 +1,15 @@
 # Verification record
 
+## Current pinned-image proof checkpoint
+
+`python3 scripts/local_evaluator.py check-lean` compiled four modules in the actual frozen hill image and audited all **23** theorem declarations: fourteen original elementary results, five definition/filter bridges, three divergence consequences, and one conditional reduction. The source hashes are computed from the exact copied compilation inputs. Every axiom set is a subset of `propext`, `Classical.choice`, and `Quot.sound`. [Machine-readable evidence](../artifacts/mathlib-verification.json).
+
+Independent review checked cardinality, the empty progression, positive common difference, preservation of hypotheses, and the conditional reduction's scope. The latter's `APFreeSummability` parameter is explicitly printed and remains unproved. The image compiler also passed the valid control and rejected the four invalid controls.
+
+The updated exact-hill attempt reached the new goal of reciprocal summability for a progression-free set, then failed at the deliberate unproved step. Its rejection and local signature verification are recorded in [reduction-attempt.json](../artifacts/reduction-attempt.json). That expected rejection is separate from the passing supporting-module checks.
+
+The Pages workflow now requires both the original host-compiler job and a new pinned-image Mathlib job before publication. The historical verification record below remains the provenance of the first checkpoint.
+
 ## Formal artifact
 
 The coordinator executed `python3 scripts/verify_lean.py` on the actual proof file using Lean 4.33.1. All 14 theorem declarations compiled and every printed axiom set was a subset of `propext`, `Classical.choice`, and `Quot.sound`. The machine-readable result, source hash, compiler identity, and stdout are in [artifacts/lean-verification.json](../artifacts/lean-verification.json).

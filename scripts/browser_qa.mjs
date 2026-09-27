@@ -18,7 +18,7 @@ try {
   check('initial prime progression', await page.$eval('#pattern-equation',e=>e.textContent)==='3→5→7');
   check('four verified local scopes', await page.$$eval('.claim-verified',e=>e.length)===4);
   check('original remains open', await page.$eval('.claim-open',e=>e.textContent).then(s=>s.includes('NOT SOLVED')));
-  check('verification evidence linked', await page.$$eval('a',els=>els.some(e=>e.href.endsWith('/artifacts/lean-verification.json'))));
+  check('verification evidence linked', await page.$$eval('a',els=>els.some(e=>e.href.endsWith('/artifacts/mathlib-verification.json'))));
   await page.screenshot({path:path.join(folder,'desktop.png')});
   await page.screenshot({path:path.join(folder,'desktop-full.png'),fullPage:true});
   check('desktop fits', await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));

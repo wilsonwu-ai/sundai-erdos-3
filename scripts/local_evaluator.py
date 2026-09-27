@@ -9,6 +9,7 @@ from pathlib import Path
 import shlex
 import shutil
 import subprocess
+import sys
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -106,10 +107,31 @@ def smoke():
     print("SMOKE PASS: imported-library proof accepted; original admitted baseline rejected.")
 
 
+def check_lean():
+    result = run(["docker", "run", "--rm", "--init", "--platform", "linux/amd64",
+                  "--user", f"{os.getuid()}:{os.getgid()}",
+                  "--mount", f"type=bind,src={ROOT},dst=/workspace,readonly",
+                  "--network", "none", IMAGE, "python", "/workspace/scripts/check_mathlib.py"],
+                 capture=True, check=False)
+    print(result.stderr, end="", file=sys.stderr)
+    if result.returncode:
+        print(result.stdout, end="")
+        raise SystemExit(result.returncode)
+    data = json.loads(result.stdout)
+    if data.get("status") != "passed":
+        raise SystemExit("The module checker did not return a passing record")
+    data["image"] = IMAGE
+    destination = ROOT / "artifacts/mathlib-verification.json"
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(json.dumps(data, indent=2) + "\n")
+    print(f"PASS: {data['theorems_checked']} theorem audits in the pinned image. Report: {destination}")
+    print("These are supporting results, not a full hill proof or official AutoLab score.")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
-    for name in ("setup", "start", "stop", "status", "smoke", "shell"):
+    for name in ("setup", "start", "stop", "status", "smoke", "shell", "check-lean"):
         sub.add_parser(name)
     evaluate_parser = sub.add_parser("eval")
     evaluate_parser.add_argument("submission")
@@ -123,6 +145,7 @@ def main():
         run(["docker", "image", "inspect", IMAGE, "--format", "{{json .RepoDigests}}"])
         run([*HILLS, "describe", HILL])
     elif args.command == "smoke": smoke()
+    elif args.command == "check-lean": check_lean()
     elif args.command == "eval":
         result = evaluate(args.submission, args.output)
         raise SystemExit(0 if result.get("passed") else 2)

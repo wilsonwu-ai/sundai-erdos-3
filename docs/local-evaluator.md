@@ -13,12 +13,15 @@ From the repository root:
 ```sh
 python3 scripts/local_evaluator.py status
 python3 scripts/local_evaluator.py start
+python3 scripts/local_evaluator.py check-lean
 python3 scripts/local_evaluator.py eval submissions/current
 ```
 
-Edit [`submissions/current/solution.lean`](../submissions/current/solution.lean), which contains only the proof body after the fixed statement's `:=`. The initial file deliberately fails at the unproved mathematical implication. Replace that failure with an actual proof. The helper exits `0` for a passing proof and `2` for a rejected proof; infrastructure failures are also nonzero. It prints the exact path of the signed local JSON report.
+`check-lean` compiles the supporting modules under `lean/` using the image's actual libraries, builds their dependencies in a temporary container directory, and audits every declared theorem. It saves [mathlib-verification.json](../artifacts/mathlib-verification.json). This is the command for a passing supporting-results check; it does not submit those modules as a solution of the full hill.
 
-The starter was checked in the real container and stops at the intended goal with `A : Set ℕ` and the divergent-sum hypothesis in scope. Lean's recovery from an unfinished tactic can introduce `sorryAx` internally, even though this starter uses an explicit `fail` rather than a written `sorry`. The upstream evaluator then gives the generic `the proof uses sorry` reason. Read `details.output` for the actual error and proof state.
+Edit [`submissions/current/solution.lean`](../submissions/current/solution.lean), which contains only the proof body after the fixed statement's `:=`. The current attempt reduces the target to reciprocal summability for a set avoiding a fixed progression length, then deliberately fails at that unproved assertion. Replace the failure with an actual proof. The helper exits `0` for a passing proof and `2` for a rejected proof; infrastructure failures are also nonzero. It prints the exact path of the signed local JSON report.
+
+The attempt was checked in the real container and now stops at `⊢ Summable fun a : A ↦ 1 / (a : ℝ)`, with reciprocal divergence and progression-freeness in scope. [Recorded remaining goal](../artifacts/reduction-attempt.json). Lean's recovery from an unfinished tactic can introduce `sorryAx` internally, even though this attempt uses an explicit `fail` rather than a written `sorry`. The upstream evaluator then gives the generic `the proof uses sorry` reason. Read `details.output` for the actual error and proof state.
 
 To rerun the environment checks:
 
@@ -72,6 +75,6 @@ The helper scopes `HILLS_HOME` and Python's `TMPDIR` inside `.local-evaluator/`,
 
 AutoLab provides non-owners the public hill files. A locally frozen tree and locally valid signature do not establish an official score for the upstream owner's hill. The raw tool's `official` field refers to its local committed-tree policy; this project reports upstream acceptance separately. No remote score submission, hosted climb, compute rental, or remote execution-node service is started by this helper.
 
-The mathematical target remains exactly the original one. The separate positive smoke theorem and the repository's 14 elementary theorems are not substituted for it. A genuine candidate must pass compilation and the original axiom policy in this image, followed by independent review of the claim and proof.
+The mathematical target remains exactly the original one. The separate positive smoke theorem and the repository's supporting modules are not substituted for it. A genuine candidate must pass compilation and the original axiom policy in this image, followed by independent review of the claim and proof.
 
 The [CLI investigation](local-evaluator-cli-notes.md) explains the source-checked flags, mount behavior, and why a failed-proof report cannot be identified solely by the official CLI's exit status. [Colima installation](https://github.com/abiosoft/colima/blob/main/docs/INSTALL.md), [Colima runtime configuration](https://github.com/abiosoft/colima/blob/main/docs/FAQ.md), and [AutoLab concepts](https://docs.autolab.ai/concepts/) are the upstream references.

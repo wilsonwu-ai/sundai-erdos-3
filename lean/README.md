@@ -1,26 +1,27 @@
-# What this Lean file proves
+# What the Lean files prove
 
-`Erdos3SpecialCases.lean` proves fourteen elementary results related to Erdős Problem 3. The full reciprocal-divergence conjecture remains open.
+The full reciprocal-divergence conjecture is not proved. The modules below formalize known elementary results, connect them to the exact AutoLab definitions, and isolate an explicit remaining research assumption.
 
-The predicate `ContainsAP A k` describes k terms `a + i*d` inside A, with a positive step d. Positivity guarantees distinct terms, which is checked separately. We use this dependency-free predicate to make the scope easy to inspect; a bridge to the hill's Mathlib predicate is not yet formalized.
+| Module | Checked scope |
+| --- | --- |
+| `Erdos3SpecialCases.lean` | Fourteen elementary results: cofinite sets, affine tails, multiples, prefixes, supersets, two-term progressions, and the powers-of-two obstruction. Imports only `Std`. |
+| `Erdos3Bridge.lean` | Five forward bridges: explicit positive-step witnesses give the hill's exact `Set.IsAPOfLength`; arbitrary lengths give its filter conclusion. Cofinite and affine-tail cases now use those exact definitions. |
+| `Erdos3Divergence.lean` | Reciprocal non-summability forces infinitude and unboundedness, and therefore a two-term progression in the hill's definition. |
+| `Erdos3Reduction.lean` | A conditional proof of the elaborated full hill, assuming `APFreeSummability`. That assumption remains unproved. |
 
-The central verified cases are:
+The original predicate `ContainsAP A k` supplies a start `a`, a positive step `d`, and membership of all terms `a + i*d` for `i < k`. The bridge constructs the range of `Fin k`, proves it has exactly `k` distinct elements, and checks the imported progression definition. This handles length zero too. It proves the forward direction; it does not claim an equivalence of the two definitions.
 
-- A set containing every sufficiently large natural number contains progressions of every length.
-- A set containing a tail of one infinite nonconstant progression contains progressions of every length.
-- Multiples of any positive natural number contain progressions of every length.
-- An unbounded natural-number set contains a two-term nonconstant progression.
-- Powers of two are unbounded but contain no three-term nonconstant progression. Thus unboundedness alone cannot solve the conjecture.
+The cofinite and affine-tail assumptions are stronger than reciprocal divergence. The two-term consequence cannot be extended to every length using unboundedness alone: the original module proves powers of two are unbounded yet have no nonconstant three-term progression. Their reciprocal convergence is explanatory mathematics, not yet a theorem in these files.
 
-The remaining theorems check strict increase, prefixes, supersets, the equivalence of unbounded and arbitrary lengths, and arithmetic facts used by the counterexample. These results are elementary known facts; no novelty claim is made.
+`APFreeSummability` says that, for every `k ≥ 3`, a set containing no `k`-term progression has summable reciprocals. The reduction accepts this as a theorem parameter. An axiom audit cannot turn an unproved parameter into an established theorem; the parameter is explicitly printed in the verification record. Supplying it would settle the full hill.
 
-Run with the pinned Lean 4.33.1 toolchain:
+From the repository root, run all modules against the exact pinned image:
 
 ```sh
-cd lean
-lean Erdos3SpecialCases.lean
+python3 scripts/local_evaluator.py start
+python3 scripts/local_evaluator.py check-lean
 ```
 
-The file imports `Std` only and prints the axiom dependencies of every theorem. All dependencies are among `propext`, `Classical.choice`, and `Quot.sound`; some theorems use none. No proof uses `sorry` or `native_decide`.
+[Executed module evidence](../artifacts/mathlib-verification.json) records source hashes, Lean 4.33.1, each theorem's axiom dependencies, and each module's scope. The checker compiles fresh module copies in a temporary directory and permits only `propext`, `Classical.choice`, and `Quot.sound`. No proof uses an admission or `native_decide`.
 
-This file is not an AutoLab `solution.lean`: AutoLab expects only a proof body for its fixed, much stronger theorem. Passing these checks does not mean the hill is solved.
+For just the original dependency-free fourteen theorems, run `python3 scripts/verify_lean.py` with Lean 4.33.1 on the host. To test the unfinished full target, run `python3 scripts/local_evaluator.py eval submissions/current`. That attempt still exits `2`: it reaches the unproved reciprocal-summability claim for a progression-free set. The supporting modules are not substituted for the fixed hill.

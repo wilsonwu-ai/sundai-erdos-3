@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import platform
 from pathlib import Path
 import re
 import shutil
@@ -20,7 +21,8 @@ VERSION = "4.33.1"
 
 def compiler():
     local = ROOT / ".tools/lean-4.33.1-darwin_aarch64/bin/lean"
-    return os.environ.get("LEAN") or (str(local) if local.exists() else shutil.which("lean"))
+    native = platform.system() == "Darwin" and platform.machine() == "arm64"
+    return os.environ.get("LEAN") or (str(local) if native and local.exists() else shutil.which("lean"))
 
 
 def audit_output(output, expected):

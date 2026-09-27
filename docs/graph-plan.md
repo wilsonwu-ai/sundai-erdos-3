@@ -56,3 +56,18 @@ FROZEN: Original hill statement, axiom whitelist, and distinction between exampl
 Planning estimate: parallel fraction `p = 0.7`, three independent tracks `N = 3`; Amdahl speedup `1 / (0.3 + 0.7/3) ≈ 1.88`; theoretical ceiling `3.33`. Integration and verification still take sequential time. Maximum fan-in is three concise worker reports. Workers inherit the session model and reasoning tier; no additional external model API is used. A soft planning allowance is approximately 8,000 tokens per delegated task (24,000 total) plus coordinator integration; this is an estimate, not a runtime-enforced budget or measured bill. Workers are bounded by outputs and probes rather than recursive spawning.
 
 The first pass searches at most eight primary math sources and about ten interface probes; broaden only when a concrete blocker warrants it. Cache downloaded context, batch independent reads, and test small changes locally before requesting more model reasoning.
+
+## Continuation: proof bridges in the pinned image
+
+After the local evaluator was ready, the next fan-out assigned disjoint files:
+
+| Owner | Bounded output | Dependency |
+| --- | --- | --- |
+| `math_research` | `lean/Erdos3Divergence.lean`: consequences of reciprocal divergence | Actual imported summability and AP definitions |
+| `autolab_recon` | `lean/Erdos3Bridge.lean`: connect explicit witnesses to the hill | Original 14 elementary results and actual AP definitions |
+| `pages_demo` | Read-only recommendation for the next analytic reduction | Archived mathematical status and library source |
+| Coordinator | Container module checker, integration, public evidence | Both proof files must compile and pass axiom audits first |
+
+All proof workers use the cached original image. There is no nested fan-out or external model call. The existing scopes are held fixed until compiler evidence supports a change. The next meaningful mathematical obstacle, rather than an arbitrary number of attempts, determines where this continuation stops.
+
+The resumed workers retained a sandbox that could not access the Docker socket. The coordinator extracted the pinned library sources into an ignored local directory and ran compilation centrally. The coordinator also took over the short divergence module; the mathematical worker then reviewed it independently. The bridge worker delivered five theorems, and the read-only reviewer checked both the bridge and the conditional reduction. Final aggregate compilation and all 23 axiom audits passed. This adjustment avoids further blocked worker-side runtime calls.
