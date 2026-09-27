@@ -17,4 +17,3 @@ The user was attending **Sundai Hack 142 — Recursive Self Improvement and Form
 The slide decks distinguish a finite construction, a general theorem, and formal credit. They encourage useful smaller formal results and require the exact claim, reproducible evidence, and attribution. We use the same distinction here. We do not adopt an event description or slide's broad claim about a mathematical breakthrough as independent evidence that it occurred.
 
 Wolfram can support numerical or symbolic exploration. Lean checks a formal proof term. An AutoLab score describes the task its evaluator actually checks. These tools have different roles; none replaces checking that the encoded statement is the intended mathematics.
-

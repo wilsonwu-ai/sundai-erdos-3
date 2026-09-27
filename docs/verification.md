@@ -21,6 +21,8 @@ The GitHub Actions workflow requires compiler and finite-explorer checks before 
 
 Browser reproduction uses `scripts/browser_qa.mjs`, with optional `SITE_URL`, `PUPPETEER_MODULE`, and `CHROME` environment variables. Screenshots are local QA artifacts ignored by Git. The site itself has no runtime dependencies or external assets.
 
+The [first hosted verification and deployment run](https://github.com/wilsonwu-ai/sundai-erdos-3/actions/runs/36335702610) passed on Ubuntu. This independently reran the 14 local proofs with the pinned Linux compiler, negative controls, finite-explorer tests, and answer-marker reproduction before deploying Pages. The [live site](https://wilsonwu-ai.github.io/sundai-erdos-3/) returned HTTP 200. [Production browser QA](../artifacts/production-browser-qa.json) then passed the same 19 interaction, evidence, responsiveness, and error checks on the published URL.
+
 ## Graph retrospective
 
 ```text
