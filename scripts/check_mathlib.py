@@ -20,12 +20,15 @@ from local_evaluator import IMAGE
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = Path("/opt/formal-conjectures")
-MODULES = ("Erdos3SpecialCases", "Erdos3Bridge", "Erdos3Divergence", "Erdos3Reduction")
+MODULES = ("Erdos3SpecialCases", "Erdos3Bridge", "Erdos3Divergence", "Erdos3Reduction",
+           "Erdos3Blocks", "Erdos3Dyadic")
 SCOPES = {
     "Erdos3SpecialCases": "elementary known special cases, using an explicit witness predicate",
     "Erdos3Bridge": "forward bridges to the hill definitions and special-case conclusions",
     "Erdos3Divergence": "elementary consequences of reciprocal non-summability",
     "Erdos3Reduction": "conditional implication; APFreeSummability remains an unproved parameter",
+    "Erdos3Blocks": "finite logarithmic blocks and their reciprocal mass bounds",
+    "Erdos3Dyadic": "analytic counting-to-summability transfer; APFreePowerEnvelope remains unproved",
 }
 
 
@@ -69,7 +72,7 @@ def main():
                             "theorems_checked": len(audits), "axioms": audits,
                             "stdout": result.stdout})
     record = {"checked_at_utc": datetime.now(timezone.utc).isoformat(),
-              "status": "passed", "scope": "special cases and bridges in the pinned hill libraries",
+              "status": "passed", "scope": "supporting results and analytic transfers in the pinned hill libraries",
               "original_conjecture_proved": False, "official_autolab_score": None,
               "compiler": version, "image": IMAGE,
               "answer_source_sha256": hashlib.sha256(

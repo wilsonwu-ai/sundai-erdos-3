@@ -1,13 +1,13 @@
 {
-  "checked_at_utc": "2026-09-27T21:25:04.008905+00:00",
+  "checked_at_utc": "2026-09-27T23:01:01.680676+00:00",
   "status": "passed",
-  "scope": "special cases and bridges in the pinned hill libraries",
+  "scope": "supporting results and analytic transfers in the pinned hill libraries",
   "original_conjecture_proved": false,
   "official_autolab_score": null,
   "compiler": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
   "image": "ghcr.io/ottogin/lean-mathlib@sha256:964547ad81e109c78545512867bae70b710c55d833078674878faad7de0ebb85",
   "answer_source_sha256": "c8b3b31e9bb25c511e577b1812159a210e9346720f19ec6c6b30905a0802db7a",
-  "theorems_checked": 23,
+  "theorems_checked": 30,
   "allowed_axioms": [
     "Classical.choice",
     "Quot.sound",
@@ -135,6 +135,59 @@
         ]
       },
       "stdout": "Erdos3Reduction.hill_of_apFreeSummability (h : APFreeSummability) :\n  True \u2194 \u2200 (A : Set \u2115), (\u00acSummable fun a => 1 / \u2191\u2191a) \u2192 \u2203\u1da0 (k : \u2115) in Filter.atTop, \u2203 S \u2286 A, S.IsAPOfLength \u2191k\n'Erdos3Reduction.hill_of_apFreeSummability' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "source": "lean/Erdos3Blocks.lean",
+      "scope": "finite logarithmic blocks and their reciprocal mass bounds",
+      "source_sha256": "ba845b671c45107062d36a14c04355c8aa7ff6f54760b7d3e5622daa4129f389",
+      "theorems_checked": 4,
+      "axioms": {
+        "Erdos3Blocks.logBlock_lt_upper": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3Blocks.logBlock_finite": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3Blocks.logBlock_reciprocal_le": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3Blocks.logBlock_mass_le": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "stdout": "'Erdos3Blocks.logBlock_lt_upper' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3Blocks.logBlock_finite' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3Blocks.logBlock_reciprocal_le' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3Blocks.logBlock_mass_le' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "source": "lean/Erdos3Dyadic.lean",
+      "scope": "analytic counting-to-summability transfer; APFreePowerEnvelope remains unproved",
+      "source_sha256": "60cd7cdcc9767d5516ad5e6462c1f95c47a79dac21af681d968c5debb48ba340",
+      "theorems_checked": 3,
+      "axioms": {
+        "Erdos3Dyadic.reciprocal_summable_of_dyadic_counts": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3Dyadic.reciprocal_summable_of_power_envelope": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3Dyadic.hill_of_apFree_power_envelope": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "stdout": "'Erdos3Dyadic.reciprocal_summable_of_dyadic_counts' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3Dyadic.reciprocal_summable_of_power_envelope' depends on axioms: [propext, Classical.choice, Quot.sound]\nErdos3Dyadic.hill_of_apFree_power_envelope (hbound : APFreePowerEnvelope) :\n  True \u2194 \u2200 (A : Set \u2115), (\u00acSummable fun a => 1 / \u2191\u2191a) \u2192 \u2203\u1da0 (k : \u2115) in Filter.atTop, \u2203 S \u2286 A, S.IsAPOfLength \u2191k\n'Erdos3Dyadic.hill_of_apFree_power_envelope' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
     }
   ]
 }

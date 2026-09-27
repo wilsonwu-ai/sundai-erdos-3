@@ -2,9 +2,11 @@
 
 ## Current pinned-image proof checkpoint
 
-`python3 scripts/local_evaluator.py check-lean` compiled four modules in the actual frozen hill image and audited all **23** theorem declarations: fourteen original elementary results, five definition/filter bridges, three divergence consequences, and one conditional reduction. The source hashes are computed from the exact copied compilation inputs. Every axiom set is a subset of `propext`, `Classical.choice`, and `Quot.sound`. [Machine-readable evidence](../artifacts/mathlib-verification.json).
+`python3 scripts/local_evaluator.py check-lean` compiled six modules in the actual frozen hill image and audited all **30** supporting declarations. The latest seven establish finite logarithm blocks, the counting-to-summability transfer, and an explicitly conditional full-hill implication. The source hashes are computed from the exact copied compilation inputs. Every axiom set is a subset of `propext`, `Classical.choice`, and `Quot.sound`. [Machine-readable evidence](../artifacts/mathlib-verification.json).
 
 Independent review checked cardinality, the empty progression, positive common difference, preservation of hypotheses, and the conditional reduction's scope. The latter's `APFreeSummability` parameter is explicitly printed and remains unproved. The image compiler also passed the valid control and rejected the four invalid controls.
+
+The dyadic follow-up received an independent review of the zero case, finite subtype cardinalities, unique partition, nonnegative series comparison, shifted p-series, and the unproved uniform `APFreePowerEnvelope` parameter. The initial p-series draft failed elaboration because function composition had not been unfolded; after that correction all modules compiled. The checker rejected the failed draft. The accompanying [finite experiment](../research/check_amplification.py) rejects a proposed multiplicative extremal bound; it is a separate finite computation, not a Lean proof of the conjecture. [Attempt record](../research/proof-attempt-2026-09-27.md).
 
 The updated exact-hill attempt reached the new goal of reciprocal summability for a progression-free set, then failed at the deliberate unproved step. Its rejection and local signature verification are recorded in [reduction-attempt.json](../artifacts/reduction-attempt.json). That expected rejection is separate from the passing supporting-module checks.
 

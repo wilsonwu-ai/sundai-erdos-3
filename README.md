@@ -4,7 +4,7 @@
 
 [Interactive GitHub Pages lab](https://wilsonwu-ai.github.io/sundai-erdos-3/) · [Lean source and scope](lean/README.md) · [Pinned-image verification](artifacts/mathlib-verification.json) · [Independent review](docs/independent-review.md)
 
-**The full Erdős Problem 3 is not solved here.** This project delivers 23 machine-checked theorem declarations: 14 elementary results, five bridges to the exact hill definitions, three consequences of reciprocal divergence, and one conditional reduction with an unproved assumption. It also provides the pinned local AutoLab evaluator and an interactive explanation. These are known facts and proof infrastructure, not 23 mathematical discoveries or a passing full-hill submission. The [primary problem database](https://github.com/teorth/erdosproblems/blob/main/data/problems.yaml) and [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/a24e30f9c7767245a5030e210f40c28487dae5c5/FormalConjectures/ErdosProblems/3.lean) mark the full conjecture open at retrieval.
+**The full Erdős Problem 3 is not solved here.** The latest attempt proved the dyadic counting-to-summability step in Lean, but did not prove the required bounds for progression-free sets. [Attempt, checked result, and precise gaps](research/proof-attempt-2026-09-27.md). The project now contains 30 checked supporting declarations: 14 elementary results, five definition bridges, three divergence consequences, four block estimates, two analytic transfers, and two explicitly conditional reductions. These are known facts and proof infrastructure, with no claim of a new solution. The [primary problem database](https://www.erdosproblems.com/3) and [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/a24e30f9c7767245a5030e210f40c28487dae5c5/FormalConjectures/ErdosProblems/3.lean) mark the full conjecture open at retrieval.
 
 ## Situation — one Sunday, an infinite question
 
@@ -52,7 +52,7 @@ node --test tests/explorer.test.mjs
 python3 -m http.server 8000 --directory site
 ```
 
-Open `http://localhost:8000`. Set `LEAN=/absolute/path/to/lean` if using a standalone compiler. The original fourteen results import only `Std`; that check needs no Mathlib download. CI independently checks those results and the finite explorer, while a second job compiles all 23 declarations in the pinned image. Pages deployment requires both jobs to pass.
+Open `http://localhost:8000`. Set `LEAN=/absolute/path/to/lean` if using a standalone compiler. The original fourteen results import only `Std`; that check needs no Mathlib download. CI independently checks those results and the finite explorer, while a second job compiles all 30 declarations in the pinned image. Pages deployment requires both jobs to pass.
 
 AutoLab's full hill now runs locally in its exact pinned image using a dedicated Colima/Docker VM with Rosetta for AMD64. The unchanged hill's local tree hash matches the published origin. A small imported-library proof compiled, the original `sorry` baseline was correctly rejected, and its local report signature verified. [Environment setup, daily commands, and limits](docs/local-evaluator.md).
 
@@ -80,10 +80,12 @@ python3 scripts/local_evaluator.py eval submissions/current
 | Positive-step terms are distinct; progressions pass to supersets and shorter lengths | Lean checked |
 | Elementary witnesses imply `Set.IsAPOfLength`; all lengths imply the exact filter conclusion | Lean checked in the pinned image |
 | AP-free reciprocal summability would imply the full hill | Conditional reduction checked; its assumption is unproved |
+| Summable normalized dyadic block counts imply summable reciprocals | Lean checked in the pinned image |
+| A normalized block-count bound C/(j+1)ᵖ with p>1 implies summability | Lean checked; the required AP-free bound remains unproved |
 | Official AutoLab hill acceptance | Not run; no score |
 | Local original-hill evaluator | Ready; pinned image, matching tree, baseline rejection verified |
 
-All 23 declarations compile on **Lean 4.33.1** in the pinned image, with axiom sets contained in `{propext, Classical.choice, Quot.sound}`. There are no admitted proofs, custom axioms, or `native_decide` in those modules. The conditional reduction retains `APFreeSummability` as an explicit theorem parameter; passing an axiom audit does not prove that parameter. Negative controls reject an admitted proof, an invented axiom, an invalid proof, and a missing axiom report.
+All 30 declarations compile on **Lean 4.33.1** in the pinned image, with axiom sets contained in `{propext, Classical.choice, Quot.sound}`. There are no admitted proofs, custom axioms, or `native_decide` in those modules. The conditional reductions retain `APFreeSummability` and `APFreePowerEnvelope` as explicit theorem parameters; passing an axiom audit does not prove those parameters. Negative controls reject an admitted proof, an invented axiom, an invalid proof, and a missing axiom report.
 
 The powers-of-two result is a useful failure of a tempting shortcut: **unboundedness alone does not force long progressions**. It is not a counterexample to Erdős 3; their reciprocal series converges to `2`. That convergence fact is explanatory mathematics, not one of this repository's Lean proofs.
 
@@ -95,7 +97,7 @@ The website visualizes finite sets up to 300 and lets you inspect equal-gap patt
 
 The three-term divergent-sum case is known through [Bloom and Sisask's result](https://arxiv.org/abs/2007.03528). The unrestricted conjecture is much stronger. A potentially useful route is to formalize a summability reduction from sufficiently strong bounds on progression-free sets, then discharge the mathematical bound separately. Existing weaker density bounds do not automatically provide it. [Research routes, citations, and limits](research/math-status.md).
 
-A next contribution can formalize the dyadic summability transfer using the pinned library's partition and comparison lemmas. The checked conditional reduction identifies the remaining assumption precisely: every set avoiding a fixed progression length `k ≥ 3` has summable reciprocals. Proving that assumption for all lengths is the hard mathematical obstacle. Preserve the original theorem, exact environment, and axiom policy when attempting a full submission.
+The dyadic summability transfer is now formalized. The remaining task is mathematical: prove a sufficiently strong counting bound for sets avoiding each fixed progression length. The latest attempt checked three approaches, identified their missing hypotheses, and rejected a false multiplicative shortcut by a finite counterexample. None supplied that bound. Preserve the original theorem, exact environment, and axiom policy when attempting a full submission.
 
 ## Attribution
 

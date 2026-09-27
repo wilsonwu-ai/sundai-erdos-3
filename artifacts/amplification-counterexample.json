@@ -1,0 +1,26 @@
+{
+  "scope": "finite counterexample to a candidate amplification inequality, not a solution of Erd\u0151s3",
+  "method": "exhaustive subsets, all three-element combinations checked by a+c!=2*b",
+  "script": "research/check_amplification.py",
+  "r3_3": 2,
+  "r3_9": 5,
+  "witness_3": [
+    1,
+    2
+  ],
+  "witness_9": [
+    1,
+    2,
+    4,
+    8,
+    9
+  ],
+  "proposed_bound": "r_3(m*n) <= r_3(m)*r_3(n)",
+  "counterexample": {
+    "m": 3,
+    "n": 3,
+    "left": 5,
+    "right": 4
+  },
+  "original_conjecture_proved": false
+}

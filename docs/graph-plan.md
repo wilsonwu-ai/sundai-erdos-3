@@ -71,3 +71,20 @@ After the local evaluator was ready, the next fan-out assigned disjoint files:
 All proof workers use the cached original image. There is no nested fan-out or external model call. The existing scopes are held fixed until compiler evidence supports a change. The next meaningful mathematical obstacle, rather than an arbitrary number of attempts, determines where this continuation stops.
 
 The resumed workers retained a sandbox that could not access the Docker socket. The coordinator extracted the pinned library sources into an ignored local directory and ran compilation centrally. The coordinator also took over the short divergence module; the mathematical worker then reviewed it independently. The bridge worker delivered five theorems, and the read-only reviewer checked both the bridge and the conditional reduction. Final aggregate compilation and all 23 axiom audits passed. This adjustment avoids further blocked worker-side runtime calls.
+
+## Full-proof attempt: independent routes and an analytic transfer
+
+The user's subsequent instruction to prove Erdős 3 retained the original statement and axiom policy. Two tasks could run independently: a primary-source check of three full-proof routes (read-only, `math_research`) and finite dyadic block estimates (`lean/Erdos3Blocks.lean`, `autolab_recon`). The coordinator owned `lean/Erdos3Dyadic.lean` and composed the block estimates with summability. The aggregation depends on the block API; it cannot be treated as fully independent. A third worker reviewed the completed source without editing it. All container execution remained with the coordinator to avoid the earlier worker socket blockage.
+
+The graph reused the first run's bounded width and soft planning allowance: two concurrent worker tasks, one later review, no nested agents, at most three mathematical routes, and four primary-source searches in the research worker. No additional paid model API was used. Publication was already authorized; every public mathematical claim still required compilation, axiom audit, and scope review.
+
+```text
+RUN RETRO — dyadic-transfer · 2026-09-27
+VERIFIER KILL RATE   1 failed aggregation draft rejected; corrected final7 declarations accepted
+FAN-OUT EFFICIENCY   3/3 tasks returned useful output
+COMPRESSION RATIO    three candidate routes → three explicit gaps; seven new checked declarations
+RETURNED VS SENT     3/3
+COST                 inherited soft planning allowance → actual delegated token usage unavailable
+```
+
+Recommendation: narrow future work to a concrete new progression-free estimate. Further repackaging of the conditional reduction does not prove the conjecture.

@@ -1,5 +1,11 @@
 # Independent proof and scope review
 
+## Latest review: dyadic analytic transfer
+
+An independent reader reviewed `Erdos3Blocks.lean` and `Erdos3Dyadic.lean`: finite fibers, the explicit zero case, positive dyadic denominators, exact finite cardinality, unique partition, nonnegative comparison, and the shifted p-series with p>1. No logical defect was found. The coordinator corrected one elaboration failure involving function composition, then all 30 supporting declarations passed the pinned-image compiler and axiom audit.
+
+`APFreePowerEnvelope` remains an unproved parameter. Its constants depend on the progression length and must work uniformly over all relevant sets and blocks. This is a sufficient quantitative hypothesis, not a proved estimate or a claimed equivalence to Erdős 3. The full proof was not obtained. [Detailed research attempt](../research/proof-attempt-2026-09-27.md).
+
 ## Continuation review: exact hill bridges
 
 The continuation added `Erdos3Bridge.lean` (five declarations), `Erdos3Divergence.lean` (three), and `Erdos3Reduction.lean` (one). Independent read-only review confirmed the forward bridge uses positive-step injectivity to obtain **exactly** `k` elements, handles `k=0`, and produces the hill's precise filter conclusion for its stated special cases. It does not claim a reverse equivalence.

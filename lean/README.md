@@ -8,12 +8,16 @@ The full reciprocal-divergence conjecture is not proved. The modules below forma
 | `Erdos3Bridge.lean` | Five forward bridges: explicit positive-step witnesses give the hill's exact `Set.IsAPOfLength`; arbitrary lengths give its filter conclusion. Cofinite and affine-tail cases now use those exact definitions. |
 | `Erdos3Divergence.lean` | Reciprocal non-summability forces infinitude and unboundedness, and therefore a two-term progression in the hill's definition. |
 | `Erdos3Reduction.lean` | A conditional proof of the elaborated full hill, assuming `APFreeSummability`. That assumption remains unproved. |
+| `Erdos3Blocks.lean` | Four lemmas for finite logarithm blocks, reciprocal bounds, and their total mass. Zero is handled explicitly. |
+| `Erdos3Dyadic.lean` | A summability criterion from block counts, its p>1 envelope consequence, and a conditional full-hill implication retaining an unproved AP-free bound. |
 
 The original predicate `ContainsAP A k` supplies a start `a`, a positive step `d`, and membership of all terms `a + i*d` for `i < k`. The bridge constructs the range of `Fin k`, proves it has exactly `k` distinct elements, and checks the imported progression definition. This handles length zero too. It proves the forward direction; it does not claim an equivalence of the two definitions.
 
 The cofinite and affine-tail assumptions are stronger than reciprocal divergence. The two-term consequence cannot be extended to every length using unboundedness alone: the original module proves powers of two are unbounded yet have no nonconstant three-term progression. Their reciprocal convergence is explanatory mathematics, not yet a theorem in these files.
 
 `APFreeSummability` says that, for every `k ≥ 3`, a set containing no `k`-term progression has summable reciprocals. The reduction accepts this as a theorem parameter. An axiom audit cannot turn an unproved parameter into an established theorem; the parameter is explicitly printed in the verification record. Supplying it would settle the full hill.
+
+The new analytic criterion says that if `Σ j, (logBlock A j).ncard / 2^j` is summable, then A's reciprocals are summable. The block at j=0 includes zero when present, whose reciprocal is zero. `APFreePowerEnvelope` requires a stronger sufficient bound C/(j+1)ᵖ with p>1, uniformly over all progression-free sets for each fixed length. That counting bound is an unproved parameter; only the implication from it to the full hill is checked. [Detailed attempt and limits](../research/proof-attempt-2026-09-27.md).
 
 From the repository root, run all modules against the exact pinned image:
 
