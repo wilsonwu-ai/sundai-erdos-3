@@ -2,6 +2,10 @@
 
 ## Current pinned-image proof checkpoint
 
+**Extremal-equivalence checkpoint (27 September 2026):** `check-lean` compiled seven modules and audited **52** declarations. The new `Erdos3CrossScale.lean` adds 22, including `hill_statement_iff_extremal`: the verbatim hill proposition is equivalent to convergence of ∑ⱼ rₖ(2ʲ)/2ʲ for every k ≥ 4. All axiom sets are subsets of `propext`, `Classical.choice`, and `Quot.sound`. Six parallel Lean lanes proved lemmas against a frozen skeleton of fixed statements. A deterministic checker graded each lane: it compiled the file in the pinned image, rejected `sorry` in owned blocks, compared statements with the skeleton, required untouched non-owned regions, and scanned for forbidden tokens. The skeleton and checker were read-only and hash-verified before the merge. All six passed first time, and the merged module compiled on its first build. The exact-hill attempt is unchanged and is still rejected as expected. [Scope and obstacle](../research/full-proof-graph/extremal-equivalence.md).
+
+### Earlier checkpoint
+
 `python3 scripts/local_evaluator.py check-lean` compiled six modules in the actual frozen hill image and audited all **30** supporting declarations. The latest seven establish finite logarithm blocks, the counting-to-summability transfer, and an explicitly conditional full-hill implication. The source hashes are computed from the exact copied compilation inputs. Every axiom set is a subset of `propext`, `Classical.choice`, and `Quot.sound`. [Machine-readable evidence](../artifacts/mathlib-verification.json).
 
 Independent review checked cardinality, the empty progression, positive common difference, preservation of hypotheses, and the conditional reduction's scope. The latter's `APFreeSummability` parameter is explicitly printed and remains unproved. The image compiler also passed the valid control and rejected the four invalid controls.
@@ -57,3 +61,14 @@ COST                 ~24k delegated-token planning allowance → actual usage un
 ```
 
 Recommendation: leave the graph width unchanged. Future work should target a precise missing lemma and its dependencies before allocating more proof-search workers.
+
+```text
+RUN RETRO — erdos3-crossscale · 2026-09-27
+VERIFIER KILL RATE   0/6 lanes failed the deterministic checker (0%); the anchor is the Lean kernel, and the checker had rejected sorry in a pre-run test
+FAN-OUT EFFICIENCY   6/6 Lean lanes and 2/2 research chains returned usable work (100%)
+COMPRESSION RATIO    15 frozen statements + 6 lane helpers + 1 fidelity theorem → 22 audited declarations; 13 literature claims → 13 confirmed (1 wording fix); 4 AutoLab routes → 4 confirmed
+RETURNED VS SENT     16/16 agents returned (6 provers, 6 checks, 2 researchers, 2 skeptics); no repair round needed
+COST                 planned ≤ 40 agents → actual 16; ~1.12M subagent tokens; ~9.7 min wall clock
+```
+
+Recommendation: narrow. The formal reduction is now complete. Further proof lanes can only re-derive it until someone supplies the missing bound on rₖ(N).

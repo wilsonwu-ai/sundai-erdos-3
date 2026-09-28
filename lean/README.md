@@ -10,6 +10,7 @@ The full reciprocal-divergence conjecture is not proved. The modules below forma
 | `Erdos3Reduction.lean` | A conditional proof of the elaborated full hill, assuming `APFreeSummability`. That assumption remains unproved. |
 | `Erdos3Blocks.lean` | Four lemmas for finite logarithm blocks, reciprocal bounds, and their total mass. Zero is handled explicitly. |
 | `Erdos3Dyadic.lean` | A summability criterion from block counts, its p>1 envelope consequence, and a conditional full-hill implication retaining an unproved AP-free bound. |
+| `Erdos3CrossScale.lean` | Twenty-two declarations proving the exact hill **equivalent** to convergence of ∑ⱼ rₖ(2ʲ)/2ʲ for every k ≥ 4, where rₖ is the imported `Set.IsAPOfLengthFree.maxCard`. Includes the separated-block union lemma, shift and length monotonicity, attainment and r(2n) ≤ 2r(n), both transfer directions, and a verbatim-hill fidelity theorem. Neither side is proved. |
 
 The original predicate `ContainsAP A k` supplies a start `a`, a positive step `d`, and membership of all terms `a + i*d` for `i < k`. The bridge constructs the range of `Fin k`, proves it has exactly `k` distinct elements, and checks the imported progression definition. This handles length zero too. It proves the forward direction; it does not claim an equivalence of the two definitions.
 
@@ -18,6 +19,8 @@ The cofinite and affine-tail assumptions are stronger than reciprocal divergence
 `APFreeSummability` says that, for every `k ≥ 3`, a set containing no `k`-term progression has summable reciprocals. The reduction accepts this as a theorem parameter. An axiom audit cannot turn an unproved parameter into an established theorem; the parameter is explicitly printed in the verification record. Supplying it would settle the full hill.
 
 The new analytic criterion says that if `Σ j, (logBlock A j).ncard / 2^j` is summable, then A's reciprocals are summable. The block at j=0 includes zero when present, whose reciprocal is zero. `APFreePowerEnvelope` requires a stronger sufficient bound C/(j+1)ᵖ with p>1, uniformly over all progression-free sets for each fixed length. That counting bound is an unproved parameter; only the implication from it to the full hill is checked. [Detailed attempt and limits](../research/proof-attempt-2026-09-27.md).
+
+`Erdos3CrossScale.hill_statement_iff_extremal` restates the frozen hill verbatim, including `answer(sorry)`, and is proved by `hill_iff_extremal`. This checks that the equivalence is about the real target, not a paraphrase. Its right side uses the library's own extremal function, so the open obstacle is now a standard statement: for each k ≥ 4, rₖ(N)/N must decay fast enough along powers of two for the series to converge. The one step that needs k ≥ 4 is `sepBlock_union_free`: for k = 3, {1} and {4, 7} lie in separated blocks yet form 1, 4, 7. [Proof groups, obstacle and literature](../research/full-proof-graph/extremal-equivalence.md).
 
 From the repository root, run all modules against the exact pinned image:
 

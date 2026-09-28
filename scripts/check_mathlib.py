@@ -21,7 +21,7 @@ from local_evaluator import IMAGE
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = Path("/opt/formal-conjectures")
 MODULES = ("Erdos3SpecialCases", "Erdos3Bridge", "Erdos3Divergence", "Erdos3Reduction",
-           "Erdos3Blocks", "Erdos3Dyadic")
+           "Erdos3Blocks", "Erdos3Dyadic", "Erdos3CrossScale")
 SCOPES = {
     "Erdos3SpecialCases": "elementary known special cases, using an explicit witness predicate",
     "Erdos3Bridge": "forward bridges to the hill definitions and special-case conclusions",
@@ -29,6 +29,7 @@ SCOPES = {
     "Erdos3Reduction": "conditional implication; APFreeSummability remains an unproved parameter",
     "Erdos3Blocks": "finite logarithmic blocks and their reciprocal mass bounds",
     "Erdos3Dyadic": "analytic counting-to-summability transfer; APFreePowerEnvelope remains unproved",
+    "Erdos3CrossScale": "equivalence of the hill with dyadic extremal summability for k>=4; neither side is proved",
 }
 
 

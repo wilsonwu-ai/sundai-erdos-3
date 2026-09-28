@@ -1,0 +1,129 @@
+{
+  "checked_on": "2026-09-27",
+  "scope": "read-only documentation research; no AutoLab command with side effects was run and nothing was submitted",
+  "erdos3_hill_has_heldout": "NO (moderate-high confidence), based on direct inspection of the locally-pulled hill bundle: /Applications/sundai-erdos-3/research/autolab/erdos-3/private.lock and blobs.lock both read `{\"lock_version\": 1, \"kind\": \"private\"/\"blobs\", \"entries\": []}` -- zero entries. The autolab-ai/hills GitHub reference (fetched) says private.lock tracks \"every file under private/\" so held-out data never lands in git; an empty entries list means no private/held-out files exist in this hill version. Caveat: docs.autolab.ai's concepts page says \"Anyone else [a non-owner] gets the public files and unofficial local scores,\" so I could not fully rule out that private.lock entries are stripped/redacted for non-owners rather than genuinely empty upstream -- no fetched docs page explicitly disambiguates \"empty because none exist\" vs \"empty because hidden from non-owners.\" The project's own prior research file (research/autolab.md) already treats \"no held-out data\" as established. Either way, the operative CLI rule is the same: \"A report from a hill with no held-out data is official and ranks.\"",
+  "unknowns": [
+    "Whether `hills submit` (the server-side AutoLab command, not the open-source `hills` package) rejects, accepts, or specially flags a report with passed=false / proved=0 -- no fetched doc states this either way, and the submit implementation lives in AutoLab's private control-node code, not the inspectable open-source `hills` repo.",
+    "Whether a submitted leaderboard entry (or a hill itself) can ever be deleted or retracted by its submitter/owner after the fact -- no fetched docs page (CLI reference, concepts, explore guide, projects guide) mentions deletion of a submission.",
+    "Whether the empty private.lock/blobs.lock seen locally reflects a genuine absence of held-out data on ottogin/erdos-3, or whether those entries are simply stripped/redacted for non-owner pulls -- docs.autolab.ai/concepts says non-owners only 'get the public files,' which leaves this ambiguous.",
+    "Whether an `autolab init`-created but never-started ('live-but-paused') project's dashboard URL is publicly visible/discoverable to anyone other than the owner, i.e. whether it actually functions as a free public 'project page.'",
+    "Exact pricing figures (e.g. dollar rate for 'AutoLab model usage' or compute) -- no pricing/billing page was found at any guessed docs.autolab.ai URL (several 404'd: /guides/build-a-hill/, /guides/climb/, /guides/compute/, /guides/tokens-api-keys/, /auth/api-keys/, /guides/climb-settings/, /reference/rest-api/, /concepts/hills/), so cost figures beyond the --max-cost/model-budget-cap mechanism itself are unverified.",
+    "Whether creating and publishing a self-owned hill with a different theorem (Route B) would violate any AutoLab terms of service around hill authenticity/quality bars for the public Explore tab -- no terms-of-service page was located or fetched."
+  ],
+  "routes": [
+    {
+      "id": "A",
+      "route": "Local `hills eval` (Colima/Docker pipeline already built in this repo) -> `autolab hills submit report.json --hill ottogin/erdos-3`",
+      "what_it_publishes": "Uploads your local, signed hills-eval JSON report to the ottogin/erdos-3 hill's leaderboard, attributed to your AutoLab account (wilsonwu-ai / user_3JNJGV2444ITxY5KC28fPsvj6Vy). Shows on the hill's page and on the platform's public Explore/leaderboard listing ('every evaluated experiment across all climbs, ranked best per climb or best per person').",
+      "cost": "No cost documented for the submit command itself. Docs attach billing language (\"Model budget cap ($)\", \"compute billed separately\", `--max-cost`) only to `autolab init`/`autolab start` hosted-agent climbs, not to `hills submit`, which is just a report upload after a compute run you already performed yourself locally.",
+      "reversible": "Not confirmed reversible. No fetched documentation page (CLI reference, concepts, projects guide, explore guide) describes deleting or retracting a hills-submit leaderboard entry. Treat as effectively permanent and public once submitted.",
+      "visibility": "Public. `hills submit` help text: \"attributed to you\"; docs.autolab.ai root-nav content: leaderboards show \"every evaluated experiment across all climbs, ranked best per climb or best per person.\"",
+      "requirements": "A local hills-eval report.json, produced against the correct hill/version, from a clean (committed, non-dirty) working tree. For this hill specifically, the CLI text implies a clean-tree report is 'official' regardless of held-out data because there is none for erdos-3 (private.lock/blobs.lock both empty).",
+      "failing_report_behavior": "Unconfirmed. The docs never state that hills submit is gated on `passed`/`proved` status -- the stated conditions for 'official and ranks' are only (a) hill has no held-out data, and (b) tree is not dirty. No source found confirms or denies that a passed=false report is accepted, rejected, or displayed differently. This gap is because `hills submit` calls AutoLab's own server, which is not part of the open-source `hills` package (github.com/autolab-ai/hills) whose code (runner.py, check.py, hill.py, cli.py's cmd_eval/cmd_commit) was inspected in this project's other notes -- submit itself was never in that inspected code.",
+      "sources": [
+        {
+          "url": "https://docs.autolab.ai/reference/cli",
+          "quote": "Submit a local `hills eval` REPORT (default: ./report.json) to the hill's leaderboard, attributed to you. ... A report from a hill with no held-out data ranks officially; a dirty tree does not."
+        },
+        {
+          "url": "https://docs.autolab.ai/",
+          "quote": "A hill is one task with the scoring fixed: an evaluator, a README that stated what to build, and the held-out data the score runs on."
+        },
+        {
+          "url": "https://docs.autolab.ai/guides/explore/",
+          "quote": "Held-out data under `private/` is never shown ... leaderboard ... displaying every evaluated experiment across all climbs, ranked best per climb or best per person."
+        },
+        {
+          "url": "https://docs.autolab.ai/guides/projects/",
+          "quote": "Every project starts on your AutoLab platform key. ... A live climb still runs nothing until it has compute."
+        },
+        {
+          "url": "file:///Applications/sundai-erdos-3/.local-evaluator/ref/autolab-cli-help.txt",
+          "quote": "Submit a local `hills eval` REPORT (default: ./report.json) to the hill's leaderboard, attributed to you. Produce the report first with `hills eval <dir> -H <hill> -o report.json`, then ONLY submit if the user has said they want to be on the leaderboard. A report from a hill with no held-out data is official and ranks; a dirty tree does not."
+        },
+        {
+          "url": "file:///Applications/sundai-erdos-3/research/autolab/erdos-3/private.lock",
+          "quote": "{ \"lock_version\": 1, \"kind\": \"private\", \"entries\": [] }"
+        },
+        {
+          "url": "file:///Applications/sundai-erdos-3/research/autolab/erdos-3/blobs.lock",
+          "quote": "{ \"lock_version\": 1, \"kind\": \"blobs\", \"entries\": [] }"
+        }
+      ],
+      "confidence": "Medium-high on cost/visibility/official-status mechanics (directly quoted docs + local files); low on failing-report acceptance behavior (no source states it either way).",
+      "skeptic_verdict": "confirmed",
+      "skeptic_note": "Central mechanics all check out against fetched sources: (1) reference/cli's hills-submit help text (also matches the local file /Applications/sundai-erdos-3/.local-evaluator/ref/autolab-cli-help.txt lines 63-76 verbatim) confirms 'attributed to you' and the leaderboard-eligibility rule; (2) guides/explore confirms held-out data under private/ is never shown and the leaderboard shows 'every evaluated experiment across all climbs, ranked best per climb or best per person' (public Explore listing); (3) billing language ('Model budget cap ($)', 'compute billed separately', --max-cost) is documented only under init/start (guides/projects, reference/cli), and the hills-submit command has no cost flags in reference/cli/local help -- confirming no submit-specific cost is documented; (4) no fetched page (reference/cli, guides/explore, guides/projects) describes deleting/retracting a submitted leaderboard entry, consistent with the 'not confirmed reversible' framing; (5) the local file's account block (wilsonwu-ai, user_3JNJGV2444ITxY5KC28fPsvj6Vy) and the two lock files (private.lock, blobs.lock, both empty entries: []) were read directly and match verbatim. However, two specific inaccuracies in the claim as written: (a) the word 'signed' in 'signed hills-eval JSON report' is not supported by any fetched source -- no page uses 'signed' or describes cryptographic signing of the report; (b) the quote attributed to https://docs.autolab.ai/guides/projects/ -- 'Every project starts on your AutoLab platform key.' -- does NOT appear on that page; it is actually on https://docs.autolab.ai/reference/cli (in the `init` command description). Only the second half of that quoted sentence ('A live climb still runs nothing until it has compute.') is actually on guides/projects. Also note the reference/cli quote in the claim ('ranks officially') is a paraphrase of the page's actual wording ('is official and ranks') -- same meaning, not a material misquote.",
+      "corrected_claim": "Same as stated, except: drop 'signed' (unsupported -- no source describes report signing), and re-attribute 'Every project starts on your AutoLab platform key' to https://docs.autolab.ai/reference/cli (init command section), not guides/projects. The 'A live climb still runs nothing until it has compute' half of that quote is correctly sourced to guides/projects."
+    },
+    {
+      "id": "B",
+      "route": "Publish your own hill: `hills new`/`hills fork` -> implement a different, already-provable Lean theorem (e.g. a genuine equivalence lemma) -> `hills check`/`hills commit`/`hills push --public` -> then produce a real passing local report and `hills submit` against your own hill",
+      "what_it_publishes": "A new, self-owned hill (evaluator + README + your chosen fixed statement) visible on your account and, once `--public`, on the platform's Explore tab; plus a passing, attributed leaderboard entry on that hill (since you control the statement, you can make it genuinely provable).",
+      "cost": "No cost documented for `hills new`/`check`/`commit`/`push` -- these are described as local scaffolding/validation/publish commands with no billing language attached, unlike `autolab init`/`start` hosted climbs.",
+      "reversible": "Hill visibility itself looks reversible: `hills settings NAME --private` is documented as a way to flip a published hill back to private. Whether a leaderboard entry on that hill can be removed is unconfirmed (same gap as Route A).",
+      "visibility": "Public once pushed with `--public`: \"Make it public\" / puts it \"on the Explore tab.\" Attribution to your account is implied by hill ownership (you `hills new` or `hills fork` it under your account).",
+      "requirements": "A statement you can actually finish proving; `hills check` must validate the manifest/evaluator contract and pass tests/ before commit; `hills push` publishes the committed version.",
+      "failing_report_behavior": "Not applicable in the intended use of this route (the point is to only submit once you have a real pass against your own hill), but the same submit mechanics as Route A apply.",
+      "sources": [
+        {
+          "url": "https://docs.autolab.ai/reference/cli",
+          "quote": "Fork HILL (owner/name) into a new hill you own. ... Copies evaluator, README, and (if accessible) private files into a hill under your account. ... Publish NAME's latest commit to your control node. ... --public Make the hill public on the hub after pushing."
+        },
+        {
+          "url": "https://docs.autolab.ai/guides/explore/",
+          "quote": "start from someone else's hill ... copies the hill's current version, including private data if you can read it, into a hill you own, and starts private."
+        },
+        {
+          "url": "file:///Applications/sundai-erdos-3/.local-evaluator/ref/autolab-cli-help.txt",
+          "quote": "autolab hills settings my-task --deadline 2026-09-15 --public ... --public  Make it public. --private  Make it private."
+        }
+      ],
+      "confidence": "Medium-high on mechanics (directly quoted docs); this route's central caveat (it does not count toward ottogin/erdos-3) is a structural fact from reading the actual hill files, not an inference.",
+      "skeptic_verdict": "confirmed",
+      "skeptic_note": "reference/cli confirms hills fork copies 'evaluator, README, and (if you can read them) private files' into a hill under your account (local file lines 51/86-99 match for fork, push --public, and settings --private/--deadline). guides/explore was independently fetched twice and confirms only 'A fork copies the current version into a hill under your account so you can change the task, and it starts private' -- it does NOT contain the phrase 'including private data if you can read it' that the claim's sources list attributes to this URL; that detail belongs only to the reference/cli page (already correctly cited as this claim's source #1). The core substantive point -- that a fork can carry private files if the forker can read them, and that hills become public once pushed with --public -- is confirmed via the correctly-matched sources; the guides/explore citation is a misattribution of a phrase that lives elsewhere.",
+      "corrected_claim": "Same as stated, except: the 'copies ... including private data if you can read it' detail should be attributed to https://docs.autolab.ai/reference/cli (hills fork description), not https://docs.autolab.ai/guides/explore/, which only states the fork 'copies the current version ... and starts private' without mentioning private-data copying."
+    },
+    {
+      "id": "C",
+      "route": "`autolab init --hill ottogin/erdos-3` (or `--empty`) without `--start`, as a free 'project page'",
+      "what_it_publishes": "A linked project workspace, created \"live-but-paused\" on the control node, with a printed dashboard URL. Per docs: \"init asks whether to use this directory's code, the climb name, and (if you did not pass --hill) which hill to climb\" and \"Nothing runs yet.\"",
+      "cost": "Initializing without starting appears to avoid the agent-run cost: billing language (\"Model budget cap ($)\", \"AutoLab model usage, with compute billed separately\", `--max-cost`) is tied to the agent actually running, which only happens on `autolab start` (or `init --start`). No cost was documented for `init` alone.",
+      "reversible": "Unconfirmed either way -- no page fetched described deleting a paused/never-started project, but since nothing has run and no score exists, the practical stakes of 'reversibility' are lower than Routes A/B.",
+      "visibility": "Unconfirmed. No fetched page states whether a paused, never-started project's dashboard URL is publicly viewable/discoverable to anyone besides the project owner, or whether it functions as a public 'write-up page' at all before `start`.",
+      "requirements": "An AutoLab account and a hill to target (or `--empty` for a blank project); `--hill` is 'required to start' per the CLI help, implying it's not required merely to init.",
+      "sources": [
+        {
+          "url": "https://docs.autolab.ai/guides/projects/",
+          "quote": "init asks whether to use this directory's code, the climb name, and (if you did not pass --hill) which hill to climb. It links the directory and creates the climb live-but-paused on the control node, then prints the dashboard URL. ... Nothing runs yet. ... A Model budget cap ($) ... covering AutoLab model usage, with compute billed separately."
+        },
+        {
+          "url": "file:///Applications/sundai-erdos-3/.local-evaluator/ref/autolab-cli-help.txt",
+          "quote": "--hill TEXT         The evaluation to climb: owner/name or owner/name@<version>. Required to start."
+        }
+      ],
+      "confidence": "Low-medium: the no-agent-cost inference for a never-started project is reasonably supported by the quotes, but genuine public visibility of a paused project as a 'page' was never confirmed in any fetched source.",
+      "skeptic_verdict": "confirmed",
+      "skeptic_note": "guides/projects, fetched directly, matches the claim's quotes closely: 'init asks whether to use this directory's code, the climb name, and (if you did not pass --hill) which hill to climb. It links the directory and creates the climb live-but-paused on the control node, then prints the dashboard URL. ... Nothing runs yet.' and 'The optional Model budget cap ($) starts blank and covers AutoLab model usage, with compute billed separately.' both match (elisions via '...' are faithful). The local file's --hill option text ('The evaluation to climb: owner/name or owner/name@<version>. Required to start.') matches verbatim. No fetched page confirms or denies reversibility or public visibility of a paused/never-started project's dashboard URL, matching the claim's own 'unconfirmed' framing for those two fields.",
+      "corrected_claim": "No correction needed."
+    },
+    {
+      "id": "D",
+      "route": "Entirely-local development mode (no AutoLab climb at all)",
+      "what_it_publishes": "Nothing public. Per docs: \"Entirely locally gives you a copyable prompt for your coding agent. It installs the required tools and pulls the hill into your workspace. This creates no AutoLab climb and uploads no scores.\" This is exactly the mode this repo's local-evaluator pipeline already implements.",
+      "cost": "Free -- explicitly no AutoLab climb, no score upload, so no platform billing surface exists.",
+      "reversible": "N/A -- nothing is published.",
+      "visibility": "Private / local only.",
+      "requirements": "None beyond what this repo already has (Colima/Docker + the pinned image).",
+      "sources": [
+        {
+          "url": "https://docs.autolab.ai/guides/projects/",
+          "quote": "Entirely locally gives you a copyable prompt for your coding agent. It installs the required tools and pulls the hill into your workspace. This creates no AutoLab climb and uploads no scores."
+        }
+      ],
+      "confidence": "High -- directly quoted and consistent with this project's own documented local-evaluator design.",
+      "skeptic_verdict": "confirmed",
+      "skeptic_note": "guides/projects, fetched directly, contains the quote essentially verbatim: '\"Entirely locally\" gives you a copyable prompt for your coding agent. It installs the required tools and pulls the hill into your workspace. This creates no AutoLab climb and uploads no scores.' This fully supports the claim that this mode publishes nothing, has no cost, and has no visibility since no climb or score is created.",
+      "corrected_claim": "No correction needed."
+    }
+  ]
+}

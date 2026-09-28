@@ -73,3 +73,13 @@ No documented, guaranteed-free hosted evaluation route was found. No hosted acti
 ## Retrieval notes
 
 Anonymous HTTP access to the exact hill URL returned `404`; its trailing-slash route redirected to sign-in. The installed AutoLab CLI's existing authentication could read the **public** hill through its documented client API. Credential values were neither printed nor saved in this project. The read-only helper [fetch_public_metadata.py](autolab/fetch_public_metadata.py) saves only selected hill metadata and public OCI metadata.
+
+## Publishing routes checked 27 September 2026
+
+A read-only researcher checked AutoLab's documentation and the captured CLI help, and an independent skeptic re-fetched the sources. No command with side effects was run, and nothing was submitted. [Routes, quotes and verdicts](../artifacts/autolab-publishing-routes.json).
+
+- **`autolab hills submit REPORT`** posts a locally evaluated report to the hill's public leaderboard, attributed to the account. It needs no hosted compute. The CLI states: "A report from a hill with no held-out data is official and ranks; a dirty tree does not." This hill's `private.lock` and `blobs.lock` are empty. No page says whether a failing report is accepted, or whether a submission can be retracted. Treat a submission as public and permanent.
+- **Owning a separate hill** (`hills new`/`fork` → `check` → `commit` → `push`, then `hills settings --public`) has no documented cost, and visibility can be switched back with `--private`. A passing entry there would not count toward `ottogin/erdos-3`. It must be labelled as a different theorem.
+- **`autolab init` without `--start`** creates a paused project with no documented agent cost. Whether its dashboard is publicly visible is unconfirmed.
+- **Entirely local mode**, the current setup, "creates no AutoLab climb and uploads no scores."
+

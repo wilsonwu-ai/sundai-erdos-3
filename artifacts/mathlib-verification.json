@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-09-27T23:01:01.680676+00:00",
+  "checked_at_utc": "2026-09-28T00:19:51.432964+00:00",
   "status": "passed",
   "scope": "supporting results and analytic transfers in the pinned hill libraries",
   "original_conjecture_proved": false,
@@ -7,7 +7,7 @@
   "compiler": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
   "image": "ghcr.io/ottogin/lean-mathlib@sha256:964547ad81e109c78545512867bae70b710c55d833078674878faad7de0ebb85",
   "answer_source_sha256": "c8b3b31e9bb25c511e577b1812159a210e9346720f19ec6c6b30905a0802db7a",
-  "theorems_checked": 30,
+  "theorems_checked": 52,
   "allowed_axioms": [
     "Classical.choice",
     "Quot.sound",
@@ -188,6 +188,125 @@
         ]
       },
       "stdout": "'Erdos3Dyadic.reciprocal_summable_of_dyadic_counts' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3Dyadic.reciprocal_summable_of_power_envelope' depends on axioms: [propext, Classical.choice, Quot.sound]\nErdos3Dyadic.hill_of_apFree_power_envelope (hbound : APFreePowerEnvelope) :\n  True \u2194 \u2200 (A : Set \u2115), (\u00acSummable fun a => 1 / \u2191\u2191a) \u2192 \u2203\u1da0 (k : \u2115) in Filter.atTop, \u2203 S \u2286 A, S.IsAPOfLength \u2191k\n'Erdos3Dyadic.hill_of_apFree_power_envelope' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "source": "lean/Erdos3CrossScale.lean",
+      "scope": "equivalence of the hill with dyadic extremal summability for k>=4; neither side is proved",
+      "source_sha256": "f605289b15a763ac7730ef9fd72853e4bf84d61cf3c519a29d9c8ece44eefa85",
+      "theorems_checked": 22,
+      "axioms": {
+        "Erdos3CrossScale.free_mono": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.free_image_add": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.free_preimage_add": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.free_mono_length": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.a_sepBlock_disjoint": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.a_dichot": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.a_window": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.sepBlock_union_free": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.r_attained": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.card_le_r": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.r_two_mul_le": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.logBlock_ncard_le_r": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.freeSummable_of_dyadic": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.dyadic_of_quart": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.e_sepBlock_eq": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.e_shift_mem": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.e_block_lower": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.quart_of_freeSummable": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.freeSummable_iff_quart": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.freeSummable_iff_dyadic": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.hill_iff_extremal": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3CrossScale.hill_statement_iff_extremal": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "stdout": "Erdos3CrossScale.lean:43:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.\nIf you'd rather continue using `push_neg` in your project, you can implement it as follows:\n```\nopen Lean.Parser.Tactic in\nmacro \"push_neg\" cfg:optConfig loc:(location)? : tactic =>\n  `(tactic| push $cfg:optConfig Not $[$loc]?)\n```\nErdos3CrossScale.lean:92:30: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead\nErdos3CrossScale.lean:282:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.\nIf you'd rather continue using `push_neg` in your project, you can implement it as follows:\n```\nopen Lean.Parser.Tactic in\nmacro \"push_neg\" cfg:optConfig loc:(location)? : tactic =>\n  `(tactic| push $cfg:optConfig Not $[$loc]?)\n```\n'Erdos3CrossScale.free_mono' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.free_image_add' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.free_preimage_add' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.free_mono_length' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.a_sepBlock_disjoint' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.a_dichot' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.a_window' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.sepBlock_union_free' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.r_attained' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.card_le_r' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.r_two_mul_le' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.logBlock_ncard_le_r' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.freeSummable_of_dyadic' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.dyadic_of_quart' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.e_sepBlock_eq' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.e_shift_mem' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.e_block_lower' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.quart_of_freeSummable' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.freeSummable_iff_quart' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.freeSummable_iff_dyadic' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.hill_iff_extremal' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.hill_statement_iff_extremal' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
     }
   ]
 }

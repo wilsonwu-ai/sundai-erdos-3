@@ -1,5 +1,7 @@
 # Full-proof graph: attempted, not completed
 
+> **Follow-up (27 September 2026):** the equivalence below is now kernel-checked against the verbatim hill statement, with 22 new declarations and 52 in total. The estimate itself remains open. [Lean-checked equivalence and precise obstacle](extremal-equivalence.md).
+
 **No full proof of Erdős 3 was obtained.** This round attacked the missing mathematical obligation with two independent routes and a separate reviewer. It produced explicit counterexamples to proposed shortcuts and an elementary proof of a useful equivalence. Neither route supplied the required summability estimate. The [primary status record](https://github.com/teorth/erdosproblems/blob/main/data/problems.yaml) still marks problem 3 open, checked on 27 September 2026.
 
 The existing **30 Lean-checked supporting declarations are unchanged**. All new mathematical arguments in this directory are written proofs reviewed by agents, not Lean kernel certificates. No passing full-hill submission or AutoLab score was produced.
@@ -28,7 +30,7 @@ There is no need to prove a common bound C/(j+1)ᵖ with p>1. That earlier suffi
 | Use a three-term progression of starts to obtain a four-term progression | **Refuted.** A seven-element counterexample works; finite base-five cubes defeat any fixed nesting depth. | [Proof and witnesses](length-induction.md), [finite enumeration](../../artifacts/proof-candidate-checks.json) |
 | Progression starts retain divergent mass, assuming the length-k theorem | **Valid conditional argument.** It does not synchronize their differences. | [Complement argument](length-induction.md) |
 | Force restrictions from interactions between widely separated blocks | **Obstructed.** For k≥4, independently chosen k-free subsets of [4ʲ,2·4ʲ) have a k-free union. | [Separated-block proof](cross-scale.md), [independent review](review.md) |
-| Bound the total normalized size of those independent blocks | **Open.** It is equivalent to fixed-k reciprocal summability. | [Equivalence with all quantifiers justified](cross-scale.md) |
+| Bound the total normalized size of those independent blocks | **Open.** It is equivalent to fixed-k reciprocal summability; that equivalence is now **Lean-checked**. | [Equivalence with all quantifiers justified](cross-scale.md), [kernel-checked version](extremal-equivalence.md) |
 
 The cross-scale argument is constructive. Choose a largest k-free subset in each finite block and combine them. No new k-term progression can cross the gaps for k≥4. Consequently, the missing estimate is exactly
 
