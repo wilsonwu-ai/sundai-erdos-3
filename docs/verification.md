@@ -4,6 +4,15 @@
 
 **Extremal-equivalence checkpoint (27 September 2026):** `check-lean` compiled seven modules and audited **52** declarations. The new `Erdos3CrossScale.lean` adds 22, including `hill_statement_iff_extremal`: the verbatim hill proposition is equivalent to convergence of ∑ⱼ rₖ(2ʲ)/2ʲ for every k ≥ 4. All axiom sets are subsets of `propext`, `Classical.choice`, and `Quot.sound`. Six parallel Lean lanes proved lemmas against a frozen skeleton of fixed statements. A deterministic checker graded each lane: it compiled the file in the pinned image, rejected `sorry` in owned blocks, compared statements with the skeleton, required untouched non-owned regions, and scanned for forbidden tokens. The skeleton and checker were read-only and hash-verified before the merge. All six passed first time, and the merged module compiled on its first build. The exact-hill attempt is unchanged and is still rejected as expected. [Scope and obstacle](../research/full-proof-graph/extremal-equivalence.md).
 
+**Equivalence hill publication (28 September 2026 UTC):** the checked modules were inlined into one proof body and evaluated as the fixed statement of [`wilsonwu-ai/erdos-3-extremal-equivalence`](https://app.autolab.ai/hills/wilsonwu-ai/erdos-3-extremal-equivalence). That hill was forked from `ottogin/erdos-3` with the evaluator unchanged.
+
+- **Evaluation:** in the pinned image, against committed tree `615c66dd`, it returned `passed: true` and `proved = 1`, with standard axioms and a verified signature.
+- **Negative control:** the `by sorry` baseline was rejected.
+- **Pre-publication check:** a local-only dry-run hill had passed the same way before anything was pushed.
+- **Submission:** the report was submitted and ranks #1. The public leaderboard page was inspected afterwards.
+
+This is a different theorem from Erdős 3. No submission was made to `ottogin/erdos-3`. [Record](../artifacts/equivalence-hill-publication.json).
+
 ### Earlier checkpoint
 
 `python3 scripts/local_evaluator.py check-lean` compiled six modules in the actual frozen hill image and audited all **30** supporting declarations. The latest seven establish finite logarithm blocks, the counting-to-summability transfer, and an explicitly conditional full-hill implication. The source hashes are computed from the exact copied compilation inputs. Every axiom set is a subset of `propext`, `Classical.choice`, and `Quot.sound`. [Machine-readable evidence](../artifacts/mathlib-verification.json).

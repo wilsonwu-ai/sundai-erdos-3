@@ -1,0 +1,46 @@
+{
+  "hill": "erdos-3-extremal-equivalence",
+  "tree_hash": "615c66dd027e9adbe8019ef09eb09be2d9166028",
+  "commit": "7138ad248a90917525cbc75d89e7e3f237881c20",
+  "submission_hash": "sha256:127795e4d34918f8d1f491fdfa496e9af6799afc6756e28dbea3649d7e65b9ed",
+  "submission_git": "main@cb7f5bd+dirty",
+  "passed": true,
+  "config": [
+    {
+      "name": "prover",
+      "value": "lean4",
+      "primary": true
+    },
+    {
+      "name": "toolchain",
+      "value": "v4.33.1",
+      "primary": true
+    }
+  ],
+  "metrics": [
+    {
+      "name": "proved",
+      "value": 1.0,
+      "direction": "max"
+    }
+  ],
+  "details": {
+    "axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "params": {},
+  "final": false,
+  "official": true,
+  "official_reason": null,
+  "hill_spec_version": 3,
+  "tool": {
+    "version": "0.11.0",
+    "sha256": "970e4a3fcb74c27e0c56b62efd22b4fab82a755229a8aef8f90bbc00a9cfe275"
+  },
+  "timestamp": "2026-09-28T00:50:50Z",
+  "report_version": 1,
+  "signature": "hmac-sha256:0824cad5377285d09a7a20cd994003eb8b72d9edb2474aeccf8b8adee012f696"
+}

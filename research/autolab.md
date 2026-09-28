@@ -83,3 +83,14 @@ A read-only researcher checked AutoLab's documentation and the captured CLI help
 - **`autolab init` without `--start`** creates a paused project with no documented agent cost. Whether its dashboard is publicly visible is unconfirmed.
 - **Entirely local mode**, the current setup, "creates no AutoLab climb and uploads no scores."
 
+## Published: the equivalence hill (28 September 2026 UTC)
+
+[`wilsonwu-ai/erdos-3-extremal-equivalence`](https://app.autolab.ai/hills/wilsonwu-ai/erdos-3-extremal-equivalence) is public. It was forked from `ottogin/erdos-3` via `autolab hills fork`, so the lineage is recorded on the platform.
+
+- **What changed:** `statement.lean` asks for the proved equivalence, with the Erdős 3 proposition copied verbatim on its left side. The README, hill name and package name also changed.
+- **What is identical:** `eval.py`, the tests, the `by sorry` baseline, and both lock files are byte-identical to upstream.
+- **Local evaluation:** the committed tree `615c66dd` passed in the pinned image, the report signature verified, and the report was submitted with `autolab hills submit`. It ranks #1 with `proved = 1`.
+- **Not submitted:** nothing went to `ottogin/erdos-3`.
+
+A caveat on `hills pull`: pulling the fork unpacked its first version, a copy of the upstream hill, into the existing `.autolab/hills/erdos-3` directory, because the bundle's manifest name is still `erdos-3`. The content and tree hash were unchanged (`0149383`), and `verify_target` still passes. The equivalence hill was then created as its own directory, keeping the fork's history. [Publication record](../artifacts/equivalence-hill-publication.json).
+

@@ -1,0 +1,108 @@
+{
+  "published_at_utc": "2026-09-28T00:51Z",
+  "hill": "wilsonwu-ai/erdos-3-extremal-equivalence",
+  "url": "https://app.autolab.ai/hills/wilsonwu-ai/erdos-3-extremal-equivalence",
+  "leaderboard": "https://app.autolab.ai/hills/wilsonwu-ai/erdos-3-extremal-equivalence/leaderboard",
+  "visibility": "public",
+  "forked_from": "ottogin/erdos-3 @ 0149383772ad4a7c7cc45a434de11be51678a524",
+  "tree_hash": "615c66dd027e9adbe8019ef09eb09be2d9166028",
+  "commit": "7138ad248a90917525cbc75d89e7e3f237881c20",
+  "scope": "A different theorem from Erdos 3: the verbatim Erdos 3 hill proposition is equivalent to convergence of sum_j maxCard k (2^j) / 2^j for every k >= 4. Neither side is proved. No submission was made to ottogin/erdos-3.",
+  "submission": {
+    "source": "submissions/equivalence/solution.lean",
+    "sha256": "841625415199306253df2a259fa96fb2249b6f4d69ff891fe7850f3dc1a3f9aa",
+    "generator": "scripts/inline_solution.py"
+  },
+  "local_report": {
+    "file": "artifacts/equivalence-hill-report.json",
+    "passed": true,
+    "metrics": [
+      {
+        "name": "proved",
+        "value": 1.0,
+        "direction": "max"
+      }
+    ],
+    "axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "official": true,
+    "signature_verified_by": "hills verify (0.11.0)"
+  },
+  "negative_control": {
+    "submission": "examples/baseline (by sorry)",
+    "passed": false,
+    "error": "the proof uses sorry"
+  },
+  "leaderboard_result": "#1, proved = 1, climber wilsonwu-ai (confirmed on the public leaderboard page)",
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "0df64dd2b35089d662d8e467e33f81b1d50a2849ca412d58c658367920da5881",
+      "bytes": 25,
+      "identical_to_ottogin_erdos_3": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "91569c96178c0ccb984f726e91869b83037d580e8d91e2bb37c12ed9ef28b110",
+      "bytes": 3164,
+      "identical_to_ottogin_erdos_3": false
+    },
+    {
+      "path": "blobs.lock",
+      "sha256": "6d6f25aa036e49add8c6e961af787a3149777a7fbd60398e76c219c5a1ea8093",
+      "bytes": 60,
+      "identical_to_ottogin_erdos_3": true
+    },
+    {
+      "path": "eval.py",
+      "sha256": "8a0ac14c62863b6d738b91d311e63f5caa0be608849b761ee238711d9dcdc215",
+      "bytes": 4935,
+      "identical_to_ottogin_erdos_3": true
+    },
+    {
+      "path": "examples/baseline/solution.json",
+      "sha256": "f4744aa09a6caaea1b4ce33443fce5929f9525c9ded9fd1dfb2196e321e85a63",
+      "bytes": 15,
+      "identical_to_ottogin_erdos_3": true
+    },
+    {
+      "path": "examples/baseline/solution.lean",
+      "sha256": "24100c17c94419ea5188b4e9c63400051db8ab4f4d73817ff9e36bcbf6c0fc39",
+      "bytes": 9,
+      "identical_to_ottogin_erdos_3": true
+    },
+    {
+      "path": "hill.yaml",
+      "sha256": "d284e95acce520ba4680005a0ea1677ee1abfd82045fa264b567a17b04b83df2",
+      "bytes": 270,
+      "identical_to_ottogin_erdos_3": false
+    },
+    {
+      "path": "private.lock",
+      "sha256": "8a77f3a5c07c0d653c46514a4e1d488d56e7cb16f69cfe987519c76376875c72",
+      "bytes": 62,
+      "identical_to_ottogin_erdos_3": true
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "ac5bba43c86a21841ca1df040024a9341bd16c269ba9e391a71c4dc6b27ef7f0",
+      "bytes": 226,
+      "identical_to_ottogin_erdos_3": false
+    },
+    {
+      "path": "statement.lean",
+      "sha256": "656f37b98cc1c81f6a73223ecf88ca85ef8d0b43294cb2e5932caecdc0668170",
+      "bytes": 983,
+      "identical_to_ottogin_erdos_3": false
+    },
+    {
+      "path": "tests/test_hill.py",
+      "sha256": "10b330a26a3a154f3f13a31e917fefd278eaa98bdac8113af84e6556fe2d6eb2",
+      "bytes": 222,
+      "identical_to_ottogin_erdos_3": true
+    }
+  ]
+}

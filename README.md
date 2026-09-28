@@ -66,7 +66,7 @@ python3 scripts/local_evaluator.py check-lean
 python3 scripts/local_evaluator.py eval submissions/current
 ```
 
-`check-lean` verifies the supporting modules and saves their source hashes and axiom audits. The full-hill attempt now reduces the goal to reciprocal summability for a progression-free set, then intentionally fails at that unproved step. Each attempt uses the fixed original statement; reports are saved under `.local-evaluator/reports/`. [Current remaining proof state](artifacts/reduction-attempt.json). No hosted climb, paid model request, official submission, or official leaderboard score was produced.
+`check-lean` verifies the supporting modules and saves their source hashes and axiom audits. The full-hill attempt now reduces the goal to reciprocal summability for a progression-free set, then intentionally fails at that unproved step. Each attempt uses the fixed original statement; reports are saved under `.local-evaluator/reports/`. [Current remaining proof state](artifacts/reduction-attempt.json). No hosted climb, paid model request, submission, or leaderboard score was produced for `ottogin/erdos-3`. A separate, clearly labelled hill for the proved equivalence, [`wilsonwu-ai/erdos-3-extremal-equivalence`](https://app.autolab.ai/hills/wilsonwu-ai/erdos-3-extremal-equivalence), passed with a real submission; see below.
 
 ## Result — what actually passed
 
@@ -86,7 +86,8 @@ python3 scripts/local_evaluator.py eval submissions/current
 | A normalized block-count bound C/(j+1)ᵖ with p>1 implies summability | Lean checked; the required AP-free bound remains unproved |
 | Exact hill ⟺ ∑ⱼ rₖ(2ʲ)/2ʲ < ∞ for every k ≥ 4, with rₖ the library's `maxCard` | Lean checked in the pinned image; neither side proved |
 | For k ≥ 4, k-free subsets of the blocks [4ʲ, 2·4ʲ) always have a k-free union | Lean checked in the pinned image |
-| Official AutoLab hill acceptance | Not run; no score |
+| Official AutoLab acceptance for `ottogin/erdos-3` | Not submitted; no score (the proof is incomplete) |
+| AutoLab hill for the proved equivalence: [`wilsonwu-ai/erdos-3-extremal-equivalence`](https://app.autolab.ai/hills/wilsonwu-ai/erdos-3-extremal-equivalence) | **Passed**: `proved = 1`, #1 on its leaderboard. This is a different theorem from Erdős 3 |
 | Local original-hill evaluator | Ready; pinned image, matching tree, baseline rejection verified |
 
 All 52 declarations compile on **Lean 4.33.1** in the pinned image, with axiom sets contained in `{propext, Classical.choice, Quot.sound}`. There are no admitted proofs, custom axioms, or `native_decide` in those modules. The conditional reductions retain `APFreeSummability` and `APFreePowerEnvelope` as explicit theorem parameters; passing an axiom audit does not prove those parameters. Negative controls reject an admitted proof, an invented axiom, an invalid proof, and a missing axiom report.
