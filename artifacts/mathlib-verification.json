@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-09-28T01:22:24.203091+00:00",
+  "checked_at_utc": "2026-09-28T01:56:15.846970+00:00",
   "status": "passed",
   "scope": "supporting results and analytic transfers in the pinned hill libraries",
   "original_conjecture_proved": false,
@@ -7,7 +7,7 @@
   "compiler": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
   "image": "ghcr.io/ottogin/lean-mathlib@sha256:964547ad81e109c78545512867bae70b710c55d833078674878faad7de0ebb85",
   "answer_source_sha256": "c8b3b31e9bb25c511e577b1812159a210e9346720f19ec6c6b30905a0802db7a",
-  "theorems_checked": 57,
+  "theorems_checked": 64,
   "allowed_axioms": [
     "Classical.choice",
     "Quot.sound",
@@ -341,6 +341,50 @@
         ]
       },
       "stdout": "Erdos3ThreeCase.lean:85:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.\nIf you'd rather continue using `push_neg` in your project, you can implement it as follows:\n```\nopen Lean.Parser.Tactic in\nmacro \"push_neg\" cfg:optConfig loc:(location)? : tactic =>\n  `(tactic| push $cfg:optConfig Not $[$loc]?)\n```\n'Erdos3ThreeCase.dyadic_of_logBarrier' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3ThreeCase.logBarrier_of_quasipoly' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3ThreeCase.three_of_dyadic' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3ThreeCase.three_of_logBarrier' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3ThreeCase.three_of_kelleyMeka' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "source": "lean/Erdos3RothBridge.lean",
+      "scope": "maxCard 3 N = rothNumberNat N and transfers of Mathlib-native Roth-number bounds; no bound is proved",
+      "source_sha256": "ad1bf72bbc9a6612f57cbcaa7f1820ec18387f2b1c3c70a8dd45d9a030549f69",
+      "theorems_checked": 7,
+      "axioms": {
+        "Erdos3RothBridge.a_three_term_ap": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3RothBridge.isAPOfLengthFree_three_iff": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3RothBridge.maxCard_three_eq_addRothNumber": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3RothBridge.maxCard_three_eq_rothNumberNat": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3RothBridge.kelleyMeka_iff_rothNumberNat": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3RothBridge.three_of_rothNumberNat": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3RothBridge.three_of_uniform_finset_bound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "stdout": "'Erdos3RothBridge.a_three_term_ap' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3RothBridge.isAPOfLengthFree_three_iff' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3RothBridge.maxCard_three_eq_addRothNumber' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3RothBridge.maxCard_three_eq_rothNumberNat' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3RothBridge.kelleyMeka_iff_rothNumberNat' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3RothBridge.three_of_rothNumberNat' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3RothBridge.three_of_uniform_finset_bound' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
     }
   ]
 }

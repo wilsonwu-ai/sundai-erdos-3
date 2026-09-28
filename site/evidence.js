@@ -3,7 +3,7 @@ window.PROJECT_EVIDENCE = {
   repository: "https://github.com/wilsonwu-ai/sundai-erdos-3",
   summary: "The exact problem is now reduced to one counting question. It remains open.",
   description: "Lean checks that the full problem is equivalent to a counting statement: sets avoiding a fixed pattern length must thin out fast enough across doubled ranges. For patterns of length four or more, the best published counting bounds are not yet strong enough.",
-  note: "Lean 4.33.1 checked 57 supporting declarations in the pinned image, including the equivalence with the verbatim hill statement. All axiom audits passed. The counting bound remains unproved. No Erdős 3 proof or score is claimed; the separate equivalence hill passed on AutoLab.",
+  note: "Lean 4.33.1 checked 64 supporting declarations in the pinned image, including the equivalence with the verbatim hill statement. All axiom audits passed. The counting bound remains unproved. No Erdős 3 proof or score is claimed; the separate equivalence hill passed on AutoLab.",
   results: [
     { claim: "Cofinite sets (only finitely many numbers missing) contain every length", status: "LEAN CHECKED · 4.33.1", verified: true },
     { claim: "Fixed-step progression tails, including positive multiples, contain every length", status: "LEAN CHECKED · 4.33.1", verified: true },

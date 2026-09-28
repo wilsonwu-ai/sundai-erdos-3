@@ -55,7 +55,7 @@ The mechanism descriptions below are our reading of the cited papers, not quotat
 
 Goal A splits into two parts. The first is done; the second is the real work.
 
-**A1: bound ⇒ the three-term case. Done and Lean-checked.** [`Erdos3ThreeCase.lean`](../lean/Erdos3ThreeCase.lean) contains five declarations. `check-lean` now audits 57 in total, all using only `propext`, `Classical.choice` and `Quot.sound`.
+**A1: bound ⇒ the three-term case. Done and Lean-checked.** [`Erdos3ThreeCase.lean`](../lean/Erdos3ThreeCase.lean) contains five declarations. `check-lean` then audited 57 in total, all using only `propext`, `Classical.choice` and `Quot.sound`.
 
 - `three_of_kelleyMeka` proves that Formal Conjectures' `erdos_3.variants.kelley_meka` implies `erdos_3.variants.three`. Both statements, and the `r` abbreviation, are copied verbatim from upstream; a whitespace-normalized text comparison confirmed the match.
 - `three_of_logBarrier` shows that the weaker Bloom–Sisask (2020) form, rₖ(N) ≪ N/(log N)^(1+c), already suffices.
@@ -85,8 +85,45 @@ theorem erdos_3.variants.three : ...
 
 A1 qualifies for that tag now. When A2 lands, it becomes an unconditional `formal_proof` link. Submitting requires Google's CLA and a PR from your GitHub account, so it has not been done.
 
+### Progress since (27 September 2026, later)
+
+**The definition bridge is done and Lean-checked.** [`Erdos3RothBridge.lean`](../lean/Erdos3RothBridge.lean) adds seven declarations, so `check-lean` now audits 64 across nine modules:
+
+- `isAPOfLengthFree_three_iff`: Formal Conjectures' `IsAPOfLengthFree 3` is Mathlib's `ThreeAPFree`.
+- `maxCard_three_eq_rothNumberNat`: `maxCard 3 N = rothNumberNat N`.
+- `kelleyMeka_iff_rothNumberNat`: the `kelley_meka` variant, restated in Mathlib's terms.
+- `three_of_uniform_finset_bound`: a bound of the shape a *corrected* APAP `int` theorem would have implies `erdos_3.variants.three`.
+
+So once an integer Kelley–Meka theorem exists in Mathlib's vocabulary, only `Erdos3ThreeCase` and this bridge stand between it and the Formal Conjectures statement. Both are already checked. The image's Mathlib is the same revision as current upstream Formal Conjectures (`0df444a`), and all nine packages match.
+
+**The integer case is mapped.** [integer-case-map.json](../artifacts/integer-case-map.json) maps the argument of Bloom–Sisask's exposition (arXiv:2302.07211v3) onto APAP, in 18 steps. The skeptic confirmed all 12 claims it checked.
+
+- **Effort: major.** The map rates 1 step major, 3 substantial, 10 moderate and 4 routine. Nine steps have a finite-field analogue already proved in APAP. Eight are Bohr-set work with no finite-field counterpart.
+- **Critical path:**
+  1. Bohr-set API and a fix to the regularity definition;
+  2. the size bound |B_ρ| ≥ (ρ/4)^d |B|;
+  3. Bohr-set regularity, currently `sorry` in APAP;
+  4. **almost-periodicity relative to Bohr sets** (paper Theorem 17), the one major step. Neither source proves it: the paper defers to Schoen–Sisask [Theorem 5.4];
+  5. the density-increment iteration over regular Bohr sets;
+  6. the structural theorem;
+  7. the three-term count in ℤ/(2N+1)ℤ;
+  8. the final bound.
+- **What transfers:** APAP's general-group layer (unbalancing, dependent random choice and sifting, almost-periodicity in L^∞, Chang's lemma, weighted L^p norms) carries over as stated.
+- **What does not:** the finite-field proof's key simplification. It makes each subspace the new ambient group, and Bohr sets are not groups.
+- **A second APAP statement looks wrong.** `BohrSet.IsRegular` (`APAP/Prereqs/Bohr/Regular.lean:16`) bounds κ by `B.rank / 100`, whereas the paper's Definition 24 and APAP's own blueprint (`bohr.tex:49`) use 1/(100·rank). The skeptic confirmed the mismatch verbatim. The mapper's further reading, not yet checked in Lean, is that the regularity lemma then becomes too strong to hold for high-rank Bohr sets.
+- **A corrected `int` statement**, matching `three_of_uniform_finset_bound`:
+  `∃ C > 0, ∃ c > 0, ∀ N, ∀ A ⊆ range N, ThreeAPFree A → #A ≤ C · N / exp(c · (log N)^(1/12))`.
+
+**Upstream contributions: prepared, not posted.** Formal Conjectures follows [Mathlib's AI conventions](https://leanprover-community.github.io/contribute/index.html). They require disclosing AI use and state that "Using an LLM when writing comments on GitHub or Zulip is not allowed: use your own words." So issue and PR text must be written by the author, not generated. The code is ready:
+
+- **Formal Conjectures:** branch [`erdos3-three-conditional-proof`](https://github.com/wilsonwu-ai/formal-conjectures/tree/erdos3-three-conditional-proof) on the fork contains the one-file change: the `conditional formal_proof … assuming erdos_3.variants.kelley_meka` tag, with `three` moved below `kelley_meka`.
+  - Without the move, Lean reports `Unknown constant erdos_3.variants.kelley_meka`, because `assuming` resolves the declaration after type-checking.
+  - The tagged declarations compile against Formal Conjectures' byte-identical attribute implementation.
+  - Remaining, by the author: sign Google's CLA, open an issue, then the PR.
+- **APAP:** the counterexample to `int` ([Lean file](apap/IntStatementCounterexample.lean)) and the `IsRegular` mismatch are ready to report in an issue, in the author's own words.
+
 ### Next steps for A
 
-1. **Bridge lemmas:** prove `maxCard 3 N = rothNumberNat N` in this repository. This is bounded, Lean-checkable, and useful to anyone connecting Formal Conjectures to Mathlib.
-2. **Report the APAP issue:** file an issue with the Lean counterexample on APAP's integer statement, after your review.
-3. **Scope the integer case:** map the integer chapter of the Bloom–Sisask exposition ([arXiv:2302.07211](https://arxiv.org/abs/2302.07211)) onto APAP's finished finite-field machinery, lemma by lemma. The goal is to see which steps carry over with Bohr sets in place of subspaces. That scoping decides whether A2 is weeks or months.
+1. **Post the two upstream items** (author): the Formal Conjectures issue and PR, and the APAP issue.
+2. **Pick the first Bohr-set target.** The size bound |B_ρ| ≥ (ρ/4)^d |B| is self-contained, sits on the critical path, and has a blueprint sketch (with an inconsistency in its cell count). It is the natural first lane, and it would be contributed to APAP rather than kept here.
+3. **Decide whether to commit to A2.** It is a major project, and the almost-periodicity step alone is research-grade formalization. A1 and the bridge already give a checked conditional result and a ready plug-in point.

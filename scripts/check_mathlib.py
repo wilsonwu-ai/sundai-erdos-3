@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PROJECT = Path("/opt/formal-conjectures")
 MODULES = ("Erdos3SpecialCases", "Erdos3Bridge", "Erdos3Divergence", "Erdos3Reduction",
            "Erdos3Blocks", "Erdos3Dyadic", "Erdos3CrossScale",
-           "Erdos3ThreeCase")
+           "Erdos3ThreeCase", "Erdos3RothBridge")
 SCOPES = {
     "Erdos3SpecialCases": "elementary known special cases, using an explicit witness predicate",
     "Erdos3Bridge": "forward bridges to the hill definitions and special-case conclusions",
@@ -32,6 +32,7 @@ SCOPES = {
     "Erdos3Dyadic": "analytic counting-to-summability transfer; APFreePowerEnvelope remains unproved",
     "Erdos3CrossScale": "equivalence of the hill with dyadic extremal summability for k>=4; neither side is proved",
     "Erdos3ThreeCase": "conditional: the Kelley-Meka or Bloom-Sisask bound implies erdos_3.variants.three; the bound is not proved",
+    "Erdos3RothBridge": "maxCard 3 N = rothNumberNat N and transfers of Mathlib-native Roth-number bounds; no bound is proved",
 }
 
 

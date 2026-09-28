@@ -1,0 +1,679 @@
+{
+  "checked_on": "2026-09-27",
+  "scope": "read-only map of the integer case of Bloom–Sisask (arXiv:2302.07211) onto APAP commit 3b79412; an independent skeptic re-opened the cited sources for 12 key claims",
+  "skeptic_confirmed": 12,
+  "skeptic_checked": 12,
+  "source_version": "Bloom–Sisask, arXiv:2302.07211v3 [math.NT], dated 13 May 2025 (abstract page: v1 14 Feb 2023, v2 1 Apr 2025, v3 13 May 2025). I read the full text from the arXiv PDF (pp. 1–25; the margin stamp reads \"arXiv:2302.07211v3 [math.NT] 13 May 2025\"). The HTML rendering at https://arxiv.org/html/2302.07211v3 was also fetched, but the tool only summarised it, so every paper quote below comes from the PDF. APAP clone: /private/tmp/claude-501/-Applications/51e0e934-67f3-4181-b4b5-520cf2150434/scratchpad/apap, branch master, commit 3b79412fbe529449c472f0a5f866ee2e3be88b87.",
+  "steps": [
+    {
+      "id": "S01",
+      "paper_ref": "Appendix A, Definition 23 (p. 23)",
+      "statement_summary": "A Bohr set is Bohr_ν(Γ) = {x : |1−γ(x)| ≤ ν for all γ∈Γ}. Its rank is |Γ|, and B_ρ is the same Bohr set with the width multiplied by ρ.",
+      "blueprint_label": "bohr-set",
+      "ff_analogue": "A subspace V ≤ F_q^n (a Mathlib Submodule). In ap_in_ff, V is built as ⨅ γ ∈ Δ, ker γ.",
+      "ff_analogue_lean_status": "proved",
+      "what_changes_for_integers": "The Lean definition already exists: APAP/Prereqs/Bohr/Basic.lean:24. It allows a different width per frequency, in ℝ≥0∞. It already has width dilation ρ • B (:262) and the inclusion B_{ρ1}+B_{ρ2} ⊆ B_{ρ1+ρ2} (smul_add_smul_subset, :340). Two things remain. (a) Card/μ_B API is needed to use Bohr sets as Finsets. (b) The rank conventions disagree: the blueprint counts only characters with ν(γ)<2, while Lean counts every frequency. Because a BohrSet is a triple and not a set, statements like B'' ⊆ B' have to be phrased on chordSet.",
+      "effort": "routine",
+      "depends_on": [],
+      "citations": [
+        {
+          "where": "paper App. A Def. 23, p. 23",
+          "quote": "We call Γ the frequency set of B and ν the width, and define the rank of B to be the size of Γ, denoted by rk(B)."
+        },
+        {
+          "where": "paper App. A, p. 23",
+          "quote": "When we use subset notation, such as B′ ⊆ B, this refers only to the set inclusion"
+        },
+        {
+          "where": "blueprint/src/chapter/bohr.tex:9",
+          "quote": "The rank of $\\nu$, denoted by $\\mathrm{rk}(\\nu)$, is defined to be the size of the set of those $\\gamma\\in\\widehat{G}$ such that $\\nu(\\gamma)<2$."
+        },
+        {
+          "where": "APAP/Prereqs/Bohr/Basic.lean:24",
+          "quote": "structure BohrSet (G : Type*) [AddCommGroup G] where"
+        },
+        {
+          "where": "APAP/Prereqs/Bohr/Basic.lean:228",
+          "quote": "def rank (B : BohrSet G) : ℕ := #B.frequencies"
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "paper_ref": "Appendix A, Definition 24 (p. 23)",
+      "statement_summary": "A Bohr set B of rank d is regular if (1−100d|κ|)|B| ≤ |B_{1+κ}| ≤ (1+100d|κ|)|B| for all |κ| ≤ 1/100d.",
+      "blueprint_label": "bohr-reg-def",
+      "ff_analogue": "None. Subspaces are exactly closed under addition, so no regularity notion is needed.",
+      "ff_analogue_lean_status": "no_analogue",
+      "what_changes_for_integers": "The Lean definition exists but does not match the paper or the blueprint. Regular.lean:16 has hκ : κ ≤ B.rank / 100, where it should be κ ≤ 1/(100·rank). My own analysis, not stated in the sources: with κ allowed up to d/100, the upper bound would require |B_2| ≤ 10001·|B| at d = 100. Generic high-rank Bohr sets grow roughly like 2^d when the width doubles, so BohrSet.regularity is probably false as currently stated. The fix is small, but it has to happen before S05.",
+      "effort": "routine",
+      "depends_on": [
+        "S01"
+      ],
+      "citations": [
+        {
+          "where": "paper App. A Def. 24, p. 23",
+          "quote": "A Bohr set B of rank d is regular if for all |κ| ≤ 1/100d we have"
+        },
+        {
+          "where": "blueprint/src/chapter/bohr.tex:49",
+          "quote": "We say $\\nu:\\widehat{G}\\to \\mathbb{R}$ is regular if, with $d=\\mathrm{rk}(\\nu)$, for all $\\kappa\\in\\mathbb{R}$ with $\\abs{\\kappa}\\leq 1/100d$ we have"
+        },
+        {
+          "where": "APAP/Prereqs/Bohr/Regular.lean:16",
+          "quote": "  le_card_smul (κ : ℝ) (hκ₀ : 0 ≤ κ) (hκ : κ ≤ B.rank / 100) :"
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "paper_ref": "Appendix A, remark after Definition 24 (p. 23)",
+      "statement_summary": "If (k,|G|)=1 and B is a regular Bohr set of rank d, then k·B is also a regular Bohr set of rank d with the same density.",
+      "blueprint_label": "none (not in blueprint)",
+      "ff_analogue": "None: in F_q^n, k·V = V for a subspace V.",
+      "ff_analogue_lean_status": "no_analogue",
+      "what_changes_for_integers": "Missing from both the blueprint and Lean, although Propositions 15 and 19 and Theorems 14 and 5 all use k·B. In Lean, ρ • B already means width dilation (instSMul), so the image under x ↦ kx needs its own operation: compose each frequency with the inverse of multiplication by k. Then show that cardinality, rank and regularity carry over.",
+      "effort": "moderate",
+      "depends_on": [
+        "S01",
+        "S02"
+      ],
+      "citations": [
+        {
+          "where": "paper App. A, p. 23",
+          "quote": "if (k, |G|) = 1 and B is a regular Bohr set of rank d then k · B is also a regular Bohr set of rank d (and of course the same density), simply by replacing each character in the frequency set by an appropriate dilate."
+        },
+        {
+          "where": "blueprint/src/chapter/integers.tex:60",
+          "quote": "Let $\\epsilon>0$ and $p,k\\geq 1$ be integers such that $(k,\\abs{G})=1$."
+        },
+        {
+          "where": "APAP/Prereqs/Bohr/Basic.lean:262",
+          "quote": "noncomputable instance instSMul : SMul ℝ (BohrSet G) where"
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "paper_ref": "Appendix A, Lemma 26 (p. 23); the paper cites [27, Chapter 4] (Tao–Vu) for the proof",
+      "statement_summary": "For ρ ∈ (0,1) and B a Bohr set of rank d, |B_ρ| ≥ (ρ/4)^d |B|.",
+      "blueprint_label": "bohr-size",
+      "ff_analogue": "None. The nearest idea is that codimension is subadditive, which is trivial.",
+      "ff_analogue_lean_status": "no_analogue",
+      "what_changes_for_integers": "Not formalized: the \\lean tag in the blueprint is commented out, and so is the Lean stub at Basic.lean:349-351. The blueprint proof sketch is a pigeonhole over coverings of the circle, but it uses two different cell counts (⌈4/ρ⌉ on line 24, ⌈2/ρ⌉ on line 26). The constants need rechecking under the chord-length convention; the chord/arc comparison lemmas in Arc.lean may help. S05, S09, S11 and S17 all use this lemma.",
+      "effort": "moderate",
+      "depends_on": [
+        "S01"
+      ],
+      "citations": [
+        {
+          "where": "paper App. A Lemma 26, p. 23",
+          "quote": "If ρ ∈ (0, 1) and B is a Bohr set of rank d, then |B_ρ| ≥ (ρ/4)^d |B|."
+        },
+        {
+          "where": "paper App. A, p. 23",
+          "quote": "For further introductory discussion of Bohr sets see, for example, [27, Chapter 4], in which the following basic lemmas are established."
+        },
+        {
+          "where": "blueprint/src/chapter/bohr.tex:17",
+          "quote": "% \\lean{BohrSet.le_card_smul}"
+        },
+        {
+          "where": "blueprint/src/chapter/bohr.tex:24",
+          "quote": "There are at most $\\lceil 4/\\rho\\rceil$ many $z_i$"
+        },
+        {
+          "where": "APAP/Prereqs/Bohr/Basic.lean:349",
+          "quote": "-- lemma le_card_smul (hρ₀ : 0 < ρ) (hρ₁ : ρ < 1) :"
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "paper_ref": "Appendix A, Lemma 25 (p. 23); the proof is not in the paper, which cites [27, Chapter 4]",
+      "statement_summary": "For every Bohr set B there is ρ ∈ [1/2, 1] such that B_ρ is regular.",
+      "blueprint_label": "bohr-regularity",
+      "ff_analogue": "None.",
+      "ff_analogue_lean_status": "no_analogue",
+      "what_changes_for_integers": "Only the statement exists (blueprint \\leanok), and the Lean proof is sorry at Regular.lean:23. The proof has to come from outside both sources: it is a real-variable argument on ρ ↦ |B_ρ| over [1/2,1], combined with the growth bound from Lemma 26. It can only be done after the S02 definition is fixed. The iteration in Theorem 14 re-regularizes at every narrowing step.",
+      "effort": "substantial",
+      "depends_on": [
+        "S02",
+        "S04"
+      ],
+      "citations": [
+        {
+          "where": "paper App. A Lemma 25, p. 23",
+          "quote": "For any Bohr set B there exists ρ ∈ [½, 1] such that B_ρ is regular."
+        },
+        {
+          "where": "blueprint/src/chapter/bohr.tex:56",
+          "quote": "\\lean{BohrSet.regularity}"
+        },
+        {
+          "where": "blueprint/src/chapter/bohr.tex:62",
+          "quote": "To do."
+        },
+        {
+          "where": "APAP/Prereqs/Bohr/Regular.lean:23",
+          "quote": "lemma regularity (B : BohrSet G) : ∃ ρ : ℝ, 2⁻¹ ≤ ρ ∧ ρ ≤ 1 ∧ (ρ • B).IsRegular := sorry"
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "paper_ref": "Appendix A, Lemma 27 (p. 24); the paper says it is proved as in [4, Lemma 4.5]",
+      "statement_summary": "If B is regular of rank d and μ ≥ 0 is supported on B_ρ with ρ ∈ (0,1), then ‖μ_B∗μ − μ_B‖₁ ≪ ρd‖μ‖₁.",
+      "blueprint_label": "reg-conv",
+      "ff_analogue": "None. In F_q^n, μ_V∗μ = μ_V holds exactly when supp μ ⊆ V.",
+      "ff_analogue_lean_status": "no_analogue",
+      "what_changes_for_integers": "Missing in Lean, and the blueprint says \"To do.\". The proof is a symmetric-difference estimate: B_{1−ρ}+B_ρ ⊆ B and B+B_ρ ⊆ B_{1+ρ} (the second is available via smul_add_smul_subset), plus regularity. The ≪ must be replaced by an explicit constant. Lemma 28, Lemma 16, Proposition 18 and Proposition 20 all depend on this.",
+      "effort": "moderate",
+      "depends_on": [
+        "S02"
+      ],
+      "citations": [
+        {
+          "where": "paper App. A, p. 23",
+          "quote": "The following is proved as, for example, [4, Lemma 4.5]."
+        },
+        {
+          "where": "paper App. A Lemma 27, p. 24",
+          "quote": "If B is a regular Bohr set of rank d and μ : G → R≥0 is supported on B_ρ, with ρ ∈ (0, 1), then"
+        },
+        {
+          "where": "blueprint/src/chapter/bohr.tex:69",
+          "quote": "\\[ \\norm{ \\mu_B*\\mu - \\mu_B }_{1} \\ll \\rho d\\norm{\\mu}_1. \\]"
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "paper_ref": "Appendix A, Lemma 28 (p. 24); described as a minor generalisation of [4, Lemma 4.7]",
+      "statement_summary": "If B is regular of rank d, L ≥ 1, ν ≥ 0 has ‖ν‖₁ = 1 and is supported on LB_ρ with ρ ≤ c/Ld, then μ_B ≤ 2μ_{B_{1+Lρ}}∗ν.",
+      "blueprint_label": "bohr-majorise",
+      "ff_analogue": "None.",
+      "ff_analogue_lean_status": "no_analogue",
+      "what_changes_for_integers": "Missing in Lean, and the blueprint says \"To do.\". Needs the sumset inclusion LB_ρ ⊆ B_{Lρ} plus regularity. Proposition 19 uses it with L = 4.",
+      "effort": "moderate",
+      "depends_on": [
+        "S06",
+        "S02"
+      ],
+      "citations": [
+        {
+          "where": "paper App. A, p. 24",
+          "quote": "The following is a minor generalization of, for example, [4, Lemma 4.7], which is stated with ν = μ^(L)_{B′} for a subset B′ ⊆ B_ρ; the proof is identical."
+        },
+        {
+          "where": "blueprint/src/chapter/bohr.tex:79",
+          "quote": "\\[\\mu_B \\leq 2\\mu_{B_{1+L\\rho}}\\ast \\nu.\\]"
+        },
+        {
+          "where": "blueprint/src/chapter/bohr.tex:82",
+          "quote": "\\uses{reg-conv}"
+        }
+      ]
+    },
+    {
+      "id": "S08",
+      "paper_ref": "§4, Lemma 16 (p. 17); the form is taken from [4, Lemma 12.1]",
+      "statement_summary": "Bourgain narrowing. Let A ⊆ B have density α and B', B'' ⊆ B_ρ with ρ ≤ cαε/d. Then either some translate of A has density at least (1−ε)α on both B' and B'', or ‖1_A∗μ_{B'}‖_∞ ≥ (1+ε/2)α, or the same holds for B''.",
+      "blueprint_label": "bourgain-trick",
+      "ff_analogue": "None. In F_q^n no narrowing is needed, because B' = B'' = V.",
+      "ff_analogue_lean_status": "no_analogue",
+      "what_changes_for_integers": "Missing in Lean, and the blueprint says \"To do.\". This is an averaging argument over translates that uses Lemma 27. Theorem 14 applies it at every step of the iteration.",
+      "effort": "moderate",
+      "depends_on": [
+        "S06"
+      ],
+      "citations": [
+        {
+          "where": "paper §4, p. 17",
+          "quote": "In doing so we shall require a regularity ‘narrowing’ trick originally due to Bourgain. The following form is [4, Lemma 12.1]."
+        },
+        {
+          "where": "blueprint/src/chapter/bohr.tex:89",
+          "quote": "suppose $B',B''\\subseteq B_\\rho$ where $\\rho\\leq c\\alpha\\epsilon/d$. Then either"
+        },
+        {
+          "where": "blueprint/src/chapter/bohr.tex:97",
+          "quote": "\\uses{reg-conv}"
+        }
+      ]
+    },
+    {
+      "id": "S09",
+      "paper_ref": "§4, Theorem 17 (pp. 18–19); the proof applies [25, Theorem 5.4] (Schoen–Sisask) as a black box",
+      "statement_summary": "Almost-periodicity relative to Bohr sets. Let B, B' be regular of rank d, A₁ ⊆ B with density α₁, A₂ ⊆ B'−x with density α₂, and |S| ≤ 2|B|. Then there is a regular B'' ⊆ B' of rank d+O_ε(L(α₁)³L(α₂)), with an explicit exponential size lower bound, such that |⟨μ_{B'}∗μ_{A₁}∘μ_{A₂},1_S⟩ − ⟨μ_{A₁}∘μ_{A₂},1_S⟩| ≤ ε.",
+      "blueprint_label": "th-ap-int",
+      "ff_analogue": "Theorem 12, which the paper also takes as a black box ([25, Thm 3.2]). APAP proved its own version, ap_in_ff, from linfty_almost_periodicity_boosted plus chang.",
+      "ff_analogue_lean_status": "proved",
+      "what_changes_for_integers": "This is the hardest step and the one I am least sure about. Neither the paper nor the blueprint proves it: the paper cites [25, Thm 5.4], and the blueprint proof says \"To do.\". The blueprint lists linfty_ap, chang and bohr-size as dependencies.\n\nMy own analysis, not stated in the sources: that list looks insufficient, for two reasons.\n(1) APAP's Croot–Sisask lemmas only bound #T. big_shifts does not record where T lies, so it does not give almost-periods inside a narrow Bohr set.\n(2) APAP's chang bounds |Δ| by 𝓛 of the global density ‖f‖₁²/‖f‖₂²/|G|. For T inside a small Bohr set that quantity includes log(|G|/|B'|), not O(L(α₁)³L(α₂)), so a Bohr-relative Chang-type step appears to be needed.\n\nSeparately, the width conclusion must be converted to a size bound via Lemma 26 (as the paper says), and |−A₂+B'_{c/d}| ≤ 2α₂⁻¹|A₂| comes from regularity.",
+      "effort": "major",
+      "depends_on": [
+        "S02",
+        "S04",
+        "S05"
+      ],
+      "citations": [
+        {
+          "where": "paper §4, p. 18",
+          "quote": "We will use the following version of almost-periodicity, which is essentially [25, Theorem 5.4]."
+        },
+        {
+          "where": "paper §4 Thm 17 proof, p. 19",
+          "quote": "Nonetheless the width condition can be immediately converted into a lower bound for the size of B′′ with Lemma 26."
+        },
+        {
+          "where": "paper §3, p. 15",
+          "quote": "For Step 4 we can use the following almost-periodicity result, which is [25, Theorem 3.2], as a black box."
+        },
+        {
+          "where": "blueprint/src/chapter/integers.tex:14",
+          "quote": "\\uses{linfty_ap, chang, bohr-size}"
+        },
+        {
+          "where": "APAP/FiniteField.lean:172",
+          "quote": "public lemma ap_in_ff [DecidableEq G] (hq : q.Prime) (hα₀ : 0 < α) (hα₂ : α ≤ 2⁻¹)"
+        },
+        {
+          "where": "APAP/Physics/AlmostPeriodicity.lean:205",
+          "quote": "      #L * #S ≤ #(A + S) ^ k * #{t | (a - fun _ ↦ t) ∈ L} := by"
+        },
+        {
+          "where": "APAP/Prereqs/Chang.lean:179",
+          "quote": "      #Δ ≤ ⌈changConst * exp 1 * ⌈𝓛 ↑(‖f‖_[1] ^ 2 / ‖f‖_[2] ^ 2 / card G)⌉₊ / η ^ 2⌉₊ ∧"
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "paper_ref": "§4, Proposition 15 (p. 17; proof p. 19)",
+      "statement_summary": "Let B, B', B'' be regular of rank d with B'' ⊆ B'_{c/d}, and A ⊆ B with relative density α. If ‖μ_A∘μ_A‖_{p(μ_{kB'}∘μ_{kB'}∗μ_{kB''}∘μ_{kB''})} ≥ (1+ε)μ(B)⁻¹, then there is a regular B''' ⊆ B'' of rank d+O_ε(L(α)⁴p⁴), with a size lower bound, such that ‖μ_{B'''}∗μ_A‖_∞ ≥ (1+cε)μ(B)⁻¹.",
+      "blueprint_label": "prop-it",
+      "ff_analogue": "Proposition 13 (di_in_ff), specifically its sifting → almost-periodicity → Hölder half. APAP's sifting is already stated for general B₁, B₂ (DRC.lean:199).",
+      "ff_analogue_lean_status": "proved",
+      "what_changes_for_integers": "The steps are: average over x to split the measure; apply APAP's sifting with B₁ = k·B' and B₂ = k·B''+x (reusable as stated); bound |S| ≤ |B'+B''| ≤ 2|B'| by regularity; apply Theorem 17 to k·B' and k·B''; then finish with the same Hölder step as in di_in_ff. On top of that comes the rank and size bookkeeping, plus converting between the paper's normalised measures and Lean's counting convolution ∗ᵈ (card G factors).",
+      "effort": "substantial",
+      "depends_on": [
+        "S09",
+        "S03",
+        "S02"
+      ],
+      "citations": [
+        {
+          "where": "paper §4, p. 18",
+          "quote": "Proposition 15 is a consequence of Steps 3 and 4 (dependent random choice and almost-periodicity) of the Kelley-Meka approach."
+        },
+        {
+          "where": "paper §4 Prop 15 proof, p. 19",
+          "quote": "We now apply Lemma 8 with B₁ = k · B′ and B₂ = k · B′′ + x."
+        },
+        {
+          "where": "paper §2 Lemma 8, p. 12",
+          "quote": "Let p ≥ 1 be an integer and ε, δ > 0. Let B₁, B₂ ⊆ G, and let μ = μ_{B₁} ◦ μ_{B₂}."
+        },
+        {
+          "where": "blueprint/src/chapter/integers.tex:70",
+          "quote": "\\uses{sift, th-ap-int}"
+        },
+        {
+          "where": "APAP/Physics/DRC.lean:199",
+          "quote": "lemma sifting (B₁ B₂ : Finset G) (hε : 0 < ε) (hε₁ : ε ≤ 1) (hδ : 0 < δ) (hp : Even p)"
+        },
+        {
+          "where": "APAP/FiniteField.lean:333",
+          "quote": "public lemma di_in_ff [DecidableEq G] [MeasurableSpace G] [DiscreteMeasurableSpace G] (hq : q.Prime)"
+        }
+      ]
+    },
+    {
+      "id": "S11",
+      "paper_ref": "§4, Theorem 14 (pp. 16–17; the proof assuming Prop 15 is on pp. 17–18)",
+      "statement_summary": "Every A ⊆ G of density α has a regular Bohr set B of rank O_ε(L(α)⁵p⁴) and size ≥ exp(−O_{ε,δ}(L(α)⁶p⁵L(α/p)))|G|, and A' ⊆ (A−x)∩B, with density (1−ε)α on both B and a narrowed B' = B_ρ, and with the kB-measure L^p norm of μ_{A'}∘μ_{A'} below (1+ε)μ(B)⁻¹.",
+      "blueprint_label": "flat-on-bohr",
+      "ff_analogue": "The density-increment iteration `ind` inside the proof of `ff` (FiniteField.lean:540 onward).",
+      "ff_analogue_lean_status": "proved",
+      "what_changes_for_integers": "The ff proof iterates by making each new subspace V the ambient group (an existential over a new type V). That does not transfer: Bohr sets are not groups, and the paper keeps all normalisations global. The integer iteration has to stay in G. It must carry d_i, |B^{(i)}| and relative densities forward, apply Lemma 16 to narrow at each step, re-regularize with Lemma 25, and control sizes with Lemma 26. It stops after t ≪_ε L(α) steps. This is heavy constant bookkeeping.",
+      "effort": "substantial",
+      "depends_on": [
+        "S10",
+        "S08",
+        "S05",
+        "S04",
+        "S03"
+      ],
+      "citations": [
+        {
+          "where": "paper §4 proof of Thm 14, p. 17",
+          "quote": "Let t ≥ 0 be maximal such that there is a sequence of regular Bohr sets, say B^(0), . . . , B^(t), and subsets of translates of A, say A_0, . . . , A_t, such that the following holds:"
+        },
+        {
+          "where": "paper §4, p. 18",
+          "quote": "Observe from point (3), and the trivial fact that α_i ≤ 1, that t ≪_ε L(α)."
+        },
+        {
+          "where": "paper p. 3",
+          "quote": "Note carefully that, even though we are taking a local L^p norm restricted to V we are keeping μ_A and ∗ normalised relative to the global group G."
+        },
+        {
+          "where": "blueprint/src/chapter/integers.tex:89",
+          "quote": "\\uses{prop-it, bourgain-trick, bohr-size}"
+        },
+        {
+          "where": "APAP/FiniteField.lean:541",
+          "quote": "    ∃ (V : Type u) (_ : AddCommGroup V) (_ : Fintype V) (_ : DecidableEq V) (_ : Module (ZMod q) V)"
+        }
+      ]
+    },
+    {
+      "id": "S12",
+      "paper_ref": "§5, Proposition 18 (pp. 19–20)",
+      "statement_summary": "Unbalancing relative to Bohr sets. Let ν be a probability measure with ν̂ ≥ 0, supported on B_ρ with ρ ≤ cεα/rk(B). If ‖(μ_A−μ_B)∘(μ_A−μ_B)‖_{p(ν)} ≥ εμ(B)⁻¹, then ‖μ_A∘μ_A‖_{p'(ν)} ≥ (1+ε/4)μ(B)⁻¹ for some p' ≪_ε p.",
+      "blueprint_label": "Lp-orth",
+      "ff_analogue": "Lemma 7. APAP has `unbalancing'`, stated for a general weight ν in the physical form h ○ h = ν (Unbalancing.lean:205).",
+      "ff_analogue_lean_status": "proved",
+      "what_changes_for_integers": "Write μ_A∘μ_A as (μ_A−μ_B)∘(μ_A−μ_B)+μ(B)⁻¹+(g−μ(B)⁻¹), bound the error term pointwise on supp ν with Lemma 27, then apply unbalancing' to f = μ(B)(μ_A−μ_B)∘(μ_A−μ_B). My own check: the ν actually used (μ_{kB''}∘μ_{kB''}∗μ_{kB'''}∘μ_{kB'''}) equals h∘h with h = μ_{kB''}∗μ_{kB'''}, which fits unbalancing'.",
+      "effort": "moderate",
+      "depends_on": [
+        "S06"
+      ],
+      "citations": [
+        {
+          "where": "paper §5, p. 19",
+          "quote": "The following form of unbalancing relative to Bohr sets is sufficient."
+        },
+        {
+          "where": "paper §5 Prop 18 proof, p. 20",
+          "quote": "This is immediate from Lemma 7 applied to f = μ(B)(μ_A − μ_B) ◦ (μ_A − μ_B)."
+        },
+        {
+          "where": "paper §2 Lemma 7, p. 11",
+          "quote": "(Or, alternatively, assume that f = g ◦ g and ν = h ◦ h for some g, h : G → C .)"
+        },
+        {
+          "where": "blueprint/src/chapter/integers.tex:27",
+          "quote": "\\uses{reg-conv, unbalancing}"
+        },
+        {
+          "where": "APAP/Physics/Unbalancing.lean:205",
+          "quote": "lemma unbalancing' (p : ℕ) (hp : p ≠ 0) (ε : ℝ) (hε₀ : 0 < ε) (hε₁ : ε ≤ 1) (ν : G → ℝ≥0)"
+        }
+      ]
+    },
+    {
+      "id": "S13",
+      "paper_ref": "§5, Proposition 19 (pp. 20–21)",
+      "statement_summary": "For even p ≥ 2, real f, B regular, and B', B'' ⊆ B_{c/rk(B)} regular: ‖f∘f‖_{p(μ_{B'}∘μ_{B'}∗μ_{B''}∘μ_{B''})} ≥ ½‖f∗f‖_{p(μ_B)}.",
+      "blueprint_label": "pos-def-measures",
+      "ff_analogue": "The special case B = B' = B'' = G, which is the inequality ‖f∗f‖_{2k} ≤ ‖f∘f‖_{2k} (cLpNorm_conv_le_cLpNorm_dconv).",
+      "ff_analogue_lean_status": "proved",
+      "what_changes_for_integers": "This is new Bohr-specific work. Majorise μ_B with Lemma 28 (L = 4), average over a translate t, then use a Fourier positivity step with the weight ν (ν̂ ≥ 0), or a physical replacement for it. APAP has dft machinery, but not this weighted form.",
+      "effort": "moderate",
+      "depends_on": [
+        "S07"
+      ],
+      "citations": [
+        {
+          "where": "paper §5, p. 20",
+          "quote": "This is a technical issue with Bohr sets that does not arise in the F_q^n model case (note that these measures are identical when B = B′ = B′′ = G)."
+        },
+        {
+          "where": "paper §5 Prop 19 proof, p. 20",
+          "quote": "By an application of Lemma 28 with L = 4, ρ = c/4 rk(B) and ν = μ_{B′} ∗ μ_{B′} ∗ μ_{B′′} ∗ μ_{B′′}, we have"
+        },
+        {
+          "where": "blueprint/src/chapter/integers.tex:39",
+          "quote": "\\uses{bohr-majorise}"
+        },
+        {
+          "where": "blueprint/src/chapter/ff.tex:65",
+          "quote": "\\lean{cLpNorm_conv_le_cLpNorm_dconv}"
+        }
+      ]
+    },
+    {
+      "id": "S14",
+      "paper_ref": "Theorem 5 (statement p. 5; proof in §5, p. 21)",
+      "statement_summary": "The main structural theorem for general finite abelian G: there is a regular Bohr set B of rank ≤ Cp⁴log(2/α)⁵ and size ≥ exp(−Cp⁵log(2p/α)log(2/α)⁶)|G|, and A' ⊆ (A−x)∩B with density (1−ε)α on B and on B' = B_ρ, and ‖(μ_{A'}−μ_B)∗(μ_{A'}−μ_B)‖_{p(μ_{k·B'})} ≤ ε|G|/|B|.",
+      "blueprint_label": "th-int-gen",
+      "ff_analogue": "Theorem 4 (Kelley–Meka, F_q^n). APAP never formalized it: its ff proof goes di_in_ff → ff directly.",
+      "ff_analogue_lean_status": "missing",
+      "what_changes_for_integers": "Proof by contradiction. Apply Theorem 14 with p' and ε/8. Choose B'' = B'_ρ and B''' = B''_{ρ'} with ρ, ρ' ~ c/d. Prop 19 transfers the norm, and Prop 18 then contradicts Theorem 14(3). This needs the support condition k(B''+B''+B'''+B''') ⊆ B_{c/d} and the k·B machinery from S03. There is no Lean ff template for this layer.",
+      "effort": "moderate",
+      "depends_on": [
+        "S11",
+        "S12",
+        "S13",
+        "S03"
+      ],
+      "citations": [
+        {
+          "where": "paper Thm 5, p. 5",
+          "quote": "There is a constant c > 0 such that the following holds. Let δ, ε ∈ (0, 1), let p ≥ 1 and let k be a positive integer such that (k, |G|) = 1."
+        },
+        {
+          "where": "paper §5 proof of Thm 5, p. 21",
+          "quote": "We may, without loss of generality, assume that δ is sufficiently small in terms of ε and k."
+        },
+        {
+          "where": "blueprint/src/chapter/integers.tex:111",
+          "quote": "\\uses{Lp-orth, flat-on-bohr, pos-def-measures}"
+        },
+        {
+          "where": "blueprint/src/chapter/ff.tex:201",
+          "quote": "\\uses{no3aps_inner_prod, di_in_ff}"
+        }
+      ]
+    },
+    {
+      "id": "S15",
+      "paper_ref": "§5, Proposition 20 (p. 21)",
+      "statement_summary": "Hölder lifting in Bohr sets. Let A ⊆ B with relative density α, and C ⊆ B' ⊆ B_{cεα/rk(B)} with relative density γ. Either |⟨μ_A∗μ_A,μ_C⟩ − μ(B)⁻¹| ≤ εμ(B)⁻¹, or ‖(μ_A−μ_B)∗(μ_A−μ_B)‖_{p(μ_{B'})} ≥ ½εμ(B)⁻¹ for some p ≪ L(γ).",
+      "blueprint_label": "hoelder-lifting",
+      "ff_analogue": "Lemma 11, formalized as global_dichotomy (FiniteField.lean:121).",
+      "ff_analogue_lean_status": "proved",
+      "what_changes_for_integers": "The ff identity becomes a three-term expansion. The terms ⟨μ_B∗μ_B,μ_C⟩ and ⟨μ_A∗μ_B,μ_C⟩ are shown to be ≈ μ(B)⁻¹ using Lemma 27, and Hölder is then applied in L^p(μ_{B'}) instead of the uniform measure. The proof pattern of global_dichotomy carries over.",
+      "effort": "moderate",
+      "depends_on": [
+        "S06"
+      ],
+      "citations": [
+        {
+          "where": "paper §5, p. 21",
+          "quote": "we record the following version of the Hölder lifting Step 1."
+        },
+        {
+          "where": "paper §5 Prop 20 proof, p. 21",
+          "quote": "By the regularity of B (more specifically Lemma 27) and the fact that C ⊆ B_{cε/rk(B)}, we have"
+        },
+        {
+          "where": "blueprint/src/chapter/integers.tex:53",
+          "quote": "%\\uses{reg-conv}"
+        },
+        {
+          "where": "APAP/FiniteField.lean:121",
+          "quote": "public lemma global_dichotomy [DecidableEq G] [MeasurableSpace G] [DiscreteMeasurableSpace G]"
+        }
+      ]
+    },
+    {
+      "id": "S16",
+      "paper_ref": "§5.1, first sentence of the proof of Theorem 21 (p. 22)",
+      "statement_summary": "Embed A ⊆ {1,…,N} into G = Z/(2N+1)Z. The density stays ≍ α, and every 3AP of A in G is a genuine 3AP in {1,…,N}.",
+      "blueprint_label": "none (not in blueprint)",
+      "ff_analogue": "None: the ff case already lives in a group.",
+      "ff_analogue_lean_status": "no_analogue",
+      "what_changes_for_integers": "Missing from both the blueprint and Lean. It needs a 2-Freiman-type transfer from ℕ ∩ [0,N) to ZMod (2N+1), and a transfer of ThreeAPFree. |G| is odd, so k = 2 is coprime to it. I did not check whether Mathlib already has a suitable Freiman-isomorphism lemma.",
+      "effort": "routine",
+      "depends_on": [],
+      "citations": [
+        {
+          "where": "paper §5.1 proof of Thm 21, p. 22",
+          "quote": "As usual, we begin by considering A ⊆ {1, . . . , N} as a subset of G = Z/(2N + 1)Z – the density of this set within G is still ≍ α, and any three-term arithmetic progression in A ⊆ G yields one in A ⊆ {1, . . . , N}."
+        }
+      ]
+    },
+    {
+      "id": "S17",
+      "paper_ref": "§5.1, Theorem 21 (p. 22)",
+      "statement_summary": "If A ⊆ {1,…,N} has |A| = αN, then A contains at least exp(−O(L(α)¹²))N² three-term arithmetic progressions.",
+      "blueprint_label": "main-int-count",
+      "ff_analogue": "The counting step at the end of `ff`, via ThreeAPFree.wInner_one_mu_ddconv_mu_mu_two_smul_mu (Prereqs/Convolution/ThreeAP.lean:20).",
+      "ff_analogue_lean_status": "proved",
+      "what_changes_for_integers": "Apply Theorem 5 with ε = 1/4, k = 2, p = ⌈KL(α)⌉. Set A'' = A'∩B'. There are two cases. If ⟨μ_{A'}∗μ_{A'},μ_{2·A''}⟩ ≥ ½μ(B)⁻¹, bound it above by α⁻³μ(B)⁻²μ(B')⁻¹ times the 3AP count; this needs a two-set generalisation of APAP's single-set identity. Otherwise Prop 20 contradicts Theorem 5. Lemma 26 supplies μ(B)μ(B') ≥ exp(−O_ε(L(α)¹²)). The constant K must be made explicit.",
+      "effort": "moderate",
+      "depends_on": [
+        "S14",
+        "S15",
+        "S16",
+        "S04"
+      ],
+      "citations": [
+        {
+          "where": "paper §5.1 Thm 21, p. 22",
+          "quote": "If A ⊆ {1, . . . , N} has size |A| = αN, then A contains at least exp(−O(L(α)^12))N^2 many three-term arithmetic progressions."
+        },
+        {
+          "where": "paper §5.1 proof, p. 22",
+          "quote": "We apply Theorem 5 with ε = 1/4, k = 2, and p = ⌈KL(α)⌉ for some large constant K."
+        },
+        {
+          "where": "paper §5.1 proof, p. 22",
+          "quote": "we are done, since the left-hand side is at most ≪ α^{−3}μ(B)^{−2}μ(B′)^{−1} times the number of three-term arithmetic progressions in A, and by Lemma 26 we have"
+        },
+        {
+          "where": "blueprint/src/chapter/integers.tex:121",
+          "quote": "\\uses{th-int-gen, hoelder-lifting}"
+        },
+        {
+          "where": "APAP/Prereqs/Convolution/ThreeAP.lean:20",
+          "quote": "lemma ThreeAPFree.wInner_one_mu_ddconv_mu_mu_two_smul_mu (hG : Odd (card G))"
+        }
+      ]
+    },
+    {
+      "id": "S18",
+      "paper_ref": "Theorem 1 (p. 1), deduced in §5.1 (p. 22)",
+      "statement_summary": "If A ⊆ {1,…,N} has no non-trivial 3AP, then |A| ≤ N/exp(c(log N)^{1/12}) for an absolute constant c > 0.",
+      "blueprint_label": "int",
+      "ff_analogue": "Theorem `ff` (FiniteField.lean:512).",
+      "ff_analogue_lean_status": "proved",
+      "what_changes_for_integers": "First fix the statement; see corrected_int_statement. The deduction: a 3AP-free A has at most |A| ≤ N (trivial) progressions, so exp(−C·L(α)¹²)N² ≤ N, hence L(α) ≫ (log N)^{1/12}. Since L(α) = log(2/α), this gives α ≤ 2exp(−c(log N)^{1/12}). The factor 2 and small N are absorbed by a constant C or a threshold N₀. The blueprint statement also has a sign typo (exp(−c…) in the denominator).",
+      "effort": "routine",
+      "depends_on": [
+        "S17"
+      ],
+      "citations": [
+        {
+          "where": "paper §5.1, p. 22",
+          "quote": "Theorem 1 is an immediate consequence of the following result that gives a lower bound for the number of three-term arithmetic progressions in an arbitrary set, coupled with the observation that if A contains only trivial three-term arithmetic progressions then this count is at most N."
+        },
+        {
+          "where": "paper p. 6",
+          "quote": "we use the convenient abbreviation L(α) to denote log(2/α)."
+        },
+        {
+          "where": "paper Thm 1, p. 1",
+          "quote": "for some absolute constant c > 0."
+        },
+        {
+          "where": "blueprint/src/chapter/integers.tex:131",
+          "quote": "\\[\\lvert A\\rvert \\leq \\frac{N}{\\exp(-c(\\log N)^{1/12})}\\]"
+        },
+        {
+          "where": "APAP/Integer.lean:11",
+          "quote": "    ∃ c > 0, #A ≤ N / exp (c * log N ^ (12⁻¹ : ℝ)) := sorry"
+        }
+      ]
+    }
+  ],
+  "critical_path": [
+    "S01 Bohr-set API: the definition exists; card/μ_B API remains (routine)",
+    "S02 Fix the κ-range in BohrSet.IsRegular to κ ≤ 1/(100·rank) (routine, but blocks everything below)",
+    "S04 Lemma 26 size bound |B_ρ| ≥ (ρ/4)^d|B| (moderate)",
+    "S05 Lemma 25 regularity: the sorry at Regular.lean:23 (substantial)",
+    "S09 Theorem 17 Bohr-set almost-periodicity, i.e. [25, Thm 5.4] (major; proof in neither source)",
+    "S10 Proposition 15 iteration step: sifting + Thm 17 on k·B', k·B'' (substantial)",
+    "S11 Theorem 14 density-increment iteration over regular Bohr sets, with Lemma 16 narrowing (substantial)",
+    "S14 Theorem 5, from Theorem 14 via Props 18 and 19 (moderate)",
+    "S17 Theorem 21 3AP count in Z/(2N+1)Z, needing Prop 20 and the embedding (moderate)",
+    "S18 Corrected `int` statement and final rearrangement (routine)",
+    "Off the path, needed by path nodes: S06 Lemma 27 (feeds S08, S12, S15, S07), S07 Lemma 28 → S13 Prop 19, S03 k·B dilates, S16 embedding"
+  ],
+  "biggest_risks": [
+    "Theorem 17 (S09) is not proved in the paper: it is 'essentially [25, Theorem 5.4]' (Schoen–Sisask, Forum Math. Sigma 2016), and the blueprint proof says 'To do.'. Blueprint integers.tex:14 lists only linfty_ap, chang and bohr-size. My analysis, not stated in the sources: that is not enough. APAP's big_shifts and almost_periodicity only bound #T and do not say where the almost-periods lie. APAP's chang (Chang.lean:179) bounds rank through 𝓛 of the global density of T, which inside a small Bohr set includes log(|G|/|B'|) instead of O(L(α₁)³L(α₂)). A localized Croot–Sisask statement and a Bohr-relative Chang-type step appear to be needed. Neither is in APAP or in the two sources.",
+    "BohrSet.IsRegular is mis-stated. Regular.lean:16 has κ ≤ B.rank / 100 where the paper (Def 24) and blueprint (bohr.tex:49) have 1/100d. My analysis: as written, BohrSet.regularity is probably false for high-rank Bohr sets (e.g. it would require |B_2| ≤ 10001|B| at d = 100), and every regularity-based lemma downstream depends on it.",
+    "The ff Lean proof's key simplification does not transfer. The iteration `ind` (FiniteField.lean:541) makes each subspace V the new ambient group. Bohr sets are not groups, and the paper keeps normalisations global (p. 3). The integer iteration must carry μ(B)⁻¹ = |G|/|B| factors and relative densities throughout, on top of converting between the paper's expectation normalisation and Lean's counting convolution ∗ᵈ with card G factors.",
+    "Appendix A lemmas 25–28 and Lemma 16 have no proofs in the paper; they are cited to Tao–Vu [27, Ch. 4] and to [4, Lemmas 4.5, 4.7, 12.1]. The blueprint sketches a proof only for Lemma 26, and that sketch uses two different cell counts (⌈4/ρ⌉ at bohr.tex:24, ⌈2/ρ⌉ at bohr.tex:26), so its constants need rechecking under APAP's chord-length convention.",
+    "Constant bookkeeping. The paper works with O_ε, O_{ε,δ} and 'sufficiently small constants c₁, c₂', and nests narrowings (c/d, cδα/d, c/4rk(B)) across t ≪_ε L(α) iterations. Lean needs explicit constants everywhere; the much simpler ff proof already carries 2^148.",
+    "The route has no Lean template. APAP's ff proof goes Prop 13 → Thm 2 and never formalizes Theorem 4, so the Theorem 14 → Theorem 5 → Theorem 21 layer (S14, S17) must be designed from scratch. Props 18 and 19 are also new Bohr-specific analysis (the paper says Prop 19's issue 'does not arise in the F_q^n model case').",
+    "Notation and statement mismatches. ρ • B in Lean is width dilation, so k·B (x ↦ kx, needed with (k,|G|) = 1) needs a separate operator. Blueprint rank counts only ν(γ) < 2, while Lean rank is #frequencies. `int` is mis-quantified in Lean, and the blueprint statement has a sign typo (integers.tex:131). The blueprint \\leanok on `int`, bohr-reg-def and bohr-regularity certifies only that a statement exists, and two of those three statements are wrong."
+  ],
+  "corrected_int_statement": "Proposed (uniform, with a constant factor):\ntheorem int : ∃ C > (0 : ℝ), ∃ c > (0 : ℝ), ∀ N : ℕ, ∀ A : Finset ℕ, A ⊆ range N → ThreeAPFree (A : Set ℕ) → (#A : ℝ) ≤ C * N / exp (c * log N ^ (12⁻¹ : ℝ))\n\nEquivalent threshold form:\ntheorem int' : ∃ c > (0 : ℝ), ∃ N₀ : ℕ, ∀ N ≥ N₀, ∀ A : Finset ℕ, A ⊆ range N → ThreeAPFree (A : Set ℕ) → (#A : ℝ) ≤ N / exp (c * log N ^ (12⁻¹ : ℝ))\n\nWhy the current statement is wrong. APAP/Integer.lean:10-11 introduces `∃ c > 0` after A and N.\n- At N = 2 with A = {0,1} it demands 2 ≤ 2/exp(c·(log 2)^{1/12}), which fails for every c > 0.\n- For N ≥ 3 it is trivially true: {0,1,2} is a 3AP, so a 3AP-free A ⊆ range N has #A ≤ N−1, and c can be chosen depending on N. So the statement is false in one case and says nothing in all others.\n\nWhy the constant-factor form is the natural target. The deduction from Theorem 21 goes through L(α) = log(2/α), which produces a factor 2, and small N is absorbed into C.\n\nAlso fix blueprint integers.tex:131. It reads N/exp(−c(log N)^{1/12}); paper Theorem 1 has N/exp(c(log N)^{1/12}).",
+  "overall_estimate": "Overall effort class: major. The integer case is not an incremental extension of APAP's finite-field formalization.\n\nPer-step classes:\n- 1 major: S09 (Theorem 17 / [25, Thm 5.4]).\n- 3 substantial: S05 (Lemma 25 regularity), S10 (Prop 15), S11 (Theorem 14 iteration).\n- 10 moderate: S03, S04, S06, S07, S08, S12, S13, S14, S15, S17.\n- 4 routine: S01, S02 (definition fix), S16, S18.\n\nWhat transfers as stated: the proved general-G layer, i.e. unbalancing' (any weight of the form h ○ h), drc and sifting (any B₁, B₂), linfty_almost_periodicity(_boosted), chang, the weighted L^p norms, the global_dichotomy proof pattern, and the ThreeAPFree inner-product identity. That covers Steps 2–3 and the raw inputs to Step 4.\n\nWhat is missing: everything Bohr-specific beyond the definition. The regularity lemma is a sorry; Lemmas 26–28, Lemma 16 and the k·B dilate do not exist; nor do Theorem 17, Props 15, 18, 19, 20 and Theorems 14, 5, 21.\n\nThe major item is the least certain estimate, because neither source contains its proof. If a Bohr-relative Chang-type lemma and localized almost-periods have to be built from scratch, S09 alone is a major sub-project.",
+  "summary": "I read Bloom–Sisask v3 (13 May 2025) in full from the arXiv PDF (the HTML rendering was only summarised by the tool). I then mapped every integer-case statement against the APAP blueprint (`bohr.tex` and `integers.tex`, cross-checked with `ff.tex`, `ap.tex`, `chang.tex`, `unbalancing.tex`, `drc.tex`) and the Lean sources, at commit 3b79412 of the clone at /private/tmp/claude-501/-Applications/51e0e934-67f3-4181-b4b5-520cf2150434/scratchpad/apap.\n\nEvery integer-case statement in the paper has a blueprint label, except two: the k·B dilate remark and the Z/(2N+1)Z embedding. But every integer-case proof in the blueprint is 'To do'.\n\nOn the Lean side, only three pieces exist:\n- the BohrSet structure (APAP/Prereqs/Bohr/Basic.lean);\n- an IsRegular definition whose κ-range is wrong (APAP/Prereqs/Bohr/Regular.lean:16);\n- two sorries: `regularity` (Regular.lean:23) and `int` (APAP/Integer.lean:11), which is also mis-quantified.\n\nThe finite-field chain in APAP/FiniteField.lean is fully proved, with no sorry in Physics/ or FiniteField.lean. Its general-group lemmas transfer directly: unbalancing', sifting and drc for general B₁ and B₂, Croot–Sisask almost-periodicity, and chang. Its structure does not transfer: the proof changes the ambient group to the new subspace at each step and skips Theorem 4.\n\nThe critical path runs through the Bohr-set regularity lemma and the Bohr-set almost-periodicity Theorem 17. Theorem 17 is outsourced to Schoen–Sisask [25, Thm 5.4]; my analysis is that APAP's global Chang and its almost-periodicity lemmas as stated are not enough for it.\n\nI also found two blueprint defects: a sign typo in the `int` statement (integers.tex:131) and inconsistent constants in the Lemma 26 proof sketch (bohr.tex:24 vs 26). Lemma 29 (progressions inside Bohr sets) is only needed for Theorem 3, so I left it out of the map.",
+  "skeptic_verdicts": [
+    {
+      "claim": "S01: The BohrSet structure and its `rank` definition already exist in APAP exactly as quoted — 'structure BohrSet (G : Type*) [AddCommGroup G] where' at APAP/Prereqs/Bohr/Basic.lean:24, and 'def rank (B : BohrSet G) : ℕ := #B.frequencies' at :228 — making ff_analogue_lean_status = 'proved' for the definitional analogue of the finite-field subspace V.",
+      "verdict": "confirmed",
+      "note": "Read Basic.lean directly. Both quotes match verbatim at the cited line numbers (structure at line 24, rank def at line 228). instSMul (width dilation) is at line 262 and smul_add_smul_subset at line 340, also verbatim as cited. Note 'proved' here means the definitional analogue exists and is usable (as the map itself says), not that all downstream API is complete — the map's own 'what_changes_for_integers' text says Card/mu_B API is still needed, which is consistent, not contradictory."
+    },
+    {
+      "claim": "S02 / critical path: BohrSet.IsRegular in Lean (Regular.lean:16) requires kappa <= B.rank/100, which does NOT match the paper's Definition 24 / blueprint's stated regularity range of |kappa| <= 1/(100*d).",
+      "verdict": "confirmed",
+      "note": "Regular.lean:16 reads exactly 'le_card_smul (kappa : R) (hkappa0 : 0 <= kappa) (hkappa : kappa <= B.rank / 100) :' — confirmed verbatim. blueprint/src/chapter/bohr.tex:49 reads exactly 'for all kappa in R with |kappa| <= 1/100d we have' — confirmed verbatim. These are genuinely different bounds (rank/100 vs 1/(100*rank)), so the mismatch claim is correct. The map's further inference that this makes BohrSet.regularity 'probably false' for high-rank Bohr sets (e.g. requiring |B_2| <= 10001|B| at d=100) is explicitly flagged by the map's author as their own unverified analysis, not a sourced fact; I did not independently verify Bohr-set growth rates, so I cannot confirm that specific numeric consequence, only the underlying definitional mismatch."
+    },
+    {
+      "claim": "S05 / critical path: The Lean proof of Bohr-set regularity (Lemma 25's analogue) is an unproved `sorry` at APAP/Prereqs/Bohr/Regular.lean:23, and the blueprint marks this lemma \\leanok while its proof body says 'To do.'",
+      "verdict": "confirmed",
+      "note": "Regular.lean:23 reads exactly 'lemma regularity (B : BohrSet G) : ∃ ρ : ℝ, 2⁻¹ ≤ ρ ∧ ρ ≤ 1 ∧ (ρ • B).IsRegular := sorry' — contains sorry, confirmed. blueprint/src/chapter/bohr.tex:53-63 shows \\label{bohr-regularity}, \\lean{BohrSet.regularity}, \\leanok, followed by a \\begin{proof} block whose body is literally 'To do.' — confirmed verbatim. This substantiates the map's claim that \\leanok certifies only that a *statement* exists, not that the proof is complete."
+    },
+    {
+      "claim": "S09: ap_in_ff (the finite-field almost-periodicity analogue) is a complete, sorry-free proof in FiniteField.lean:172, while the integer-case analogue (Theorem 17, 'essentially [25, Theorem 5.4]') has no proof in either the paper or the blueprint (integers.tex:13-16 lists only \\uses{linfty_ap, chang, bohr-size} and says 'To do.').",
+      "verdict": "confirmed",
+      "note": "Read FiniteField.lean in full: 'public lemma ap_in_ff [DecidableEq G] (hq : q.Prime) (hα0 : 0 < α) ...' appears verbatim at line 172 and its proof body runs uninterrupted (no sorry) through line 322. blueprint/src/chapter/integers.tex:3-16 confirmed verbatim: \\label{th-ap-int}, \\uses{bohr-reg-def}, then a proof block '\\uses{linfty_ap, chang, bohr-size}' immediately followed by 'To do.' Separately fetched the arXiv HTML (arxiv.org/html/2302.07211v3) and confirmed Theorem 17's citation: 'It cites [25, Theorem 5.4]' matches the map's claim that the paper treats this as an external black box, not a paper-internal proof. I could not independently verify whether APAP's existing chang/almost-periodicity lemmas are actually insufficient for a Bohr-relative version (the map itself labels this 'my own analysis, not stated in the sources') — that specific sufficiency judgment is unverifiable from documents alone, only the sourced facts around it are confirmed."
+    },
+    {
+      "claim": "S10 / critical path: di_in_ff (FiniteField.lean:333) is proved and sorry-free, and the sifting lemma it (and the integer-case Proposition 15) would reuse is already stated for general B1, B2 (DRC.lean:199), not restricted to B1=B2=G.",
+      "verdict": "confirmed",
+      "note": "FiniteField.lean:333 quote 'public lemma di_in_ff [DecidableEq G] [MeasurableSpace G] [DiscreteMeasurableSpace G] (hq : q.Prime)' matches verbatim; proof runs sorry-free through line 511. DRC.lean:199 quote 'lemma sifting (B₁ B₂ : Finset G) (hε : 0 < ε) (hε₁ : ε ≤ 1) (hδ : 0 < δ) (hp : Even p)' matches verbatim and the signature is indeed generic in B1 and B2 (not fixed to G)."
+    },
+    {
+      "claim": "S11 / critical path: the finite-field density-increment iteration ('ind') is not a standalone lemma but a `have` block nested inside the proof of theorem `ff` at FiniteField.lean:541, which re-targets the ambient group to a new subspace V at each step.",
+      "verdict": "confirmed",
+      "note": "Read FiniteField.lean:512-647 (the full `ff` theorem). Line 541 quote 'have ind (i : ℕ) : ∃ (V : Type u) (_ : AddCommGroup V) (_ : Fintype V) (_ : DecidableEq V) (_ : Module (ZMod q) V) ...' matches verbatim and is indeed a `have` inside `ff`'s proof body (not a top-level declaration), confirming the map's description that the ff proof changes ambient group at each step. The `ff` theorem itself (line 512) is fully proved with no sorry through line 647."
+    },
+    {
+      "claim": "S12: unbalancing' in APAP is stated for a general weight nu of the form h ○ h (Unbalancing.lean:205), matching the map's claimed ff_analogue and 'proved' status.",
+      "verdict": "confirmed",
+      "note": "Unbalancing.lean:205 quote 'lemma unbalancing\\' (p : ℕ) (hp : p ≠ 0) (ε : ℝ) (hε0 : 0 < ε) (hε1 : ε ≤ 1) (ν : G → ℝ≥0)' matches verbatim, with hypothesis 'hf : g ○ᵈ g = (↑) ∘ f' and 'hν : h ○ᵈ h = (↑) ∘ ν' confirming the general h∘h weight form. Proof is present (not sorry)."
+    },
+    {
+      "claim": "S13's ff_analogue (cLpNorm_conv_le_cLpNorm_dconv, cited in blueprint ff.tex:65 with \\leanok) exists in Lean, is fully proved (no sorry), and matches the special case B=B'=B''=G of Proposition 19's inequality ||f*f||_2k <= ||f o f||_2k.",
+      "verdict": "confirmed",
+      "note": "blueprint/src/chapter/ff.tex:63-69 confirmed verbatim: \\label{ast_le_circ}, \\lean{cLpNorm_conv_le_cLpNorm_dconv}, \\leanok, statement '||f*f||_2k <= ||f o f||_2k'. APAP/Prereqs/FourierTransform/Convolution.lean:18 quote 'lemma cLpNorm_conv_le_cLpNorm_dconv (hn₀ : n ≠ 0) (hn : Even n) (f : G → ℂ) : ||f ∗ f||ₙ_[n] ≤ ||f ○ f||ₙ_[n]' matches verbatim and the proof is complete (no sorry) through line 44."
+    },
+    {
+      "claim": "S14: ff_analogue_lean_status = 'missing' — APAP never formalizes a general finite-abelian-group structural theorem (the Kelley-Meka Theorem 4 analogue / paper's Theorem 5); the Lean proof of `ff` goes directly from di_in_ff + the ind-iteration to the F_q^n conclusion.",
+      "verdict": "confirmed",
+      "note": "Read the entirety of APAP/FiniteField.lean (647 lines). It contains global_dichotomy, ap_in_ff, ap_in_ff', di_in_ff, and the `ff` theorem (with the nested `ind` iteration) — no intermediate theorem stated for a general finite abelian group G with the density-increment output structure the paper calls Theorem 5. This matches the map's summary that 'its ff proof goes di_in_ff → ff directly.' ff.tex:191-201 confirms \\lean{ff}, \\leanok, and proof \\uses{no3aps_inner_prod, di_in_ff} — no reference to any general-G intermediate result, consistent with S14 being unformalized."
+    },
+    {
+      "claim": "S17's ff_analogue, ThreeAPFree.wInner_one_mu_ddconv_mu_mu_two_smul_mu, exists and is fully proved at APAP/Prereqs/Convolution/ThreeAP.lean:20, and is actually invoked inside the proof of `ff`.",
+      "verdict": "confirmed",
+      "note": "ThreeAP.lean:20 quote 'lemma ThreeAPFree.wInner_one_mu_ddconv_mu_mu_two_smul_mu (hG : Odd (card G))' matches verbatim; the proof completes (no sorry) by line 30. Confirmed it is used inside `ff`'s proof at FiniteField.lean:616 via 'rw [hB.wInner_one_mu_ddconv_mu_mu_two_smul_mu] at hBV'."
+    },
+    {
+      "claim": "S18: the finite-field theorem `ff` (FiniteField.lean:512) is fully proved (sorry-free), while its integer-case counterpart `int` (APAP/Integer.lean:11) is an unproved `sorry` whose statement is mis-quantified (the '∃ c > 0' appears after the hypotheses on a fixed A and N, rather than uniformly over all N and A).",
+      "verdict": "confirmed",
+      "note": "FiniteField.lean:512-647: theorem `ff` proof runs to completion, no sorry present. APAP/Integer.lean:10-11 quote matches verbatim: 'theorem int {A : Finset ℕ} {N : ℕ} (hAN : A ⊆ range N) (hA : ThreeAPFree (α := ℕ) A) : ∃ c > 0, #A ≤ N / exp (c * log N ^ (12⁻¹ : ℝ)) := sorry' — confirmed the existential is indeed nested after the A,N-specific hypotheses, and it is a sorry."
+    },
+    {
+      "claim": "corrected_int_statement: the literal Lean `int` statement (as currently written, ignoring the sorry) is false, exhibited by the counterexample N=2, A={0,1}: A is ThreeAPFree, A ⊆ range 2, but no c>0 can satisfy #A <= N/exp(c*(log N)^{1/12}); and separately, blueprint integers.tex:131 has a sign typo (N/exp(-c(log N)^{1/12})) versus the paper's actual Theorem 1 (N/exp(c(log N)^{1/12})).",
+      "verdict": "confirmed",
+      "note": "Verified Mathlib's actual ThreeAPFree definition via mathlib4_docs fetch: 'def ThreeAPFree (s : Set α) : Prop := ∀ a b c ∈ s, a + c = b + b → a = b'. For s={0,1} the only solutions to a+c=2b within {0,1} force a=b (checked all cases: (a,b,c) with 2b in {0,2}), so ThreeAPFree({0,1}) holds vacuously of non-trivial progressions, and {0,1} ⊆ range 2. Then #A=N=2 requires exp(c*(log 2)^{1/12}) <= 1 for some c>0, impossible since log 2>0 makes the exponent positive and exp of a positive number exceeds 1 for any c>0 — so the theorem as literally stated is false for this instance, confirming the map's claim exactly. Also fetched arxiv.org/html/2302.07211v3 and confirmed Theorem 1 reads '|A| <= N/exp(c(log N)^{1/12}) for some absolute constant c>0' (denominator has +c), while blueprint/src/chapter/integers.tex:131 reads verbatim '|A| <= N / exp(-c(log N)^{1/12})' (denominator has -c) — confirming the sign-typo claim between blueprint and paper."
+    }
+  ]
+}
