@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-09-28T00:19:51.432964+00:00",
+  "checked_at_utc": "2026-09-28T01:22:24.203091+00:00",
   "status": "passed",
   "scope": "supporting results and analytic transfers in the pinned hill libraries",
   "original_conjecture_proved": false,
@@ -7,7 +7,7 @@
   "compiler": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
   "image": "ghcr.io/ottogin/lean-mathlib@sha256:964547ad81e109c78545512867bae70b710c55d833078674878faad7de0ebb85",
   "answer_source_sha256": "c8b3b31e9bb25c511e577b1812159a210e9346720f19ec6c6b30905a0802db7a",
-  "theorems_checked": 52,
+  "theorems_checked": 57,
   "allowed_axioms": [
     "Classical.choice",
     "Quot.sound",
@@ -307,6 +307,40 @@
         ]
       },
       "stdout": "Erdos3CrossScale.lean:43:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.\nIf you'd rather continue using `push_neg` in your project, you can implement it as follows:\n```\nopen Lean.Parser.Tactic in\nmacro \"push_neg\" cfg:optConfig loc:(location)? : tactic =>\n  `(tactic| push $cfg:optConfig Not $[$loc]?)\n```\nErdos3CrossScale.lean:92:30: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead\nErdos3CrossScale.lean:282:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.\nIf you'd rather continue using `push_neg` in your project, you can implement it as follows:\n```\nopen Lean.Parser.Tactic in\nmacro \"push_neg\" cfg:optConfig loc:(location)? : tactic =>\n  `(tactic| push $cfg:optConfig Not $[$loc]?)\n```\n'Erdos3CrossScale.free_mono' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.free_image_add' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.free_preimage_add' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.free_mono_length' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.a_sepBlock_disjoint' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.a_dichot' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.a_window' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.sepBlock_union_free' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.r_attained' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.card_le_r' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.r_two_mul_le' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.logBlock_ncard_le_r' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.freeSummable_of_dyadic' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.dyadic_of_quart' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.e_sepBlock_eq' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.e_shift_mem' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.e_block_lower' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.quart_of_freeSummable' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.freeSummable_iff_quart' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.freeSummable_iff_dyadic' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.hill_iff_extremal' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3CrossScale.hill_statement_iff_extremal' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "source": "lean/Erdos3ThreeCase.lean",
+      "scope": "conditional: the Kelley-Meka or Bloom-Sisask bound implies erdos_3.variants.three; the bound is not proved",
+      "source_sha256": "af2c2e41096570deb03ddb8a4655823fbd73ed473d3ee052b9d13973a4a95a22",
+      "theorems_checked": 5,
+      "axioms": {
+        "Erdos3ThreeCase.dyadic_of_logBarrier": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3ThreeCase.logBarrier_of_quasipoly": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3ThreeCase.three_of_dyadic": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3ThreeCase.three_of_logBarrier": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Erdos3ThreeCase.three_of_kelleyMeka": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "stdout": "Erdos3ThreeCase.lean:85:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.\nIf you'd rather continue using `push_neg` in your project, you can implement it as follows:\n```\nopen Lean.Parser.Tactic in\nmacro \"push_neg\" cfg:optConfig loc:(location)? : tactic =>\n  `(tactic| push $cfg:optConfig Not $[$loc]?)\n```\n'Erdos3ThreeCase.dyadic_of_logBarrier' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3ThreeCase.logBarrier_of_quasipoly' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3ThreeCase.three_of_dyadic' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3ThreeCase.three_of_logBarrier' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Erdos3ThreeCase.three_of_kelleyMeka' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
     }
   ]
 }

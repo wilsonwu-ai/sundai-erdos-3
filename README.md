@@ -4,7 +4,7 @@
 
 [Interactive GitHub Pages lab](https://wilsonwu-ai.github.io/sundai-erdos-3/) · [Lean source and scope](lean/README.md) · [Pinned-image verification](artifacts/mathlib-verification.json) · [Independent review](docs/independent-review.md)
 
-**The full Erdős Problem 3 is not solved here.** Earlier work proved the dyadic counting-to-summability step in Lean, but did not prove the required bounds for progression-free sets. [Attempt, checked result, and precise gaps](research/proof-attempt-2026-09-27.md). The project now contains 52 checked supporting declarations. The original 30 are 14 elementary results, five definition bridges, three divergence consequences, four block estimates, two analytic transfers, and two explicitly conditional reductions. **The newest 22 prove that the exact hill is equivalent to a classical extremal statement:** for every k ≥ 4, the series ∑ⱼ rₖ(2ʲ)/2ʲ converges, where rₖ(N) is the imported library's largest k-progression-free subset of {1,…,N}. Neither side of that equivalence is proved. These are known facts and proof infrastructure, with no claim of a new solution. The [primary problem database](https://www.erdosproblems.com/3) and [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/a24e30f9c7767245a5030e210f40c28487dae5c5/FormalConjectures/ErdosProblems/3.lean) mark the full conjecture open at retrieval.
+**The full Erdős Problem 3 is not solved here.** Earlier work proved the dyadic counting-to-summability step in Lean, but did not prove the required bounds for progression-free sets. [Attempt, checked result, and precise gaps](research/proof-attempt-2026-09-27.md). The project now contains 57 checked supporting declarations. The original 30 are 14 elementary results, five definition bridges, three divergence consequences, four block estimates, two analytic transfers, and two explicitly conditional reductions. **The newest 22 prove that the exact hill is equivalent to a classical extremal statement:** for every k ≥ 4, the series ∑ⱼ rₖ(2ʲ)/2ʲ converges, where rₖ(N) is the imported library's largest k-progression-free subset of {1,…,N}. Neither side of that equivalence is proved. Five more show that the published three-term bounds (Kelley–Meka, or the weaker Bloom–Sisask form) imply Formal Conjectures' three-term case; the bounds themselves are not yet formalized. These are known facts and proof infrastructure, with no claim of a new solution. The [primary problem database](https://www.erdosproblems.com/3) and [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/a24e30f9c7767245a5030e210f40c28487dae5c5/FormalConjectures/ErdosProblems/3.lean) mark the full conjecture open at retrieval.
 
 The [full-proof graph and research round](research/full-proof-graph/README.md) tested cross-scale estimates and induction on progression length. It refuted two shortcuts and justified the extremal-summability reduction in ordinary mathematics. A follow-up round [kernel-checked that equivalence against the verbatim hill statement](research/full-proof-graph/extremal-equivalence.md). The decisive estimate remains open. For k = 4, the best published bound is N(log N)⁻ᶜ with an unspecified small c. Convergence needs c > 1.
 
@@ -54,7 +54,7 @@ node --test tests/explorer.test.mjs
 python3 -m http.server 8000 --directory site
 ```
 
-Open `http://localhost:8000`. Set `LEAN=/absolute/path/to/lean` if using a standalone compiler. The original fourteen results import only `Std`; that check needs no Mathlib download. CI independently checks those results and the finite explorer, while a second job compiles all 52 declarations in the pinned image. Pages deployment requires both jobs to pass.
+Open `http://localhost:8000`. Set `LEAN=/absolute/path/to/lean` if using a standalone compiler. The original fourteen results import only `Std`; that check needs no Mathlib download. CI independently checks those results and the finite explorer, while a second job compiles all 57 declarations in the pinned image. Pages deployment requires both jobs to pass.
 
 AutoLab's full hill now runs locally in its exact pinned image using a dedicated Colima/Docker VM with Rosetta for AMD64. The unchanged hill's local tree hash matches the published origin. A small imported-library proof compiled, the original `sorry` baseline was correctly rejected, and its local report signature verified. [Environment setup, daily commands, and limits](docs/local-evaluator.md).
 
@@ -86,11 +86,12 @@ python3 scripts/local_evaluator.py eval submissions/current
 | A normalized block-count bound C/(j+1)ᵖ with p>1 implies summability | Lean checked; the required AP-free bound remains unproved |
 | Exact hill ⟺ ∑ⱼ rₖ(2ʲ)/2ʲ < ∞ for every k ≥ 4, with rₖ the library's `maxCard` | Lean checked in the pinned image; neither side proved |
 | For k ≥ 4, k-free subsets of the blocks [4ʲ, 2·4ʲ) always have a k-free union | Lean checked in the pinned image |
+| Formal Conjectures' `kelley_meka` variant (or the weaker Bloom–Sisask bound) implies its `three` variant | Lean checked in the pinned image; the bound itself is not formalized |
 | Official AutoLab acceptance for `ottogin/erdos-3` | Not submitted; no score (the proof is incomplete) |
 | AutoLab hill for the proved equivalence: [`wilsonwu-ai/erdos-3-extremal-equivalence`](https://app.autolab.ai/hills/wilsonwu-ai/erdos-3-extremal-equivalence) | **Passed**: `proved = 1`, #1 on its leaderboard. This is a different theorem from Erdős 3 |
 | Local original-hill evaluator | Ready; pinned image, matching tree, baseline rejection verified |
 
-All 52 declarations compile on **Lean 4.33.1** in the pinned image, with axiom sets contained in `{propext, Classical.choice, Quot.sound}`. There are no admitted proofs, custom axioms, or `native_decide` in those modules. The conditional reductions retain `APFreeSummability` and `APFreePowerEnvelope` as explicit theorem parameters; passing an axiom audit does not prove those parameters. Negative controls reject an admitted proof, an invented axiom, an invalid proof, and a missing axiom report.
+All 57 declarations compile on **Lean 4.33.1** in the pinned image, with axiom sets contained in `{propext, Classical.choice, Quot.sound}`. There are no admitted proofs, custom axioms, or `native_decide` in those modules. The conditional reductions retain `APFreeSummability` and `APFreePowerEnvelope` as explicit theorem parameters; passing an axiom audit does not prove those parameters. Negative controls reject an admitted proof, an invented axiom, an invalid proof, and a missing axiom report.
 
 The powers-of-two result is a useful failure of a tempting shortcut: **unboundedness alone does not force long progressions**. It is not a counterexample to Erdős 3; their reciprocal series converges to `2`. That convergence fact is explanatory mathematics, not one of this repository's Lean proofs.
 
@@ -99,6 +100,8 @@ Our dependency-free predicate `ContainsAP A k` gives explicit witnesses `a`, `d 
 The website visualizes finite sets up to 300 and lets you inspect equal-gap patterns, reciprocal partial sums, and a general multiples construction. Its JavaScript is an educational finite search, not a Lean kernel or a proof of an infinite statement.
 
 ## Where further proof work starts
+
+**[The roadmap](research/roadmap.md)** sets out the plan: what any proof must contain, why current methods stop, and three goals ordered by feasibility. Goal A, a Lean proof of the known k = 3 case in Formal Conjectures' exact statement, is under way.
 
 The three-term divergent-sum case is known through [Bloom and Sisask's result](https://arxiv.org/abs/2007.03528). The unrestricted conjecture is much stronger. A potentially useful route is to formalize a summability reduction from sufficiently strong bounds on progression-free sets, then discharge the mathematical bound separately. Existing weaker density bounds do not automatically provide it. [Research routes, citations, and limits](research/math-status.md).
 

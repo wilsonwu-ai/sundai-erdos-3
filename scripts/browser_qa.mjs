@@ -16,7 +16,7 @@ try {
   await page.setViewport({width:1440,height:1000,deviceScaleFactor:1});
   await page.goto(url, {waitUntil:'networkidle0'});
   check('initial prime progression', await page.$eval('#pattern-equation',e=>e.textContent)==='3→5→7');
-  check('eight verified scopes', await page.$$eval('.claim-verified',e=>e.length)===8);
+  check('nine verified scopes', await page.$$eval('.claim-verified',e=>e.length)===9);
   check('original remains open', await page.$eval('.claim-open',e=>e.textContent).then(s=>s.includes('NOT SOLVED')));
   check('verification evidence linked', await page.$$eval('a',els=>els.some(e=>e.href.endsWith('/artifacts/mathlib-verification.json'))));
   await page.screenshot({path:path.join(folder,'desktop.png')});

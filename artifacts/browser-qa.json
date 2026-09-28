@@ -1,6 +1,6 @@
 {
   "url": "http://127.0.0.1:8763",
-  "checked_at": "2026-09-28T00:54:14.747Z",
+  "checked_at": "2026-09-28T01:23:34.819Z",
   "checks": [
     {
       "name": "initial prime progression",
@@ -8,7 +8,7 @@
       "detail": null
     },
     {
-      "name": "eight verified scopes",
+      "name": "nine verified scopes",
       "ok": true,
       "detail": null
     },
